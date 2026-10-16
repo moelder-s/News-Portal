@@ -1,0 +1,38 @@
+:root {
+    --bg: #eef4f3;
+    --topbar: rgba(255, 255, 255, 0.88);
+    --border: #d5e3e0;
+    --divider: #c3d7d3;
+    --text: #0e2a24;
+    --muted: #4d6f69;
+    --eyebrow: #2b7f90;
+    --greeting: #15803d;
+    --pill-bg: #ffffff;
+    --pill-border: #cfe0dd;
+    --pill-text: #3a6d76;
+    --btn-bg: #ffffff;
+    --icon-bg: rgba(34, 197, 94, 0.14);
+    --green: #15803d;
+    --green-bright: #22c55e;
+    --tile-shadow: 0 1px 2px rgba(10, 30, 25, 0.12);
+    --tile-shadow-hover: 0 24px 48px rgba(10, 30, 25, 0.28);
+
+    --font: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+html[data-theme="dark"] {
+    --bg: #0a1a20;
+    --topbar: rgba(11, 31, 39, 0.88);
+    --border: rgba(255, 255, 255, 0.08);
+    --divider: rgba(255, 255, 255, 0.18);
+    --text: #f3f8f9;
+    --muted: #8cb1bb;
+    --eyebrow: #5fb7c9;
+    --greeting: #3fbf72;
+    --pill-bg: rgba(22, 62, 74, 0.45);
+    --pill-border: #1d4b58;
+    --pill-text: #63b1c2;
+    --btn-bg: #10303a;
+    --tile-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --tile-shadow-hover: 0 24px 48px rgba(0, 0, 0, 0.5);
+}
