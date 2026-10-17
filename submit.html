@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submit an article — News In Green</title>
+  <meta name="description" content="Submit an article to News In Green, the student-run news portal.">
+  <link rel="stylesheet" href="submit.css">
+</head>
+<body>
+
+  <header class="site-header">
+        <div class="header-inner">
+            <a href="news.html" class="brand">
+                <span class="brand-mark">N</span>
+                <span class="brand-text">News <em>In Green</em></span>
+            </a>
+
+            <nav class="main-nav" aria-label="Primary">
+                <a href="news.html">Home</a>
+                <a href="user-dashboard.html" >Dashboard</a>
+                <a href="browse.html">Browse</a>
+                <a href="bookmarks.html">Bookmarks</a>
+                <a href="submit.html" class="active">Submit an article</a>
+            </nav>
+
+            <div class="header-actions">
+                <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to light mode"
+                    aria-pressed="false">
+                    <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                    <span class="toggle-label">Night</span>
+                </button>
+                <a href="#" id="logout-link" class="btn btn-ghost">Log out</a>
+            </div>
+
+            <button class="nav-burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+
+  <main>
+    <div class="container">
+      <section class="form-wrap">
+        <h1>Submit an article</h1>
+        <p class="lead">Any registered student or club can submit a piece for review. An editor will approve or reject it before it appears on the site.</p>
+
+        <div class="alert" id="successAlert" role="status" aria-live="polite">
+          ✓ Your article was submitted for review. You'll see the status update once it's decided.
+        </div>
+
+        <form id="articleForm" novalidate>
+          <div class="field">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" maxlength="120" placeholder="A clear, specific headline" required>
+            <div class="error" id="titleError"></div>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label for="category">Category</label>
+              <select id="category" name="category" required>
+                <option value="" selected disabled>Choose a category</option>
+                <option>Academic</option>
+                <option>Events</option>
+                <option>Sports</option>
+                <option>General</option>
+              </select>
+              <div class="error" id="categoryError"></div>
+            </div>
+            <div class="field">
+              <label for="author">Your name</label>
+              <input type="text" id="author" name="author" maxlength="60" placeholder="How it'll be credited" required>
+              <div class="error" id="authorError"></div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="image">Image URL <span class="opt">(optional)</span></label>
+            <input type="url" id="image" name="image" placeholder="https://...">
+            <div class="error" id="imageError"></div>
+            <div class="preview" id="preview"><img id="previewImg" alt="Image preview"></div>
+          </div>
+
+          <div class="field">
+            <label for="content">Article content</label>
+            <textarea id="content" name="content" placeholder="Write your article here..." required></textarea>
+            <div class="meta"><span id="contentHint">Minimum 100 characters</span><span id="counter">0 characters</span></div>
+            <div class="error" id="contentError"></div>
+          </div>
+
+          <p class="note">Submissions are reviewed by an editor before publishing. You'll see the status update once it's decided.</p>
+
+          <button type="submit" class="btn btn-primary" id="submitBtn">Submit for review</button>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span class="brand-mark">N</span>
+                <span class="brand-text">News <em>In Green</em></span>
+                <p>The student-run news portal covering academics, events, sport, and campus life.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Sections</h3>
+                <a href="browse.html#academic">Academic</a>
+                <a href="browse.html#events">Events</a>
+                <a href="browse.html#sports">Sports</a>
+                <a href="browse.html#general">General</a>
+            </div>
+            <div class="footer-col">
+                <h3>Account</h3>
+                <a href="login.html">Log in</a>
+                <a href="register.html">Register</a>
+                <a href="bookmarks.html">Bookmarks</a>
+                <a href="subscriptions.html">Subscriptions</a>
+                <a href="submit.html">Submit an article</a>
+            </div>
+            <div class="footer-col">
+                <h3>Contact</h3>
+                <a href="mailto:newsroom@newsingreen.edu">newsroom@newsingreen.edu</a>
+                <span>123 University Avenue, Colombo</span>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 News In Green</span>
+        </div>
+    </footer>
+
+
+
+  <script>
+    (function () {
+      const root = document.documentElement;
+
+      /* ----- Theme toggle (remembered) ----- */
+      const themeInput = document.getElementById('themeInput');
+      const themeLabel = document.getElementById('themeLabel');
+      function applyTheme(t) {
+        root.setAttribute('data-theme', t);
+        themeInput.checked = t === 'dark';
+        themeLabel.textContent = t === 'dark' ? 'Night' : 'Day';
+      }
+      let saved = null;
+      try { saved = localStorage.getItem('nig-theme'); } catch (e) {}
+      applyTheme(saved || 'dark');
+      themeInput.addEventListener('change', () => {
+        const t = themeInput.checked ? 'dark' : 'light';
+        applyTheme(t);
+        try { localStorage.setItem('nig-theme', t); } catch (e) {}
+      });
+
+      /* ----- Mobile menu ----- */
+      const menuBtn = document.getElementById('menuBtn');
+      const navLinks = document.getElementById('navLinks');
+      menuBtn.addEventListener('click', () => {
+        const open = navLinks.classList.toggle('open');
+        menuBtn.setAttribute('aria-expanded', open);
+      });
+
+      /* ----- Form logic ----- */
+      const form = document.getElementById('articleForm');
+      const f = {
+        title: document.getElementById('title'),
+        category: document.getElementById('category'),
+        author: document.getElementById('author'),
+        image: document.getElementById('image'),
+        content: document.getElementById('content')
+      };
+      const MIN_CONTENT = 100;
+
+      const rules = {
+        title:    v => v.trim().length < 8 ? 'Please enter a headline of at least 8 characters.' : '',
+        category: v => !v ? 'Please choose a category.' : '',
+        author:   v => v.trim().length < 2 ? 'Please enter your name.' : '',
+        image:    v => {
+          if (!v.trim()) return '';
+          try { const u = new URL(v); return /^https?:$/.test(u.protocol) ? '' : 'Use an http(s) link.'; }
+          catch (e) { return 'Please enter a valid URL.'; }
+        },
+        content:  v => v.trim().length < MIN_CONTENT ? `Article must be at least ${MIN_CONTENT} characters.` : ''
+      };
+
+      function validate(name) {
+        const msg = rules[name](f[name].value);
+        document.getElementById(name + 'Error').textContent = msg;
+        f[name].classList.toggle('invalid', !!msg);
+        f[name].setAttribute('aria-invalid', !!msg);
+        return !msg;
+      }
+      Object.keys(f).forEach(n => {
+        f[n].addEventListener('blur', () => validate(n));
+        f[n].addEventListener('input', () => { if (f[n].classList.contains('invalid')) validate(n); });
+      });
+
+      /* character counter */
+      const counter = document.getElementById('counter');
+      f.content.addEventListener('input', () => {
+        const n = f.content.value.length;
+        counter.textContent = n + (n === 1 ? ' character' : ' characters');
+      });
+
+      /* image preview */
+      const preview = document.getElementById('preview');
+      const previewImg = document.getElementById('previewImg');
+      f.image.addEventListener('change', () => {
+        if (rules.image(f.image.value) === '' && f.image.value.trim()) {
+          previewImg.src = f.image.value.trim();
+          preview.style.display = 'block';
+        } else {
+          preview.style.display = 'none';
+        }
+      });
+      previewImg.addEventListener('error', () => {
+        preview.style.display = 'none';
+        document.getElementById('imageError').textContent = 'That image could not be loaded.';
+      });
+
+      /* submit (stored locally until backend is connected) */
+      const alertBox = document.getElementById('successAlert');
+      const submitBtn = document.getElementById('submitBtn');
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        const ok = Object.keys(f).map(validate).every(Boolean);
+        if (!ok) {
+          const firstBad = form.querySelector('.invalid');
+          if (firstBad) firstBad.focus();
+          return;
+        }
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting…';
+
+        const article = {
+          id: Date.now(),
+          title: f.title.value.trim(),
+          category: f.category.value,
+          author: f.author.value.trim(),
+          image: f.image.value.trim(),
+          content: f.content.value.trim(),
+          status: 'pending',
+          submittedAt: new Date().toISOString()
+        };
+        try {
+          const list = JSON.parse(localStorage.getItem('nig-submissions') || '[]');
+          list.push(article);
+          localStorage.setItem('nig-submissions', JSON.stringify(list));
+        } catch (err) { /* storage unavailable */ }
+
+        setTimeout(() => {
+          form.reset();
+          preview.style.display = 'none';
+          counter.textContent = '0 characters';
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Submit for review';
+          alertBox.classList.add('show');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          setTimeout(() => alertBox.classList.remove('show'), 8000);
+        }, 600);
+      });
+    })();
+  </script>
+</body>
+</html>
