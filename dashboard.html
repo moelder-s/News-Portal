@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="news.html" class="brand">
+                <span class="brand-mark">N</span>
+                <span class="brand-text">News <em>In Green</em></span>
+            </a>
+
+            <nav class="main-nav" aria-label="Primary">
+                <a href="news.html">Home</a>
+                <a href="user-dashboard.html" class="active">Dashboard</a>
+                <a href="browse.html">Browse</a>
+                <a href="bookmarks.html">Bookmarks</a>
+                <a href="submit.html">Submit an article</a>
+            </nav>
+
+            <div class="header-actions">
+                <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to light mode"
+                    aria-pressed="false">
+                    <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                    <span class="toggle-label">Night</span>
+                </button>
+                <a href="#" id="logout-link" class="btn btn-ghost">Log out</a>
+            </div>
+
+            <button class="nav-burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+<main class="dashboard-main container">
+    
+    <section class="dashboard-greeting">
+        <h1>Welcome back</h1>
+        <p>Here's everything your account can do on News In Green.</p>
+    </section>
+
+    <section class="stats-row">
+        <div class="stat-card">
+            <h3>Bookmarked articles</h3>
+            <span class="stat-number">0</span>
+        </div>
+        <div class="stat-card">
+            <h3>Subscribed catagories</h3>
+            <span class="stat-number">0</span>
+        </div>
+        <div class="stat-card">
+            <h3>Articles submitted</h3>
+            <span class="stat-number">0</span>
+        </div>
+        <div class="stat-card">
+            <h3>Comments posted</h3>
+            <span class="stat-number">0</span>
+        </div>
+    </section>
+
+    <!-- 3. Actions Grid -->
+    <section class="actions-section">
+        <h2>What you can do here</h2>
+        <div class="actions-grid">
+            <div class="action-card">
+                <h3>Your account</h3>
+                <p>Registered and logged in as <strong>a student.</strong></p>
+                <a href="#" class="action-link">Log out</a>
+            </div>
+            <!-- Repeat .action-card 5 more times for the other features -->
+        </div>
+    </section>
+
+</main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span class="brand-mark">N</span>
+                <span class="brand-text">News <em>In Green</em></span>
+                <p>The student-run news portal covering academics, events, sport, and campus life.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Sections</h3>
+                <a href="browse.html#academic">Academic</a>
+                <a href="browse.html#events">Events</a>
+                <a href="browse.html#sports">Sports</a>
+                <a href="browse.html#general">General</a>
+            </div>
+            <div class="footer-col">
+                <h3>Account</h3>
+                <a href="login.html">Log in</a>
+                <a href="register.html">Register</a>
+                <a href="bookmarks.html">Bookmarks</a>
+                <a href="subscriptions.html">Subscriptions</a>
+                <a href="submit.html">Submit an article</a>
+            </div>
+            <div class="footer-col">
+                <h3>Contact</h3>
+                <a href="mailto:newsroom@newsingreen.edu">newsroom@newsingreen.edu</a>
+                <span>123 University Avenue, Colombo</span>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 News In Green</span>
+        </div>
+    </footer>
+    
+</body>
+</html>
+
