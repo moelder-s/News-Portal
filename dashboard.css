@@ -1,0 +1,335 @@
+:root {
+    --bg-dark: #0b110d;         /* Deepest background green */
+    --bg-card: #14221899;        /* Slightly lighter green for cards */
+    --accent-green: #4ade80;    /* Bright green for buttons/accents */
+    --text-main: #f8fafc;       /* Off-white for main text */
+    --text-muted: #94a3b8;      /* Grey/muted for secondary text */
+    
+    --font-sans: 'Work Sans', system-ui, -apple-system, sans-serif;
+    --font-serif: 'Fraunces', Georgia, serif; 
+}
+/* Light Mode Color Variables */
+[data-theme="light"] {
+    --bg-dark: #f8fafc;         /* Light grey/white background */
+    --bg-card: #ffffff99;       /* Pure white cards */
+    --accent-green: #22c55e;    /* Slightly darker green for contrast */
+    --text-main: #0f172a;       /* Dark text */
+    --text-muted: #64748b;      /* Medium grey text */
+}
+[data-theme="light"] .dashboard-main {
+    background-color: rgba(255, 255, 255, 0.35); /* Frosty white */
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+}
+[data-theme="light"] {
+    --bg-dark: #f8fafc;         
+    --bg-card: #ffffff99;       
+    --accent-green: #298247;    /* Deeper green to match the image */
+    --text-main: #0f172a;       
+    --text-muted: #64748b;      
+}
+
+/* Animate the toggle switch */
+.toggle-thumb {
+    transition: transform 0.3s ease;
+}
+
+/* Move the thumb to the left side when in light mode */
+[data-theme="light"] .toggle-thumb {
+    transform: translateX(-16px); 
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* Set the static background image */
+    background-image: url('bg.jpg');
+    background-size: cover;          /* Makes the image cover the entire screen */
+    background-position: center;     /* Centers the image */
+    background-repeat: no-repeat;    /* Prevents the image from tiling */
+    background-attachment: fixed;    /* Keeps the image static when scrolling */
+    
+    /* Fallback color and your existing properties */
+    background-color: var(--bg-dark); 
+    color: var(--text-main);
+    font-family: var(--font-sans);
+    line-height: 1.5;
+}
+
+a {
+    color: var(--text-main);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+/* Container utility */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* ==========================================================================
+   Header Styles
+   ========================================================================== */
+.site-header {
+    background-color: var(--bg-dark);
+    padding: 1rem 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Brand/Logo */
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.brand-mark {
+    background-color: var(--accent-green);
+    color: var(--bg-dark);
+    font-weight: bold;
+    /* Create a perfect square instead of a rectangle */
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    font-size: 1.2rem;
+    font-family: var(--font-serif);
+}
+
+.brand-text {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--text-main);
+}
+
+.brand-text em {
+    color: var(--accent-green);
+    font-style: normal; /* Keeps it straight, not italic, matching your image */
+}
+
+/* Navigation */
+.main-nav {
+    display: flex;
+    gap: 2rem;
+}
+
+.main-nav a {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.main-nav a:hover {
+    color: var(--text-main);
+}
+
+.main-nav a.active {
+    color: var(--text-main);
+    border-bottom: 2px solid var(--accent-green);
+    padding-bottom: 0.2rem;
+}
+
+/* Header Actions (Theme Toggle & Logout) */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.toggle-track {
+    width: 36px;
+    height: 20px;
+    background-color: var(--accent-green);
+    border-radius: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.toggle-thumb {
+    width: 16px;
+    height: 16px;
+    background-color: var(--bg-dark);
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    right: 2px; /* Set to right for 'Night' mode */
+}
+
+.btn-ghost {
+    border: 1px solid var(--text-muted);
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.btn-ghost:hover {
+    border-color: var(--text-main);
+}
+
+.nav-burger {
+    display: none; /* Hide on desktop */
+}
+
+/* ==========================================================================
+   Dashboard Main Content
+   ========================================================================== */
+.dashboard-main {
+    /* Existing spacing */
+    padding: 3rem;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+    
+    /* Shape */
+    border-radius: 20px;
+    
+    /* Dark Mode Light Glass Effect */
+    background-color: rgba(20, 34, 24, 0.45); /* Semi-transparent dark green */
+    backdrop-filter: blur(6px); /* A softer blur than the cards */
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Greeting Section */
+.dashboard-greeting {
+    margin-bottom: 2.5rem;
+}
+
+.dashboard-greeting h1 {
+    font-family: var(--font-serif);
+    font-size: 2.5rem;
+    font-weight: normal;
+    margin-bottom: 0.5rem;
+}
+
+.dashboard-greeting p {
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+/* Stats Row */
+.stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.stat-card {
+    background-color: var(--bg-card);
+    
+    /* The Glass Effect */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px); /* For Safari compatibility */
+    
+    /* Subtle border to define the glass edge */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    
+    /* Soft shadow for depth */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+    
+    /* Your existing layout styles */
+    padding: 1.5rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.stat-card h3 {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: normal;
+}
+
+.stat-card .stat-number {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    color: var(--text-main);
+}
+
+/* ==========================================================================
+   Footer Styles
+   ========================================================================== */
+.site-footer {
+    /* Use the solid hex code instead of the semi-transparent variable */
+    background-color: #142218; 
+    
+    /* Keep your existing padding and margin */
+    padding: 4rem 2rem 2rem;
+    margin-top: 4rem;
+    
+    /* Optional: Add a subtle top border to separate it from the image */
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Add this to ensure the footer is solid white in light mode */
+[data-theme="light"] .site-footer {
+    background-color: #ffffff;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.footer-brand p {
+    color: var(--text-muted);
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    max-width: 250px;
+}
+
+.footer-col h3 {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.footer-col a, .footer-col span {
+    display: block;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.footer-col a:hover {
+    color: var(--accent-green);
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
