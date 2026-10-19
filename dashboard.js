@@ -5,30 +5,32 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. Check local storage for saved theme preference
     const savedTheme = localStorage.getItem('theme');
     
-    // Apply saved theme on page load
-    if (savedTheme === 'light') {
-        document.documentElement.setAttribute('data-theme', 'light');
+    // Apply dark theme on load if it was saved
+    if (savedTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
         themeToggle.setAttribute('aria-pressed', 'true');
+        themeLabel.textContent = 'Night';
+    } else {
         themeLabel.textContent = 'Day';
     }
 
     // 2. Listen for toggle clicks
     themeToggle.addEventListener('click', () => {
-        // Get current theme
-        const currentTheme = document.documentElement.getAttribute('data-theme');
+        // Check if dark mode is currently active
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
         
-        if (currentTheme === 'light') {
-            // Switch to Dark
+        if (isDark) {
+            // Turn off Dark Mode (Switch to Light)
             document.documentElement.removeAttribute('data-theme');
-            localStorage.setItem('theme', 'dark');
-            themeToggle.setAttribute('aria-pressed', 'false');
-            themeLabel.textContent = 'Night';
-        } else {
-            // Switch to Light
-            document.documentElement.setAttribute('data-theme', 'light');
             localStorage.setItem('theme', 'light');
-            themeToggle.setAttribute('aria-pressed', 'true');
+            themeToggle.setAttribute('aria-pressed', 'false');
             themeLabel.textContent = 'Day';
+        } else {
+            // Turn on Dark Mode
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+            themeToggle.setAttribute('aria-pressed', 'true');
+            themeLabel.textContent = 'Night';
         }
     });
 });

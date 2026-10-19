@@ -7,8 +7,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="dashboard.css">
-    <script src="dashboard.js"></script>
+    <link rel="stylesheet" href="dashboard2.css">
+    <script src="dashboard2.js"></script>
     
 </head>
 <body>
@@ -45,8 +45,14 @@
 <main class="dashboard-main container">
     
     <section class="dashboard-greeting">
-        <h1>Welcome back</h1>
-        <p>Here's everything your account can do on News In Green.</p>
+        <!-- Group the text together on the left -->
+        <div class="greeting-text">
+            <h1>Welcome back</h1>
+            <p>Here's everything your account can do on News In Green.</p>
+        </div>
+        
+        <!-- The button is now a separate item pushed to the right -->
+        <a href="profile.html" class="btn-ghost">Edit profile</a>
     </section>
 
     <section class="stats-row">
@@ -67,8 +73,44 @@
             <span class="stat-number">0</span>
         </div>
     </section>
+<!-- 1. My Submissions Section -->
+    <section class="dashboard-submissions">
+        <h3>My submissions</h3>
+        <div class="submissions-grid">
+            <!-- Example of a submitted article glass tile -->
+            <div class="submission-card">
+                <div class="submission-info">
+                    <h4>The Future of AI in Campus Learning</h4>
+                    <span class="status pending">Pending Review</span>
+                </div>
+                <span class="date">Oct 19, 2026</span>
+            </div>
+        </div>
+    </section>
+<!-- 2. My Comments Section -->
+    <section class="dashboard-comments">
+        <h3>My comments</h3>
+        <div class="comments-grid">
+            <!-- Example of a comment glass tile -->
+            <div class="comment-card">
+                <div class="comment-info">
+                    <h4>On: The Future of AI in Campus Learning</h4>
+                    <span class="comment-text">"Great article! I really agree with the points made here."</span>
+                </div>
+                <span class="date">Oct 19, 2026</span>
+            </div>
+        </div>
+    </section>
 
-
+<!-- 3. Quick Actions Section -->
+    <section class="dashboard-actions-section">
+        <h3>Quick actions</h3>
+        <div class="actions-grid">
+            <a href="submit.html" class="action-tile">Submit an article</a>
+            <a href="bookmarks.html" class="action-tile">Bookmarks</a>
+            <a href="subscriptions.html" class="action-tile">Subscriptions</a>
+        </div>
+    </section>
 </main>
 
     <footer class="site-footer">
