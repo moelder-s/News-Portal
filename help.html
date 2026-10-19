@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Help & Support — News In Green</title>
+    <link rel="stylesheet" href="help.css">
+</head>
+
+<body class="dark-mode">
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="news.html" class="brand">
+                <span class="brand-mark">N</span>
+                <span class="brand-text">News <em>In Green</em></span>
+            </a>
+
+            <nav class="main-nav" aria-label="Primary">
+                <a href="news.html">Home</a>
+                <a href="user-dashboard.html">Dashboard</a>
+                <a href="browse.html">Browse</a>
+                <a href="bookmark.html" class="active">Bookmarks</a>
+                <a href="h.html" class="active">Help & Support</a>
+                <a href="submit.html">Submit an article</a>
+            </nav>
+
+            <div class="header-actions">
+                <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch theme"
+                    onclick="toggleTheme()">
+                    <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                    <span class="toggle-label">Night</span>
+                </button>
+                <a href="login.html" class="btn-login">Log in</a>
+                <a href="register.html" class="btn-register">Register</a>
+            </div>
+        </div>
+    </header>
+
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span class="brand-mark">N</span>
+                <span class="brand-text">News <em>In Green</em></span>
+                <p>The student-run news portal covering academics, events, sport, and campus life.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Sections</h3>
+                <a href="browse.html#academic">Academic</a>
+                <a href="browse.html#events">Events</a>
+                <a href="browse.html#sports">Sports</a>
+                <a href="browse.html#general">General</a>
+            </div>
+            <div class="footer-col">
+                <h3>Account</h3>
+                <a href="login.html">Log in</a>
+                <a href="register.html">Register</a>
+                <a href="bookmarks.html">Bookmarks</a>
+                <a href="subscriptions.html">Subscriptions</a>
+                <a href="submit.html">Submit an article</a>
+            </div>
+            <div class="footer-col">
+                <h3>Contact</h3>
+                <a href="mailto:newsroom@newsingreen.edu">newsroom@newsingreen.edu</a>
+                <span>123 University Avenue, Colombo</span>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 News In Green</span>
+        </div>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            if (body.classList.contains('dark-mode')) {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+            } else {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+            }
+        }
+    </script>
+</body>
+
+</html>
