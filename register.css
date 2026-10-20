@@ -1,17 +1,10 @@
-/* ============================================================
-   Register page — full-width campus photo with a glass card.
-   Extends news.css (header, footer and the day/night toggle).
-   Day mode  = light frosted glass, dark text
-   Night mode = black glass, white text
-   ============================================================ */
-
-/* To use your own background photo, change this one line.
-   Put the picture in the same folder and use e.g. url("login-bg.jpg") */
 :root {
-    --auth-photo: url("https://images.unsplash.com/photo-1741637335289-c99652d3155f?w=1920&q=70&auto=format&fit=crop");
+    --auth-photo: url("Register.jpg");
 }
 
-/* ---------- Page ---------- */
+* {
+    font-family: Arial, sans-serif;
+}
 
 .auth-main {
     min-height: max(640px, calc(100vh - 80px));
@@ -29,7 +22,6 @@ html[data-theme="dark"] .auth-main {
         var(--auth-photo) center / cover no-repeat;
 }
 
-/* ---------- Glass card (Day) ---------- */
 
 .auth-card {
     width: min(500px, 100%);
@@ -51,12 +43,14 @@ html[data-theme="dark"] .auth-main {
     line-height: 1.15;
     color: #0d1a12;
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .auth-card .sub {
     font-size: 1rem;
     color: #2f3f35;
     margin-bottom: 26px;
+    text-align: center;
 }
 
 .auth-card label {
@@ -100,7 +94,6 @@ html[data-theme="dark"] .auth-main {
 .auth-switch a { color: #1f6f45; font-weight: 600; }
 .auth-switch a:hover { text-decoration: underline; }
 
-/* ---------- Black glass (Night mode only) ---------- */
 
 html[data-theme="dark"] .auth-card {
     background: rgba(14, 22, 18, 0.58);
@@ -125,21 +118,16 @@ html[data-theme="dark"] .form-success { color: #6ee7a0; }
 html[data-theme="dark"] .auth-switch { color: rgba(255, 255, 255, 0.78); }
 html[data-theme="dark"] .auth-switch a { color: #4ade80; }
 
-/* ---------- Fallbacks ---------- */
 
-/* Browsers without backdrop-filter get a more solid card so text stays readable */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
     .auth-card { background: rgba(247, 250, 248, 0.95); }
     html[data-theme="dark"] .auth-card { background: rgba(14, 22, 18, 0.94); }
 }
 
-/* People who ask their system for less transparency get solid cards */
 @media (prefers-reduced-transparency: reduce) {
     .auth-card { background: #f7faf8; -webkit-backdrop-filter: none; backdrop-filter: none; }
     html[data-theme="dark"] .auth-card { background: #0e1612; }
 }
-
-/* ---------- Small screens ---------- */
 
 @media (max-width: 520px) {
     .auth-main { padding: 28px 14px; }
