@@ -106,6 +106,80 @@
                 </button>
 
             </div>
+            <div class="filter-area">
 
+                <div class="search-box">
+
+                    <input
+                        type="text"
+                        id="search-input"
+                        placeholder="Search articles"
+                        aria-label="Search articles">
+
+                </div>
+
+
+                <div class="date-filter">
+
+                    <label for="from-date">
+                        From
+                    </label>
+
+                    <input
+                        type="date"
+                        id="from-date">
+         To
+                    </label>
+
+                    <input
+                        type="date"
+                        id="to-date">
+
+                    <button
+                        type="button"
+                        id="filter-btn">
+                        Filter
+                    </button>
+
+                </div>
+
+            </div>
+                    <label for="to-date">
+
+
+            <section class="results-section">
+
+                <h2>Results</h2>
+
+                <div id="articles-container" class="articles-container">
+                    
+                </div>
+
+                <div id="empty-message" class="empty-message">
+                    No articles yet — check back soon.
+                </div>
+
+            </section>
+
+
+            <div class="pagination">
+
+                <button id="previous-btn" disabled>
+                    Previous
+                </button>
+
+                <span>
+                    Page <strong id="page-number">1</strong>
+                </span>
+
+                <button id="next-btn" disabled>
+                    Next
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
 
 
