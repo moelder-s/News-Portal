@@ -232,3 +232,36 @@ body {
     line-height: 1.6;
 }
 
+.category-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+.category-btn {
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.045);
+    color: #aebbb4;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.25s ease;
+}
+
+.category-btn:hover {
+    background: rgba(53, 185, 107, 0.15);
+    color: #ffffff;
+    border-color: rgba(53, 185, 107, 0.5);
+    transform: translateY(-1px);
+}
+
+.category-btn.active {
+    background: #35b96b;
+    color: #06100b;
+    border-color: #35b96b;
+    font-weight: bold;
+    box-shadow: 0 5px 20px rgba(53, 185, 107, 0.2);
+}
+
