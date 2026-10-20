@@ -2,10 +2,6 @@
     --auth-photo: url("Register.jpg");
 }
 
-* {
-    font-family: Arial, sans-serif;
-}
-
 .auth-main {
     min-height: max(640px, calc(100vh - 80px));
     display: flex;
