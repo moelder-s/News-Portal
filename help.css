@@ -446,3 +446,91 @@
          color: #8ca391;
          line-height: 1.5;
      }
+
+     /* ============================================================
+   GLASS EFFECT ADD-ON
+   ============================================================ */
+
+     /* 1. Background photo behind the whole page */
+     body {
+         background-image:
+             linear-gradient(rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.18)),
+             url("bg.jpg");
+         background-size: cover;
+         background-position: center;
+         background-repeat: no-repeat;
+         background-attachment: fixed;
+         /* photo stays still while you scroll */
+     }
+
+     /* A darker tint in night mode */
+     body.dark-mode {
+         background-image:
+             linear-gradient(rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.32)),
+             url("bg.jpg");
+     }
+
+     /* 2. The big frosted-glass panel around the main content */
+     .help-main {
+         margin: 4rem auto;
+         /* space above/below so the photo shows */
+         padding: 3rem;
+         /* space inside the glass panel */
+         border-radius: 36px;
+         -webkit-backdrop-filter: blur(18px) saturate(130%);
+         backdrop-filter: blur(18px) saturate(130%);
+     }
+
+     body.light-mode .help-main {
+         background: rgba(255, 255, 255, 0.58);
+         border: 1px solid rgba(255, 255, 255, 0.65);
+         box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+     }
+
+     body.dark-mode .help-main {
+         background: rgba(14, 22, 18, 0.58);
+         border: 1px solid rgba(255, 255, 255, 0.14);
+         box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+     }
+
+     /* 3. Semi-transparent glass cards, search box and tags inside the panel */
+     body.dark-mode .topic-card,
+     body.dark-mode .search-box,
+     body.dark-mode .tag {
+         background-color: rgba(8, 14, 11, 0.55);
+         border-color: rgba(255, 255, 255, 0.16);
+     }
+
+     body.light-mode .topic-card,
+     body.light-mode .search-box,
+     body.light-mode .tag {
+         background-color: rgba(255, 255, 255, 0.7);
+         border-color: rgba(0, 0, 0, 0.14);
+     }
+
+     /* 4. Make the grey text darker in day mode so it's readable on light glass */
+     body.light-mode .sub-title,
+     body.light-mode .hero-desc,
+     body.light-mode .tag-label,
+     body.light-mode .topic-card p {
+         color: #2f3f35;
+     }
+
+     /* 5. Brighter grey text in night mode for the same reason */
+     body.dark-mode .sub-title,
+     body.dark-mode .hero-desc,
+     body.dark-mode .tag-label,
+     body.dark-mode .topic-card p {
+         color: rgba(255, 255, 255, 0.8);
+     }
+
+     /* 6. Fallback for old browsers that can't do blur */
+     @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+         body.light-mode .help-main {
+             background: rgba(247, 250, 248, 0.95);
+         }
+
+         body.dark-mode .help-main {
+             background: rgba(14, 22, 18, 0.94);
+         }
+     }
