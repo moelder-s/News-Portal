@@ -173,3 +173,62 @@ body {
     cursor: pointer;
 }
 
+
+.nav-burger span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background: white;
+    margin: 5px;
+}
+
+
+.browse-page {
+    min-height: calc(100vh - 80px);
+    position: relative;
+    padding: 55px 20px 80px;
+    overflow: hidden;
+    background: linear-gradient(rgba(7, 16, 12, 0.65), rgba(7, 16, 12, 0.65)), url("browse.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.browse-container {
+    position: relative;
+    z-index: 2;
+    width: 74%;
+    margin: auto;
+    padding: 35px 40px 45px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 18px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.045));
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.browse-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.browse-heading h1 {
+    font-family: Georgia, serif;
+    font-size: 36px;
+    line-height: 1.2;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.browse-heading p {
+    color: #aab7b0;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
