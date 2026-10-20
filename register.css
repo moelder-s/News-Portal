@@ -1,5 +1,7 @@
 :root {
     --auth-photo: url("Register.jpg");
+    --font-display: Georgia, serif;
+    --font-body: system-ui, sans-serif;
 }
 
 .auth-main {
