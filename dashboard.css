@@ -1,16 +1,9 @@
-/* ============================================================
-   Dashboard Dashboard — aligned with login.css
-   Day mode defaults, Night mode activated by html[data-theme="dark"]
-   ============================================================ */
 :root {
     /* Background Image */
-    --auth-photo: url("bg.jpg"); /* Ensure this matches your image file */
-    
-    /* Typography from login.css */
+    --auth-photo: url("bg.jpg"); 
     --font-display: Georgia, serif;
     --font-body: system-ui, sans-serif;
     
-    /* Day mode colors */
     --bg-solid: #f7faf8; 
     --text-main: #12180f;
     --text-muted: #2f3f35;
@@ -23,8 +16,7 @@
 }
 
 html[data-theme="dark"] {
-    /* Night mode colors */
-    --bg-solid: #0e1612; /* Solid black/green for header and footer */
+    --bg-solid: #0e1612;
     --text-main: #f1f6f3;
     --text-muted: rgba(255, 255, 255, 0.8);
     --accent-green: #4ade80;
@@ -42,18 +34,17 @@ html[data-theme="dark"] {
 }
 
 body {
-    /* Gradient overlay + image from login.css */
     background: linear-gradient(rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.18)), var(--auth-photo) center / cover no-repeat fixed;
     color: var(--text-main);
     font-family: var(--font-body);
     line-height: 1.5;
     min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
 }
 
 html[data-theme="dark"] body {
-    /* Darker gradient overlay for Night Mode */
     background: linear-gradient(rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.32)), var(--auth-photo) center / cover no-repeat fixed;
 }
 
@@ -63,9 +54,6 @@ a {
     transition: color 0.2s;
 }
 
-/* ==========================================================================
-   Header Styles (Solid color blocking background)
-   ========================================================================== */
 .site-header {
     position: sticky;
     top: 0;
@@ -166,12 +154,12 @@ a {
     border-radius: 50%;
     position: absolute;
     top: 2px;
-    left: 2px; /* Set to left for Day mode */
+    left: 2px;
     transition: transform 0.3s ease;
 }
 
 html[data-theme="dark"] .toggle-thumb {
-    transform: translateX(16px); /* Slides right for Night Mode */
+    transform: translateX(16px);
 }
 
 .btn-ghost {
@@ -185,24 +173,52 @@ html[data-theme="dark"] .toggle-thumb {
     border-color: var(--text-main);
 }
 
-/* ==========================================================================
-   Dashboard Main Content (The Glass Wrapper)
-   ========================================================================== */
+/*needed when collapsing the webpage*/
+.nav-burger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    padding: 0 9px;
+    background: none;
+    border: 1px solid var(--text-muted);
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.nav-burger span {
+    display: block;
+    height: 2px;
+    background: var(--text-main);
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.2s ease;
+}
+
+.nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-burger.open span:nth-child(2) { opacity: 0; }
+.nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid var(--accent-green);
+    outline-offset: 3px;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
-    flex: 1; /* Pushes footer to the bottom */
+    width: 100%;
 }
 
 .dashboard-main {
-    /* Core layout */
     padding: 3rem;
     margin-top: 4rem;
     margin-bottom: 4rem;
-    border-radius: 36px; /* Matched to .auth-card */
+    border-radius: 36px; 
     
-    /* Glass Effect from login.css .auth-card */
     background: var(--glass-bg);
     -webkit-backdrop-filter: blur(18px) saturate(130%);
     backdrop-filter: blur(18px) saturate(130%);
@@ -216,15 +232,13 @@ html[data-theme="dark"] .dashboard-main {
     backdrop-filter: blur(16px) saturate(120%);
 }
 
-/* Create the Flexbox layout to separate left and right */
 .dashboard-greeting {
     display: flex;
     justify-content: space-between;
-    align-items: center; /* Aligns the button with the middle of the text */
+    align-items: center; 
     margin-bottom: 2.5rem;
 }
 
-/* Ensure the heading doesn't have extra bottom margin pushing the button down */
 .greeting-text h1 {
     margin-bottom: 0.25rem;
 }
@@ -236,7 +250,7 @@ html[data-theme="dark"] .dashboard-main {
     border-radius: 8px;
     font-size: 0.9rem;
     color: var(--text-main);
-    white-space: nowrap; /* Prevents button text from wrapping */
+    white-space: nowrap;
 }
 
 .dashboard-greeting .btn-ghost:hover {
@@ -244,45 +258,12 @@ html[data-theme="dark"] .dashboard-main {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Aligns the heading left and the button right */
-.dashboard-top-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2.5rem;
-}
-
-/* Removes default margins so they align perfectly in the center */
-.dashboard-top-bar h2 {
-    margin: 0;
-    font-family: var(--font-display);
-    font-size: 2.5rem;
-    font-weight: normal;
-}
-
-/* Styles the edit profile button to match your header's log out button */
-.dashboard-top-bar .btn {
-    border: 1px solid var(--text-muted);
-    padding: 0.5rem 1.25rem;
-    border-radius: 6px;
-    font-size: 0.9rem;
-    color: var(--text-main);
-    transition: all 0.2s;
-}
-
-.dashboard-top-bar .btn:hover {
-    border-color: var(--text-main);
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-/* Stats Row */
 .stats-row {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
 }
 
-/* Matches the .auth-card input styles from login.css */
 .stat-card {
     background: var(--card-inner);
     border: 1px solid var(--card-inner-border);
@@ -305,11 +286,6 @@ html[data-theme="dark"] .dashboard-main {
     color: var(--text-main);
 }
 
-/* ==========================================================================
-   Lower Dashboard Sections
-   ========================================================================== */
-
-/* Structure & Rulers for all lower sections */
 .dashboard-submissions,
 .dashboard-comments,
 .dashboard-actions-section {
@@ -327,7 +303,6 @@ html[data-theme="dark"] .dashboard-main {
     color: var(--text-main);
 }
 
-/* Flex layout for lists */
 .submissions-grid,
 .comments-grid {
     display: flex;
@@ -335,7 +310,6 @@ html[data-theme="dark"] .dashboard-main {
     gap: 1rem;
 }
 
-/* The Glass Tiles for Submissions and Comments */
 .submission-card,
 .comment-card {
     background: var(--card-inner);
@@ -346,8 +320,6 @@ html[data-theme="dark"] .dashboard-main {
     justify-content: space-between;
     align-items: center;
 }
-
-/* Text styles inside the tiles */
 .submission-card h4,
 .comment-card h4 {
     color: var(--text-main);
@@ -362,8 +334,10 @@ html[data-theme="dark"] .dashboard-main {
 }
 
 .comment-card .comment-text {
-    font-style: italic; /* Makes the comment quote look distinct */
+    font-style: italic;
 }
+.submission-card,
+.comment-card { gap: 1rem; }
 
 .submission-card .date,
 .comment-card .date {
@@ -372,15 +346,11 @@ html[data-theme="dark"] .dashboard-main {
     white-space: nowrap;
     margin-left: 1rem;
 }
-
-/* Quick Actions Grid */
 .actions-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
 }
-
-/* The Glass Tiles for Actions */
 .action-tile {
     background: var(--card-inner);
     border: 1px solid var(--card-inner-border);
@@ -397,9 +367,6 @@ html[data-theme="dark"] .dashboard-main {
     background-color: rgba(255, 255, 255, 0.05);
 }
 
-/* ==========================================================================
-   Footer Styles (Solid color blocking background)
-   ========================================================================== */
 .site-footer {
     background-color: var(--bg-solid);
     padding: 4rem 2rem 2rem;
@@ -442,17 +409,14 @@ html[data-theme="dark"] .dashboard-main {
 .footer-bottom {
     max-width: 1200px;
     margin: 0 auto;
-    border-top: 1px solid var(--glass-border); /* Subtle divider line */
+    border-top: 1px solid var(--glass-border); 
     padding-top: 1.5rem;
     padding-bottom: 1rem;
-    text-align: center;                         /* Centers the text */
+    text-align: center;                         
     color: var(--text-muted);
     font-size: 0.85rem;
 }
 
-/* ==========================================================================
-   Fallbacks (From login.css)
-   ========================================================================== */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
     .dashboard-main { background: rgba(247, 250, 248, 0.95); }
     html[data-theme="dark"] .dashboard-main { background: rgba(14, 22, 18, 0.94); }
@@ -462,3 +426,54 @@ html[data-theme="dark"] .dashboard-main {
     .dashboard-main { background: #f7faf8; -webkit-backdrop-filter: none; backdrop-filter: none; }
     html[data-theme="dark"] .dashboard-main { background: #0e1612; }
 }
+
+@media (max-width: 1000px) {
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 900px) {
+    .site-header { padding: 0.75rem 1rem; }
+    .header-inner { flex-wrap: wrap; gap: 0.75rem; }
+    .brand { margin-right: auto; }
+    .nav-burger { display: flex; }
+
+    .main-nav {
+        display: none;
+        order: 3;
+        flex-basis: 100%;
+        flex-direction: column;
+        gap: 0.9rem;
+        padding: 0.75rem 0 0.25rem;
+        border-top: 1px solid var(--glass-border);
+    }
+    .main-nav.open { display: flex; }
+    .main-nav a.active { align-self: flex-start; }
+}
+
+@media (max-width: 700px) {
+    .container { padding: 0 1rem; }
+    .dashboard-main {
+        padding: 1.5rem;
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+        border-radius: 24px;
+    }
+    .dashboard-greeting { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .actions-grid { grid-template-columns: 1fr; }
+    .submission-card,
+    .comment-card { flex-direction: column; align-items: flex-start; }
+    .submission-card .date,
+    .comment-card .date { margin-left: 0; }
+    .footer-inner { grid-template-columns: 1fr; }
+    .site-footer { padding: 2.5rem 1rem 1.5rem; }
+}
+
+@media (max-width: 480px) {
+    .stats-row { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+
