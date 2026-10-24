@@ -1,69 +1,100 @@
-// ============================================================
-// Student registration — front-end demo only.
-// Saves new accounts into localStorage purely so login.js has
-// something to check against in the browser. Replace this with a
-// real POST /register call once a backend exists — never store
-// real passwords in localStorage in production.
-// ============================================================
 
 (function () {
     "use strict";
 
-    var USERS_KEY = "nig-demo-users";
-
-    function getUsers() {
-        try {
-            return JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
-        } catch (e) {
-            return [];
-        }
-    }
-
-    function saveUsers(users) {
-        try { localStorage.setItem(USERS_KEY, JSON.stringify(users)); } catch (e) { /* unavailable */ }
-    }
-
     document.addEventListener("DOMContentLoaded", function () {
-        var form = document.getElementById("register-form");
-        if (!form) return;
 
-        var error = document.getElementById("form-error");
-        var success = document.getElementById("form-success");
+        const form = document.getElementById("register-form");
+        const error = document.getElementById("form-error");
+        const success = document.getElementById("form-success");
 
-        form.addEventListener("submit", function (e) {
-            e.preventDefault();
+        if (!form || !error || !success) {
+            console.error("Registration form elements not found!");
+            return;
+        }
+
+        form.addEventListener("submit", async function (event) {
+
+            event.preventDefault();
+
             error.hidden = true;
             success.hidden = true;
 
-            var name = document.getElementById("full-name").value.trim();
-            var email = document.getElementById("email").value.trim().toLowerCase();
-            var password = document.getElementById("password").value;
-            var confirm = document.getElementById("confirm-password").value;
+            const name = document.getElementById("full-name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
+            const confirm = document.getElementById("confirm-password").value;
 
+            // Check empty fields
+            if (!name || !email || !password || !confirm) {
+                error.textContent = "Please fill in all fields.";
+                error.hidden = false;
+                return;
+            }
+
+            // Check password length
             if (password.length < 8) {
-                error.textContent = "Password must be at least 8 characters.";
+                error.textContent =
+                    "Password must be at least 8 characters.";
                 error.hidden = false;
                 return;
             }
+
+            // Confirm password
             if (password !== confirm) {
-                error.textContent = "Passwords don't match.";
+                error.textContent = "Passwords do not match.";
                 error.hidden = false;
                 return;
             }
 
-            var users = getUsers();
-            if (users.some(function (u) { return u.email === email; })) {
-                error.textContent = "An account with that email already exists.";
+            try {
+
+                // Send user data to PHP
+                const response = await fetch("register.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        email: email,
+                        password: password,
+                        confirm: confirm
+                    })
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+
+                    success.textContent = result.message;
+                    success.hidden = false;
+
+                    form.reset();
+
+                    // Redirect to login page
+                    window.location.href = "login.html";
+
+                } else {
+
+                    error.textContent =
+                        result.message || "Registration failed.";
+
+                    error.hidden = false;
+                }
+
+            } catch (err) {
+
+                console.error("Registration error:", err);
+
+                error.textContent =
+                    "Cannot connect to the server. Check XAMPP.";
+
                 error.hidden = false;
-                return;
             }
 
-            users.push({ name: name, email: email, password: password });
-            saveUsers(users);
-
-            success.textContent = "Account created — redirecting to log in\u2026";
-            success.hidden = false;
-            setTimeout(function () { window.location.href = "login.html"; }, 900);
         });
+
     });
+
 })();
