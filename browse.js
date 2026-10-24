@@ -1,439 +1,394 @@
-const articles = [
-    {
-        title: "NSBM Marks 10 Years with Anniversary Celebrations",
-        category: "Events",
-        description:
-            "Special events led by the Islamic Society and Hindu Society will mark a decade of NSBM Green University on 22nd October.",
-        date: "2026-10-19"
-    },
 
-    {
-        title: "Islamic Society to Host Exhibition and Function",
-        category: "Events",
-        description:
-            "The NSBM Islamic Society will hold an exhibition and a special function as part of the university’s 10th anniversary celebrations.",
-        date: "2026-10-17"
-    },
+document.addEventListener("DOMContentLoaded", function () {
+    "use strict";
 
-    {
-        title: "Hindu Society Presents NATHAM'26",
-        category: "Events",
-        description:
-            "The NSBM Hindu Society will organise Naadham 2026, a cultural function, to celebrate the university’s 10th anniversary..",
-        date: "2026-10-15"
-    },
+    // ==================================
+    // DARK / LIGHT THEME
+    // ==================================
 
-    {
-        title: "October Intake Students Join NSBM Today",
-        category: "Academic",
-        description:
-            "The October 2026 intake of new students arrived at the university today to begin their academic journey at NSBM Green University.",
-        date: "2026-10-12"
-    },
+    const themeToggle = document.getElementById("theme-toggle");
+    const themeLabel = document.querySelector(".toggle-label");
 
-    {
-        title: "Student Community Volunteers for Green Campus",
-        category: "General",
-        description:
-            "Students join together to support environmental activities and create a greener campus.",
-        date: "2026-10-10"
-    },
-
-    {
-        title: "Campus Technology Exhibition",
-        category: "Events",
-        description:
-            "A technology exhibition gives students an opportunity to demonstrate their latest projects.",
-        date: "2026-10-08"
-    }
-];
-
-
-
-const articlesContainer =
-    document.getElementById("articles-container");
-
-const emptyMessage =
-    document.getElementById("empty-message");
-
-const searchInput =
-    document.getElementById("search-input");
-
-const fromDate =
-    document.getElementById("from-date");
-
-const toDate =
-    document.getElementById("to-date");
-
-const filterButton =
-    document.getElementById("filter-btn");
-
-const categoryButtons =
-    document.querySelectorAll(".category-btn");
-
-const previousButton =
-    document.getElementById("previous-btn");
-
-const nextButton =
-    document.getElementById("next-btn");
-
-const pageNumber =
-    document.getElementById("page-number");
-
-const themeToggle =
-    document.getElementById("theme-toggle");
-
-const toggleLabel =
-    document.querySelector(".toggle-label");
-
-const toggleThumb =
-    document.querySelector(".toggle-thumb");
-
-
-let selectedCategory = "All";
-
-let currentPage = 1;
-
-const articlesPerPage = 4;
-
-
-
-function displayArticles(list) {
-
-    articlesContainer.innerHTML = "";
-
-    if (list.length === 0) {
-
-        emptyMessage.classList.remove("hidden");
-
-        previousButton.disabled = true;
-        nextButton.disabled = true;
-
-        return;
-    }
-
-    emptyMessage.classList.add("hidden");
-
-
-    const totalPages =
-        Math.ceil(list.length / articlesPerPage);
-
-
-    if (currentPage > totalPages) {
-
-        currentPage = totalPages;
-    }
-
-
-    const start =
-        (currentPage - 1) * articlesPerPage;
-
-    const end =
-        start + articlesPerPage;
-
-
-    const currentArticles =
-        list.slice(start, end);
-
-
-    currentArticles.forEach(article => {
-
-        const card =
-            document.createElement("article");
-
-        card.className = "article-card";
-
-        card.innerHTML = `
-            <span class="article-category">
-                ${article.category}
-            </span>
-
-            <h3>
-                ${article.title}
-            </h3>
-
-            <p>
-                ${article.description}
-            </p>
-
-            <div class="article-meta">
-                <span>News In Green</span>
-                <span>${formatDate(article.date)}</span>
-            </div>
-        `;
-
-        articlesContainer.appendChild(card);
-    });
-
-
-    pageNumber.textContent = currentPage;
-
-    previousButton.disabled =
-        currentPage === 1;
-
-    nextButton.disabled =
-        currentPage >= totalPages;
-}
-
-
-function formatDate(dateString) {
-
-    const date =
-        new Date(dateString);
-
-    return date.toLocaleDateString(
-        "en-US",
-        {
-            month: "short",
-            day: "numeric",
-            year: "numeric"
+    function saveTheme(theme) {
+        try {
+            localStorage.setItem("theme", theme);
+        } catch (error) {
+            console.log("Theme could not be saved");
         }
-    );
-}
+    }
 
+    function getSavedTheme() {
+        try {
+            return localStorage.getItem("theme");
+        } catch (error) {
+            return null;
+        }
+    }
 
+    function setTheme(theme) {
+        const light = theme === "light";
 
-function filterArticles() {
+        document.body.classList.toggle("light-mode", light);
 
-    const searchText =
-        searchInput.value
-            .trim()
-            .toLowerCase();
+        if (themeLabel) {
+            themeLabel.textContent = light ? "Day" : "Night";
+        }
 
-    const from =
-        fromDate.value;
+        if (themeToggle) {
+            themeToggle.setAttribute("aria-pressed", String(light));
+            themeToggle.setAttribute(
+                "aria-label",
+                light ? "Switch to dark mode" : "Switch to light mode"
+            );
+        }
 
-    const to =
-        toDate.value;
+        saveTheme(theme);
+    }
 
+    setTheme(getSavedTheme() === "light" ? "light" : "dark");
 
-    const filtered =
-        articles.filter(article => {
+    if (themeToggle) {
+        themeToggle.addEventListener("click", function () {
+            const light = document.body.classList.contains("light-mode");
 
-            /* Category */
+            setTheme(light ? "dark" : "light");
+        });
+    }
 
-            const categoryMatch =
+    // ==================================
+    // MOBILE MENU
+    // ==================================
+
+    const burger = document.getElementById("nav-burger");
+    const nav = document.getElementById("main-nav");
+
+    if (burger && nav) {
+        burger.addEventListener("click", function () {
+            const open = nav.classList.toggle("open");
+            burger.setAttribute("aria-expanded", String(open));
+        });
+    }
+
+    // ==================================
+    // DEMO ARTICLE DATA
+    // Replace with actual approved articles
+    // ==================================
+
+    const articles = [
+        {
+            title: "University Examination Updates",
+            category: "Academic",
+            description: "Important information about upcoming examinations and university schedules.",
+            date: "2026-10-21"
+        },
+        {
+            title: "Annual University Sports Meet",
+            category: "Sports",
+            description: "Students are preparing for the annual university sports competition.",
+            date: "2026-10-20"
+        },
+        {
+            title: "Campus Cultural Festival",
+            category: "Events",
+            description: "A special cultural event celebrating student creativity and talent.",
+            date: "2026-10-18"
+        },
+        {
+            title: "University Library Opening Hours",
+            category: "Academic",
+            description: "Updated library opening hours for students during the semester.",
+            date: "2026-10-15"
+        },
+        {
+            title: "Student Cricket Tournament",
+            category: "Sports",
+            description: "The interfaculty cricket tournament begins this month.",
+            date: "2026-10-14"
+        },
+        {
+            title: "Student Community News",
+            category: "General",
+            description: "Latest updates and announcements from the student community.",
+            date: "2026-10-12"
+        },
+        {
+            title: "Technology Workshop",
+            category: "Events",
+            description: "A technology workshop for students interested in software development.",
+            date: "2026-10-10"
+        },
+        {
+            title: "New Student Facilities",
+            category: "General",
+            description: "New facilities have been introduced to improve campus life.",
+            date: "2026-10-08"
+        }
+    ];
+
+    // ==================================
+    // GET HTML ELEMENTS
+    // ==================================
+
+    const categoryButtons = document.querySelectorAll(".category-btn");
+    const container = document.getElementById("articles-container");
+
+    const searchInput = document.getElementById("search-input");
+    const fromDate = document.getElementById("from-date");
+    const toDate = document.getElementById("to-date");
+
+    const filterBtn = document.getElementById("filter-btn");
+    const clearBtn = document.getElementById("clear-btn");
+
+    const emptyMessage = document.getElementById("empty-message");
+
+    const previousBtn = document.getElementById("previous-btn");
+    const nextBtn = document.getElementById("next-btn");
+    const pageNumber = document.getElementById("page-number");
+
+    let selectedCategory = "All";
+    let currentPage = 1;
+    const articlesPerPage = 4;
+
+    // ==================================
+    // ARTICLE CARD CREATION
+    // ==================================
+
+    function createArticleCard(article) {
+        const card = document.createElement("article");
+        card.className = "article-card";
+        card.dataset.category = article.category;
+        card.dataset.date = article.date;
+
+        const category = document.createElement("span");
+        category.className = "article-category";
+        category.textContent = article.category;
+
+        const title = document.createElement("h3");
+        title.textContent = article.title;
+
+        const description = document.createElement("p");
+        description.textContent = article.description;
+
+        const meta = document.createElement("div");
+        meta.className = "article-meta";
+
+        const date = document.createElement("span");
+        date.textContent = article.date;
+
+        meta.appendChild(date);
+
+        card.appendChild(category);
+        card.appendChild(title);
+        card.appendChild(description);
+        card.appendChild(meta);
+
+        return card;
+    }
+
+    // ==================================
+    // FILTER ARTICLES
+    // ==================================
+
+    function getFilteredArticles() {
+        const query = searchInput.value.trim().toLowerCase();
+        const from = fromDate.value;
+        const to = toDate.value;
+
+        return articles.filter(function (article) {
+
+            const matchesCategory =
                 selectedCategory === "All" ||
-                article.category === selectedCategory;
+                article.category.toLowerCase() ===
+                selectedCategory.toLowerCase();
 
+            const matchesSearch =
+                article.title.toLowerCase().includes(query) ||
+                article.description.toLowerCase().includes(query) ||
+                article.category.toLowerCase().includes(query);
 
-            /* Search */
+            const matchesFrom =
+                !from || article.date >= from;
 
-            const searchMatch =
-                article.title
-                    .toLowerCase()
-                    .includes(searchText) ||
-
-                article.description
-                    .toLowerCase()
-                    .includes(searchText);
-
-
-            /* From date */
-
-            const fromMatch =
-                !from ||
-                article.date >= from;
-
-
-            /* To date */
-
-            const toMatch =
-                !to ||
-                article.date <= to;
-
+            const matchesTo =
+                !to || article.date <= to;
 
             return (
-                categoryMatch &&
-                searchMatch &&
-                fromMatch &&
-                toMatch
+                matchesCategory &&
+                matchesSearch &&
+                matchesFrom &&
+                matchesTo
             );
         });
-
-
-    currentPage = 1;
-
-    displayArticles(filtered);
-}
-
-
-
-categoryButtons.forEach(button => {
-
-    button.addEventListener(
-        "click",
-        function () {
-
-            categoryButtons.forEach(btn => {
-
-                btn.classList.remove("active");
-
-            });
-
-
-            this.classList.add("active");
-
-
-            selectedCategory =
-                this.dataset.category;
-
-
-            filterArticles();
-        }
-    );
-});
-
-
-
-searchInput.addEventListener(
-    "input",
-    filterArticles
-);
-
-
-
-filterButton.addEventListener(
-    "click",
-    filterArticles
-);
-
-
-previousButton.addEventListener(
-    "click",
-    function () {
-
-        if (currentPage > 1) {
-
-            currentPage--;
-
-            filterArticles();
-        }
     }
-);
 
+    // ==================================
+    // DISPLAY ARTICLES
+    // ==================================
 
-nextButton.addEventListener(
-    "click",
-    function () {
+    function displayArticles() {
+        const filtered = getFilteredArticles();
 
-        const searchText =
-            searchInput.value
-                .trim()
-                .toLowerCase();
+        const totalPages = Math.max(
+            1,
+            Math.ceil(filtered.length / articlesPerPage)
+        );
 
-        const filtered =
-            articles.filter(article => {
+        if (currentPage > totalPages) {
+            currentPage = totalPages;
+        }
 
-                const categoryMatch =
-                    selectedCategory === "All" ||
-                    article.category === selectedCategory;
+        const start = (currentPage - 1) * articlesPerPage;
+        const end = start + articlesPerPage;
 
-                const searchMatch =
-                    article.title
-                        .toLowerCase()
-                        .includes(searchText) ||
+        const visibleArticles = filtered.slice(start, end);
 
-                    article.description
-                        .toLowerCase()
-                        .includes(searchText);
+        container.innerHTML = "";
 
-                return categoryMatch && searchMatch;
-            });
+        visibleArticles.forEach(function (article) {
+            container.appendChild(createArticleCard(article));
+        });
 
+        emptyMessage.hidden = filtered.length > 0;
 
-        const totalPages =
-            Math.ceil(
-                filtered.length / articlesPerPage
-            );
+        if (filtered.length === 0) {
+            emptyMessage.textContent = "No articles found.";
+        }
 
+        pageNumber.textContent = currentPage;
+
+        previousBtn.disabled = currentPage === 1;
+        nextBtn.disabled = currentPage >= totalPages;
+    }
+
+    // ==================================
+    // CATEGORY BUTTONS
+    // ==================================
+
+    function selectCategory(category) {
+        selectedCategory = category;
+        currentPage = 1;
+
+        categoryButtons.forEach(function (button) {
+            const active =
+                button.dataset.category.toLowerCase() ===
+                category.toLowerCase();
+
+            button.classList.toggle("active", active);
+        });
+
+        displayArticles();
+    }
+
+    categoryButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+            selectCategory(button.dataset.category);
+        });
+    });
+
+    // ==================================
+    // SEARCH
+    // ==================================
+
+    searchInput.addEventListener("input", function () {
+        currentPage = 1;
+        displayArticles();
+    });
+
+    // ==================================
+    // DATE FILTER
+    // ==================================
+
+    filterBtn.addEventListener("click", function () {
+        currentPage = 1;
+        displayArticles();
+    });
+
+    fromDate.addEventListener("change", function () {
+        currentPage = 1;
+        displayArticles();
+    });
+
+    toDate.addEventListener("change", function () {
+        currentPage = 1;
+        displayArticles();
+    });
+
+    // ==================================
+    // CLEAR FILTERS
+    // ==================================
+
+    clearBtn.addEventListener("click", function () {
+        searchInput.value = "";
+        fromDate.value = "";
+        toDate.value = "";
+
+        selectCategory("All");
+    });
+
+    // ==================================
+    // PAGINATION
+    // ==================================
+
+    previousBtn.addEventListener("click", function () {
+        if (currentPage > 1) {
+            currentPage--;
+            displayArticles();
+        }
+    });
+
+    nextBtn.addEventListener("click", function () {
+        const filtered = getFilteredArticles();
+        const totalPages = Math.ceil(
+            filtered.length / articlesPerPage
+        );
 
         if (currentPage < totalPages) {
-
             currentPage++;
+            displayArticles();
+        }
+    });
 
-            displayArticles(filtered);
+    // ==================================
+    // CATEGORY FROM URL HASH
+    // Example: browse.html#sports
+    // ==================================
+
+    function applyHashCategory() {
+        const hash = window.location.hash.replace("#", "").toLowerCase();
+
+        const validCategories = [
+            "academic",
+            "events",
+            "sports",
+            "general"
+        ];
+
+        if (validCategories.includes(hash)) {
+            selectCategory(
+                hash.charAt(0).toUpperCase() + hash.slice(1)
+            );
         }
     }
-);
 
+    window.addEventListener("hashchange", applyHashCategory);
 
-themeToggle.addEventListener(
-    "click",
-    function () {
+    // ==================================
+    // SEARCH FROM URL
+    // Example: browse.html?q=sports
+    // ==================================
 
-        document.body.classList.toggle(
-            "light-mode"
-        );
+    const params = new URLSearchParams(window.location.search);
+    const initialQuery = params.get("q");
 
-
-        const lightMode =
-            document.body.classList.contains(
-                "light-mode"
-            );
-
-
-        if (lightMode) {
-
-            toggleLabel.textContent = "Day";
-
-            themeToggle.setAttribute(
-                "aria-label",
-                "Switch to dark mode"
-            );
-
-            themeToggle.setAttribute(
-                "aria-pressed",
-                "true"
-            );
-
-            toggleThumb.style.right = "21px";
-
-            toggleThumb.style.background = "#ffffff";
-
-        } else {
-
-            toggleLabel.textContent = "Night";
-
-            themeToggle.setAttribute(
-                "aria-label",
-                "Switch to light mode"
-            );
-
-            themeToggle.setAttribute(
-                "aria-pressed",
-                "false"
-            );
-
-            toggleThumb.style.right = "2px";
-
-            toggleThumb.style.background = "#07100c";
-        }
+    if (initialQuery) {
+        searchInput.value = initialQuery;
     }
-);
 
+    // ==================================
+    // INITIAL DISPLAY
+    // ==================================
 
-const navBurger =
-    document.getElementById("nav-burger");
+    applyHashCategory();
+    displayArticles();
 
-const mainNav =
-    document.querySelector(".main-nav");
-
-
-navBurger.addEventListener(
-    "click",
-    function () {
-
-        const isOpen =
-            mainNav.classList.toggle("mobile-open");
-
-        navBurger.setAttribute(
-            "aria-expanded",
-            isOpen
-        );
-    }
-);
-
-
-
-displayArticles(articles);
+});
