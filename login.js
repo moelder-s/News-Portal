@@ -1,41 +1,78 @@
+
 (function () {
     "use strict";
 
-    var USERS_KEY = "nig-demo-users";
-
-    function getUsers() {
-        try {
-            return JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
-        } catch (e) {
-            return [];
-        }
-    }
-
     document.addEventListener("DOMContentLoaded", function () {
-        var form = document.getElementById("login-form");
-        if (!form) return;
 
-        var error = document.getElementById("form-error");
+        const form = document.getElementById("login-form");
+        const error = document.getElementById("form-error");
 
-        form.addEventListener("submit", function (e) {
-            e.preventDefault();
+        if (!form || !error) {
+            console.error("Login form or error element not found!");
+            return;
+        }
+
+        form.addEventListener("submit", async function (event) {
+
+            event.preventDefault();
+
             error.hidden = true;
+            error.textContent = "";
 
-            var email = document.getElementById("email").value.trim().toLowerCase();
-            var password = document.getElementById("password").value;
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
 
-            var match = getUsers().find(function (u) {
-                return u.email === email && u.password === password;
-            });
-
-            if (!match) {
-                error.textContent = "Invalid email or password.";
+            // Check empty fields
+            if (email === "" || password === "") {
+                error.textContent = "Please enter email and password.";
                 error.hidden = false;
                 return;
             }
 
-            try { localStorage.setItem("nig-current-user", match.email); } catch (e) { /* unavailable */ }
-            window.location.href = "user-dashboard.html";
+            try {
+
+                // Send login details to PHP
+                const response = await fetch("login.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password
+                    })
+                });
+
+                // Receive PHP response
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+
+                    alert("Login successful!");
+
+                    // Redirect to dashboard
+                    window.location.href = "user-dashboard.html";
+
+                } else {
+
+                    error.textContent =
+                        result.message || "Invalid email or password.";
+
+                    error.hidden = false;
+                }
+
+            } catch (err) {
+
+                console.error("Login error:", err);
+
+                error.textContent =
+                    "Cannot connect to the server. Check XAMPP and PHP.";
+
+                error.hidden = false;
+            }
+
         });
+
     });
+
 })();
