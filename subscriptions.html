@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Subscriptions - News In Green</title>
+
+    <!-- CSS Connection -->
+    <link rel="stylesheet" href="subscriptions.css">
+
+    <!-- JavaScript Connection -->
+    <script src="subscriptions.js" defer></script>
+</head>
+
+
+<body>
+
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="header-inner">
+
+            <!-- LOGO -->
+            <a href="news.html" class="brand">
+                <span class="brand-mark">N</span>
+                <span class="brand-text">
+                    News <em>In Green</em>
+                </span>
+            </a>
+
+            <!-- NAVIGATION -->
+
+            <nav class="main-nav" id="main-nav" aria-label="Primary navigation">
+
+                <a href="news.html">Home</a>
+
+                <a href="user-dashboard.html">Dashboard</a>
+
+                <a href="browse.html">Browse</a>
+
+                <a href="bookmarks.html">Bookmarks</a>
+
+                <a href="submit.html">Submit an article</a>
+
+                <a href="subscriptions.html" class="active" aria-current="page">
+                    Subscriptions
+                </a>
+
+                <a href="help.html">Help/Contact</a>
+
+            </nav>
+
+            <!-- HEADER BUTTONS -->
+            <div class="header-actions">
+
+                <!-- NIGHT MODE -->
+                <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode"
+                    aria-pressed="false">
+
+                    <span class="toggle-track">
+                        <span class="toggle-thumb"></span>
+                    </span>
+
+                    <span class="toggle-label">Day</span>
+
+                </button>
+
+                <a href="login.html" class="btn btn-ghost">
+                    Log out
+                </a>
+
+            </div>
+
+            <!-- MOBILE MENU -->
+            <button class="nav-burger" id="nav-burger" type="button" aria-label="Open menu" aria-controls="main-nav"
+                aria-expanded="false">
+
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </button>
+
+        </div>
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="subs-main">
+
+        <section class="subs-panel">
+
+            <!-- GREETING -->
+            <div class="subs-greeting">
+
+                <div>
+                    <h1>Subscriptions</h1>
+
+                    <p>
+                        Choose the categories you want to hear about.
+                        Subscribed categories are highlighted first
+                        on your homepage.
+                    </p>
+                </div>
+
+                <a href="user-dashboard.html" class="btn btn-ghost">
+                    Back to dashboard
+                </a>
+
+            </div>
+
+
+            <!-- SUBSCRIPTION SUMMARY -->
+            <div class="sub-summary">
+
+                <span id="sub-count">
+                    0 of 4 categories subscribed
+                </span>
+
+                <div class="sub-summary-buttons">
+
+                    <button type="button" id="subscribe-all" class="btn btn-ghost">
+                        Subscribe to all
+                    </button>
+
+                    <button type="button" id="clear-all" class="btn btn-ghost">
+                        Clear all
+                    </button>
+
+                </div>
+            </div>
+
+
+            <!-- CATEGORY CARDS -->
+            <div class="sub-grid">
+
+                <!-- ACADEMIC -->
+                <label class="sub-card">
+
+                    <div class="sub-info">
+                        <h4>Academic</h4>
+                        <p>
+                            Faculty news, research,
+                            courses, and exams.
+                        </p>
+                    </div>
+
+                    <input type="checkbox" class="sub-check" value="academic">
+
+                    <span class="switch" aria-hidden="true"></span>
+
+                </label>
+
+
+                <!-- EVENTS -->
+                <label class="sub-card">
+
+                    <div class="sub-info">
+                        <h4>Events</h4>
+                        <p>
+                            Campus events, fairs,
+                            and cultural nights.
+                        </p>
+                    </div>
+
+                    <input type="checkbox" class="sub-check" value="events">
+
+                    <span class="switch" aria-hidden="true"></span>
+
+                </label>
+
+
+                <!-- SPORTS -->
+                <label class="sub-card">
+
+                    <div class="sub-info">
+                        <h4>Sports</h4>
+                        <p>
+                            Match results, team news,
+                            and tournaments.
+                        </p>
+                    </div>
+
+                    <input type="checkbox" class="sub-check" value="sports">
+
+                    <span class="switch" aria-hidden="true"></span>
+
+                </label>
+
+
+                <!-- GENERAL -->
+                <label class="sub-card">
+
+                    <div class="sub-info">
+                        <h4>General</h4>
+                        <p>
+                            Campus-wide announcements
+                            and updates.
+                        </p>
+                    </div>
+
+                    <input type="checkbox" class="sub-check" value="general">
+
+                    <span class="switch" aria-hidden="true"></span>
+
+                </label>
+
+            </div>
+
+
+            <!-- STATUS MESSAGE -->
+            <p id="sub-message" class="sub-message" role="status" aria-live="polite">
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+
+        <div class="footer-inner">
+
+            <!-- FOOTER BRAND -->
+            <div class="footer-brand">
+
+                <div class="brand">
+                    <span class="brand-mark">N</span>
+
+                    <span class="brand-text">
+                        News <em>In Green</em>
+                    </span>
+                </div>
+
+                <p>
+                    The student-run news portal covering
+                    academics, events, sport, and campus life.
+                </p>
+
+            </div>
+
+
+            <!-- SECTIONS -->
+            <div class="footer-col">
+
+                <h3>Sections</h3>
+
+                <a href="browse.html#academic">Academic</a>
+                <a href="browse.html#events">Events</a>
+                <a href="browse.html#sports">Sports</a>
+                <a href="browse.html#general">General</a>
+
+            </div>
+
+
+            <!-- ACCOUNT -->
+            <div class="footer-col">
+
+                <h3>Account</h3>
+
+                <a href="login.html">Log out</a>
+                <a href="bookmarks.html">Bookmarks</a>
+                <a href="subscriptions.html">Subscriptions</a>
+                <a href="submit.html">Submit an article</a>
+                <a href="help.html">Help/Contact</a>
+
+            </div>
+
+
+            <!-- CONTACT -->
+            <div class="footer-col">
+
+                <h3>Contact</h3>
+
+                <a href="mailto:newsroom@newsingreen.edu">
+                    newsroom@newsingreen.edu
+                </a>
+
+                <span>
+                    123 University Avenue, Colombo
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- COPYRIGHT -->
+        <div class="footer-bottom">
+            <span>&copy; 2026 News In Green</span>
+        </div>
+
+    </footer>
+
+</body>
+
+</html>
