@@ -1,26 +1,21 @@
-<!DOCTYPE html>
-<html>
 
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bookmarks — News In Green</title>
     <link rel="stylesheet" href="bookmarks.css">
+    <script src="links.js" defer></script>
+    <script src="bookmarks.js" defer></script>
 </head>
 
 <body class="dark-mode">
-
-    <script src="links.js"></script>
-    <script src="bookmarks.js"></script>
-
     <header class="site-header">
         <div class="header-inner">
-
             <a href="home.php" class="brand">
                 <span class="brand-mark">N</span>
-                <span class="brand-text">
-                    News <em>In Green</em>
-                </span>
+                <span class="brand-text">News <em>In Green</em></span>
             </a>
 
             <nav class="main-nav" id="main-nav" aria-label="Primary">
@@ -34,28 +29,28 @@
             </nav>
 
             <div class="header-actions">
-                <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false"
-                    onclick="toggleTheme()">
+                <button id="theme-toggle" class="theme-toggle"
+                        type="button" aria-pressed="false"
+                        onclick="toggleTheme()"
+                        aria-label="Toggle light and dark theme">
                     <span class="toggle-track">
                         <span class="toggle-thumb"></span>
                     </span>
                     <span class="toggle-label">Night</span>
                 </button>
 
-                <a href="login.html"  class="btn-ghost">
-                    Log in
-                </a>
+                <a href="login.html" class="btn-ghost">Log out</a>
             </div>
 
-            <button class="nav-burger" id="nav-burger" type="button" aria-label="Open menu" aria-expanded="false">
+            <button class="nav-burger" id="nav-burger"
+                    type="button" aria-label="Open menu"
+                    aria-expanded="false" aria-controls="main-nav">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
-
         </div>
     </header>
-
 
     <main>
         <section class="title-section">
@@ -65,22 +60,23 @@
 
         <section class="empty-box">
             <h3>No bookmarks yet</h3>
-            <p>Save an article from the homepage or browse page<br>and it'll show up here.</p>
+            <p>
+                Save an article from the homepage or browse page
+                and it'll show up here.
+            </p>
             <a href="browse.html" class="btn-browse">Browse articles</a>
         </section>
-    </main>
 
+        <section class="bookmark-list" id="bookmark-list"></section>
+    </main>
 
     <footer class="site-footer">
         <div class="footer-inner">
-
             <div class="footer-brand">
-                <div class="brand">
+                <a href="home.php" class="brand">
                     <span class="brand-mark">N</span>
-                    <span class="brand-text">
-                        News <em>In Green</em>
-                    </span>
-                </div>
+                    <span class="brand-text">News <em>In Green</em></span>
+                </a>
                 <p>
                     The student-run news portal covering academics,
                     events, sport, and campus life.
@@ -97,7 +93,7 @@
 
             <div class="footer-col">
                 <h3>Account</h3>
-                <a href="login.html">Log in</a>
+                <a href="login.html">Log out</a>
                 <a href="register.html">Register</a>
                 <a href="bookmarks.html">Bookmarks</a>
                 <a href="subscriptions.html">Subscription</a>
@@ -111,14 +107,11 @@
                 </a>
                 <span>123 University Avenue, Colombo</span>
             </div>
-
         </div>
 
         <div class="footer-bottom">
             &copy; 2026 News In Green
         </div>
     </footer>
-
 </body>
-
 </html>
