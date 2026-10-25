@@ -62,20 +62,20 @@ body.light-mode .toggle-label { color: #64748b; }
 .site-header {
     position: sticky;
     top: 0;
-    z-index: 100;           
-    border-bottom: 1px solid;
-    width: 100%; 
-    height: 80px;
+    z-index: 20;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
 }
 
 .header-inner {
-    width: 90%; 
-    max-width: 1400px; 
-    height: 100%; 
-    margin: auto; 
-    display: flex; 
-    align-items: center; 
-    gap: 35px;
+    width: 100%;
+    max-width: 1380px;
+    height: auto;
+    margin: auto;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
 .brand {
@@ -87,23 +87,14 @@ body.light-mode .toggle-label { color: #64748b; }
 }
 
 .brand-mark {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #22c55e, #0f7a3d);
-    color: #04140b;
-    font-weight: 800;
-    font-size: 1.25rem;
-    display: grid;
-    place-items: center;
-    flex: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+    font-size: 1rem;
 }
 
 .brand-text {
-    font-family: Georgia, serif; 
-    font-size: 20px;
-    font-weight: bold;
-    white-space: nowrap;
+    font-size: 1.1rem;
 }
 
 .brand-text em {
@@ -112,47 +103,51 @@ body.light-mode .toggle-label { color: #64748b; }
 }
 
 .main-nav {
-    height: 100%; 
-    flex: 1;                
+    height: auto;
+    flex: 1;
     display: flex;
     align-items: center;
-    gap: 29px;
+    gap: 20px;
 }
 
 .main-nav a {
-    height: 100%; 
-    display: flex; 
-    align-items: center; 
-    white-space: nowrap;
-    text-decoration: none;
-    font-size: 14px;
-    position: relative;
+    height: auto;
+    display: block;
+    padding-bottom: 4px;
+    font-size: 0.9rem;
+    border-bottom: 2px solid transparent;
 }
 
 .main-nav a.active {
-    font-weight: 500;
+    border-bottom: 2px solid #22c55e;
 }
 
-/* Green underline under the current page ("Bookmarks") */
 .main-nav a.active::after {
-    content: "";
-    position: absolute;
-    bottom: 21px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: #22c55e;
+    content: none;
 }
 
-/* ----- Right side: theme toggle + Log in + Register ----- */
 .header-actions {
     display: flex;
     align-items: center;
-    gap: 12px;
-    flex: none;
+    gap: 14px;
 }
 
-/* Night / Day toggle button */
+.nav-burger {
+    display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.nav-burger span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background-color: currentColor;
+    margin: 5px;
+}
+
 .theme-toggle {
     background: none;
     border: none;
@@ -164,7 +159,7 @@ body.light-mode .toggle-label { color: #64748b; }
 }
 
 .toggle-label {
-    min-width: 32px;          /* stops the button jumping when text changes */
+    min-width: 32px;         
 }
 
 .toggle-track {
@@ -187,7 +182,6 @@ body.light-mode .toggle-label { color: #64748b; }
     transition: transform 0.2s;
 }
 
-/* Light mode: thumb slides to the left and the track turns grey */
 body.light-mode .toggle-track {
     background-color: #cbd5e1;
 }
@@ -197,7 +191,6 @@ body.light-mode .toggle-thumb {
     background-color: #ffffff;
 }
 
-/* Log in button (dark) */
 .btn-login {
     color: #ffffff !important;
     text-decoration: none;
@@ -216,7 +209,6 @@ body.light-mode .toggle-thumb {
     border-color: #22c55e;
 }
 
-/* Register button (green) */
 .btn-register {
     color: #060e08 !important;
     border: 1px solid #22c55e;
@@ -234,14 +226,6 @@ body.light-mode .toggle-thumb {
     background-color: #16a34a;
 }
 
-
-/* ==========================================================================
-   PART 3 of 6: MIDDLE SECTION (main content)
-   - Frosted-glass card holding the page title and the "No bookmarks" box
-   - .bookmark-list / .bookmark-card are ready for saved articles later
-   ========================================================================== */
-
-/* ----- Text colours: dark mode ----- */
 body.dark-mode .title-section h2, 
 body.dark-mode .empty-box h3 { 
     color: #ffffff; 
@@ -252,7 +236,6 @@ body.dark-mode .empty-box p {
     color: #8ca391; 
 }
 
-/* ----- Text colours: light mode ----- */
 body.light-mode .title-section h2, 
 body.light-mode .empty-box h3 { 
     color: #12180f; 
@@ -263,7 +246,6 @@ body.light-mode .empty-box p {
     color: #2f3f35; 
 }
 
-/* ----- Big glass card (light mode look) ----- */
 main {
     width: 90%;
     max-width: 1000px;
@@ -278,7 +260,6 @@ main {
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
 }
 
-/* Big glass card (dark mode look) */
 body.dark-mode main {
     background: rgba(14, 22, 18, 0.58);
     -webkit-backdrop-filter: blur(16px) saturate(120%);
@@ -287,7 +268,6 @@ body.dark-mode main {
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
 }
 
-/* ----- Page title ("Your bookmarks") ----- */
 .title-section {
     margin-bottom: 2.5rem;
 }
@@ -302,7 +282,6 @@ body.dark-mode main {
     font-size: 15px;
 }
 
-/* ----- Small glass boxes: empty-state box and bookmark cards ----- */
 .empty-box,
 .bookmark-card {
     background: rgba(255, 255, 255, 0.06);
@@ -318,7 +297,6 @@ body.dark-mode .bookmark-card {
     border: 1px solid rgba(255, 255, 255, 0.16);
 }
 
-/* ----- "No bookmarks yet" box ----- */
 .empty-box {
     text-align: center;
     padding: 3rem 2rem;
@@ -339,7 +317,6 @@ body.dark-mode .bookmark-card {
     line-height: 1.5;
 }
 
-/* "Browse articles" green button */
 .btn-browse {
     background-color: #22c55e;
     color: #000000;
@@ -356,7 +333,6 @@ body.dark-mode .bookmark-card {
     background-color: #16a34a;
 }
 
-/* ----- Saved bookmark cards (used once articles can be saved) ----- */
 .bookmark-list {
     display: flex;
     flex-direction: column;
@@ -383,14 +359,6 @@ body.light-mode .bookmark-card h4 { color: #12180f; }
 body.light-mode .bookmark-card .bookmark-meta,
 body.light-mode .bookmark-card .bookmark-date { color: #2f3f35; }
 
-
-/* ==========================================================================
-   PART 4 of 6: FOOTER
-   - 4 columns: brand, Sections, Account, Contact
-   - Copyright line at the bottom
-   ========================================================================== */
-
-/* ----- Footer colours: dark mode ----- */
 body.dark-mode .site-footer {
     background-color: #0b120c;
     border-color: #1a2a1d;
@@ -407,7 +375,6 @@ body.dark-mode .footer-col span {
     color: #e2ece4; 
 }
 
-/* ----- Footer colours: light mode ----- */
 body.light-mode .site-footer {
     background-color: #ffffff;
     border-color: #e2e8f0;
@@ -424,24 +391,22 @@ body.light-mode .footer-col span {
     color: #334155; 
 }
 
-/* ----- Footer layout ----- */
 .site-footer {
     border-top: 1px solid;
     padding: 4rem 2rem 2rem;
-    margin-top: auto;         /* pushes footer to the bottom of the page */
+    margin-top: auto;         
 }
 
 .footer-inner {
-    width: 90%;
-    max-width: 1400px;
+    width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;   /* brand column is twice as wide */
+    grid-template-columns: 2fr 1fr 1fr 1fr;   
     gap: 2rem;
     margin-bottom: 3rem;
 }
 
-/* Brand column (logo + short description) */
 .footer-brand .brand-mark {
     display: inline-grid;
     vertical-align: middle;
@@ -449,7 +414,7 @@ body.light-mode .footer-col span {
 
 .footer-brand .brand-text {
     vertical-align: middle;
-    margin-left: 10px;
+    margin-left: 0;
 }
 
 .footer-brand p {
@@ -459,7 +424,6 @@ body.light-mode .footer-col span {
     line-height: 1.5;
 }
 
-/* Link columns */
 .footer-col h3 {
     font-size: 1rem;
     margin-bottom: 1.5rem;
@@ -471,74 +435,78 @@ body.light-mode .footer-col span {
     text-decoration: none;
     font-size: 0.9rem;
     margin-bottom: 0.75rem;
-    overflow-wrap: anywhere;  /* long email addresses wrap instead of overflowing */
+    overflow-wrap: anywhere;  
 }
 
 .footer-col a:hover {
     color: #22c55e;
 }
 
-/* Copyright line */
 .footer-bottom {
-    width: 90%; 
-    max-width: 1400px; 
+    width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
     text-align: center;
     font-size: 0.85rem;
     padding-top: 1.5rem;
-    padding-bottom: 1rem;
+    padding-bottom: 0;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 
-/* ==========================================================================
-   PART 5 of 6: RESPONSIVE (smaller screens)
-   ========================================================================== */
-
-/* Laptops and smaller: navigation moves to its own row under the logo,
-   so the header never overflows. It scrolls sideways if still too wide. */
-@media (max-width: 1400px) {
-    .site-header {
-        height: auto;
-    }
-
+@media (max-width: 1200px) {
     .header-inner {
-        height: auto;
-        flex-wrap: wrap;
-        gap: 8px 20px;
-        padding: 10px 0 0;
-    }
-
-    .header-actions {
-        margin-left: auto;    /* buttons go to the right of the logo */
+        gap: 16px;
     }
 
     .main-nav {
-        order: 3;             /* nav drops below logo + buttons */
-        flex: 1 1 100%;
-        height: 44px;
-        gap: 24px;
-        overflow-x: auto;
+        gap: 12px;
     }
 
-    .main-nav a.active::after {
-        bottom: 0;            /* underline sits at the bottom of the nav row */
+    .main-nav a {
+        font-size: 0.82rem;
     }
 }
 
-/* Tablets */
-@media (max-width: 800px) {
-    .footer-inner {
-        grid-template-columns: 1fr 1fr;   /* footer becomes 2 columns */
+@media (max-width: 1050px) {
+    .header-inner {
+        position: relative;
     }
 
-    /* fixed backgrounds are unreliable on mobile browsers */
+    .main-nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        padding: 20px;
+        flex-direction: column;
+        align-items: flex-start;
+        background-color: var(--bg);
+        border-bottom: 1px solid var(--border);
+        z-index: 20;
+    }
+
+    .main-nav.open {
+        display: flex;
+    }
+
+    .nav-burger {
+        display: block;
+    }
+}
+
+
+@media (max-width: 800px) {
+    .footer-inner {
+        grid-template-columns: 1fr 1fr;   
+    }
+
     body {
         background-attachment: scroll;
     }
 }
 
-/* Phones */
 @media (max-width: 600px) {
     main {
         margin: 2rem auto;
@@ -555,7 +523,7 @@ body.light-mode .footer-col span {
     }
 
     .footer-inner {
-        grid-template-columns: 1fr;       /* footer becomes 1 column */
+        grid-template-columns: 1fr;     
     }
 
     .site-footer {
@@ -563,22 +531,15 @@ body.light-mode .footer-col span {
     }
 
     .toggle-label {
-        display: none;        /* only the toggle switch is shown on phones */
+        display: none;       
     }
 }
 
-
-/* ==========================================================================
-   PART 6 of 6: FALLBACKS
-   ========================================================================== */
-
-/* Browsers without blur support get a nearly solid card instead */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
     main { background: rgba(247, 250, 248, 0.95); }
     body.dark-mode main { background: rgba(14, 22, 18, 0.94); }
 }
 
-/* People who turned on "reduce transparency" get a solid card */
 @media (prefers-reduced-transparency: reduce) {
     main { background: #f7faf8; -webkit-backdrop-filter: none; backdrop-filter: none; }
     body.dark-mode main { background: #0e1612; }
