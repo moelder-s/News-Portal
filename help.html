@@ -20,16 +20,21 @@
                 <a href="browse.html">Browse</a>
                 <a href="bookmarks.html">Bookmarks</a>
                 <a href="submit.html">Submit an article</a>
-                <a href="subscription.html">Subscription</a>
+                <a href="subscription.html">Subscriptions</a>
                 <a href="help.html" class="active">Help & Support</a>
-
             </nav>
 
             <div class="header-actions">
-                <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to night mode"
+                <button
+                    id="theme-toggle"
+                    class="theme-toggle"
+                    type="button"
+                    aria-label="Switch theme"
                     onclick="toggleTheme()">
-                    <span class="toggle-track"><span class="toggle-thumb"></span></span>
-                    <span class="toggle-label">Day</span>
+                    <span class="toggle-track">
+                        <span class="toggle-thumb"></span>
+                    </span>
+                    <span class="toggle-label" id="toggle-label">Day</span>
                 </button>
                 <a href="login.html" class="btn-logout">Log out</a>
             </div>
@@ -80,6 +85,7 @@
                 </div>
             </div>
         </section>
+        
         <!-- Category 2: Submitting Articles -->
         <section class="help-topics" id="submitting" style="margin-top: 50px;">
             <h2>Submitting & Article Publishing</h2>
@@ -174,30 +180,6 @@
             <span>&copy; 2026 News In Green</span>
         </div>
     </footer>
-
-<<<<<<< HEAD
-=======
-    <script>
-        function toggleTheme() {
-            const body = document.body;
-            const isDay = body.classList.contains('light-mode');
-            if (isDay) {
-                body.classList.add('dark-mode');
-                body.classList.remove('light-mode');
-            } else {
-                body.classList.add('light-mode');
-                body.classList.remove('dark-mode');
-            }
-
-            const themeLabel = isDay ? 'Night' : 'Day';
-            document.querySelector('.toggle-label').textContent = themeLabel;
-            document.getElementById('theme-toggle').setAttribute(
-                'aria-label',
-                `Switch to ${isDay ? 'day' : 'night'} mode`
-            );
-        }
-    </script>
->>>>>>> 5df391b (Help/Support)
+    <script src="help.js"></script>
 </body>
-
 </html>

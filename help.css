@@ -24,13 +24,13 @@ body.light-mode {
     color: #0f172a;
 }
 
-/* ===== HEADER + FOOTER THEME COLORS (from friend's palette) ===== */
+/* ===== HEADER + FOOTER THEME COLORS ===== */
 body.light-mode .site-header,
 body.light-mode .site-footer {
     --bg-solid: #f7faf8;
     --text-main: #12180f;
     --text-muted: #2f3f35;
-    --accent-green: #1f6f45;
+    --accent-green: #35b96b;
     --glass-border: rgba(255, 255, 255, 0.65);
 }
 
@@ -39,7 +39,7 @@ body.dark-mode .site-footer {
     --bg-solid: #0e1612;
     --text-main: #f1f6f3;
     --text-muted: rgba(255, 255, 255, 0.8);
-    --accent-green: #4ade80;
+    --accent-green: #35b96b;
     --glass-border: rgba(255, 255, 255, 0.14);
 }
 
@@ -96,24 +96,26 @@ body.dark-mode .site-footer {
 
 .main-nav {
     display: flex;
-    gap: 2rem;
+    gap: 1.2rem;
+    margin-left: auto;
+    margin-right: 1.5rem;
 }
 
+/* Navigation Links with Clean Glowing Line Effect */
 .main-nav a {
     font-size: 0.9rem;
     color: var(--text-muted);
     text-decoration: none;
-    transition: color 0.2s;
+    padding-bottom: 0.3rem;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s ease, border-bottom-color 0.2s ease, text-shadow 0.2s ease;
 }
 
-.main-nav a:hover {
-    color: var(--text-main);
-}
-
+.main-nav a:hover,
 .main-nav a.active {
     color: var(--text-main);
-    border-bottom: 2px solid var(--accent-green);
-    padding-bottom: 0.2rem;
+    border-bottom-color: var(--accent-green);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
 }
 
 .header-actions {
@@ -136,13 +138,22 @@ body.dark-mode .site-footer {
     color: var(--text-muted);
 }
 
+/* Toggle track: Grey in day mode, Green in night mode */
 .toggle-track {
     width: 36px;
     height: 20px;
-    background-color: var(--accent-green);
     border-radius: 20px;
     position: relative;
     display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+body.light-mode .toggle-track {
+    background-color: #b9c8be; 
+}
+
+body.dark-mode .toggle-track {
+    background-color: var(--accent-green);
 }
 
 .toggle-thumb {
@@ -160,20 +171,22 @@ body.dark-mode .toggle-thumb {
     transform: translateX(16px);
 }
 
+/* Logout button with glowing hover effect */
 .btn-logout {
-    border: 1px solid var(--accent-green);
+    border: 2px solid var(--glass-border);
     color: var(--text-main);
-    background: none;
+    background: transparent;
     padding: 0.4rem 1rem;
-    border-radius: 6px;
+    border-radius: 10px;
     font-size: 0.9rem;
     text-decoration: none;
-    transition: color 0.2s, background-color 0.2s, box-shadow 0.2s;
+    transition: color 0.2s, background-color 0.2s, box-shadow 0.2s, border-color 0.2s;
 }
 
 .btn-logout:hover,
 .btn-logout:focus-visible {
-    background-color: transparent;
+    border-color: var(--accent-green);
+    background: rgba(53, 185, 107, 0.12);
     color: var(--text-main);
     box-shadow: 0 0 12px var(--accent-green);
 }
@@ -233,7 +246,7 @@ body.dark-mode .toggle-thumb {
     font-size: 0.85rem;
 }
 
-/* ===== PAGE CONTENT (unchanged) ===== */
+/* ===== PAGE CONTENT  ===== */
 
 .help-main {
     flex: 1;
@@ -382,7 +395,6 @@ body.light-mode .topic-card {
    GLASS EFFECT ADD-ON
    ============================================================ */
 
-/* 1. Background photo behind the whole page */
 body {
     background-image:
         linear-gradient(rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.18)),
@@ -391,22 +403,17 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    /* photo stays still while you scroll */
 }
 
-/* A darker tint in night mode */
 body.dark-mode {
     background-image:
         linear-gradient(rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.32)),
         url("bg.jpg");
 }
 
-/* 2. The big frosted-glass panel around the main content */
 .help-main {
     margin: 4rem auto;
-    /* space above/below so the photo shows */
     padding: 3rem;
-    /* space inside the glass panel */
     border-radius: 36px;
     -webkit-backdrop-filter: blur(18px) saturate(130%);
     backdrop-filter: blur(18px) saturate(130%);
@@ -415,7 +422,7 @@ body.dark-mode {
 body.light-mode .help-main {
     background: rgba(255, 255, 255, 0.58);
     border: 1px solid rgba(255, 255, 255, 0.65);
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+    box-shadow: 0 24px 60px rgba(223, 205, 205, 0.28);
 }
 
 body.dark-mode .help-main {
@@ -424,7 +431,6 @@ body.dark-mode .help-main {
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
 }
 
-/* 3. Semi-transparent glass cards, search box and tags inside the panel */
 body.dark-mode .topic-card,
 body.dark-mode .search-box,
 body.dark-mode .tag {
@@ -439,7 +445,6 @@ body.light-mode .tag {
     border-color: rgba(0, 0, 0, 0.14);
 }
 
-/* 4. Make the grey text darker in day mode so it's readable on light glass */
 body.light-mode .sub-title,
 body.light-mode .hero-desc,
 body.light-mode .tag-label,
@@ -447,7 +452,6 @@ body.light-mode .topic-card p {
     color: #2f3f35;
 }
 
-/* 5. Brighter grey text in night mode for the same reason */
 body.dark-mode .sub-title,
 body.dark-mode .hero-desc,
 body.dark-mode .tag-label,
@@ -455,7 +459,6 @@ body.dark-mode .topic-card p {
     color: rgba(255, 255, 255, 0.8);
 }
 
-/* 6. Fallback for old browsers that can't do blur */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
     body.light-mode .help-main {
         background: rgba(247, 250, 248, 0.95);
