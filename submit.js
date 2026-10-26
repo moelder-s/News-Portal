@@ -16,10 +16,9 @@
         );
     }
 
-    let savedTheme = null;
-    try { savedTheme = localStorage.getItem('nig-theme'); } catch (error) {}
-
-    applyTheme(savedTheme || 'light');
+    // Always start in Day mode
+    applyTheme('light');
+    try { localStorage.removeItem('nig-theme'); } catch (error) {}
 
     themeToggle.addEventListener('click', function () {
         const newTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
