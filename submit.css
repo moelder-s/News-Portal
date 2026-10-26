@@ -21,11 +21,6 @@
     --toggle-off: #b9c8be;
     --btn-text: #06100b;
 
-    --overlay: linear-gradient(
-        rgba(237, 243, 239, 0.55),
-        rgba(237, 243, 239, 0.55)
-    );
-
     --card-bg: linear-gradient(
         135deg,
         rgba(255, 255, 255, 0.65),
@@ -53,6 +48,18 @@
     --footer-head: #203328;
     --footer-text: #637569;
     --footer-line: #dce7de;
+
+    /* Header (Day) */
+    --h-bg: rgba(255,255,255,0.95);
+    --h-bg-open: rgba(255,255,255,0.98);
+    --h-text: #1a251d;
+    --h-line: rgba(0, 0, 0, 0.14);
+    --h-accent: #1a251d;
+    --h-mark-bg: #14532d;
+    --h-mark-text: #e8f5ec;
+    --h-track: #2b2f2c;
+    --h-thumb: #ffffff;
+    --h-btn-border: rgba(0, 0, 0, 0.28);
 }
 
 /* ==============================
@@ -73,24 +80,19 @@ html[data-theme="dark"] {
     --toggle-off: #405148;
     --btn-text: #05130a;
 
-    --overlay: linear-gradient(
-        rgba(7, 16, 12, 0.65),
-        rgba(7, 16, 12, 0.65)
-    );
-
     --card-bg: linear-gradient(
         135deg,
-        rgba(255, 255, 255, 0.13),
-        rgba(255, 255, 255, 0.045)
+        rgba(10, 24, 16, 0.82),
+        rgba(7, 16, 12, 0.72)
     );
 
-    --card-border: rgba(255, 255, 255, 0.20);
+    --card-border: rgba(255, 255, 255, 0.12);
     --card-shadow: 0 25px 70px rgba(0, 0, 0, 0.28);
 
     --lead: #d0dbd3;
     --label: #f0f4f0;
-    --field-bg: rgba(0, 0, 0, 0.17);
-    --field-bg-focus: rgba(255, 255, 255, 0.12);
+    --field-bg: rgba(0, 0, 0, 0.35);
+    --field-bg-focus: rgba(0, 0, 0, 0.5);
     --field-border: rgba(255, 255, 255, 0.19);
     --field-text: #ffffff;
     --placeholder: #a8b5ab;
@@ -105,6 +107,18 @@ html[data-theme="dark"] {
     --footer-head: #f0f5f1;
     --footer-text: #aab8af;
     --footer-line: rgba(255, 255, 255, 0.10);
+
+    /* Header (Night) */
+    --h-bg: rgba(7, 16, 12, 0.85);
+    --h-bg-open: rgba(7, 16, 12, 0.97);
+    --h-text: #eeeeee;
+    --h-line: rgba(255, 255, 255, 0.15);
+    --h-accent: #35b96b;
+    --h-mark-bg: #35b96b;
+    --h-mark-text: #05130a;
+    --h-track: #35b96b;
+    --h-thumb: #07100c;
+    --h-btn-border: rgba(255, 255, 255, 0.20);
 }
 
 /* ==============================
@@ -170,55 +184,59 @@ textarea:focus-visible {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: var(--bg);
-    border-bottom: 1px solid var(--border);
+    background: var(--h-bg);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--h-line);
 }
 
 .header-inner {
     max-width: 1380px;
     margin: auto;
-    padding: 16px 24px;
+    padding: 14px 24px;
     display: flex;
     align-items: center;
-    gap: 28px;
+    gap: 26px;
 }
 
 .brand {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     font-family: Georgia, serif;
-    font-size: 1.15rem;
-    font-weight: 600;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--h-text);
     white-space: nowrap;
     margin-right: auto;
 }
 
 .brand-mark {
-    width: 30px;
-    height: 30px;
-    border-radius: 7px;
-    background: var(--green);
-    color: #05130a;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    background: var(--h-mark-bg);
+    color: var(--h-mark-text);
+    border: 1px solid rgba(255, 255, 255, 0.25);
     display: grid;
     place-items: center;
     font-weight: bold;
 }
 
 .brand-text em {
-    color: var(--green);
+    color: inherit;
     font-style: normal;
 }
 
 .main-nav {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 22px;
 }
 
 .main-nav a {
-    font-size: 0.9rem;
-    color: var(--muted);
+    font-size: 0.95rem;
+    color: var(--h-text);
     padding-bottom: 4px;
     border-bottom: 2px solid transparent;
     white-space: nowrap;
@@ -226,8 +244,7 @@ textarea:focus-visible {
 
 .main-nav a:hover,
 .main-nav a.active {
-    color: var(--text);
-    border-bottom-color: var(--green);
+    border-bottom-color: var(--h-accent);
 }
 
 .header-actions {
@@ -236,50 +253,20 @@ textarea:focus-visible {
     gap: 14px;
 }
 
-/* ==============================
-   BUTTONS
-============================== */
-
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 16px;
-    border: 1px solid var(--border);
-    border-radius: 9px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background 0.25s ease,
-                color 0.25s ease,
-                border-color 0.25s ease,
-                transform 0.25s ease;
-}
-
 .btn-ghost {
-    color: var(--text);
+    color: var(--h-text);
     background: transparent;
-    border: 2px solid var(--border);
+    border: 1.5px solid var(--h-btn-border);
     border-radius: 10px;
     padding: 10px 20px;
+    font-size: 1.05rem;
     white-space: nowrap;
     transition: 0.2s;
 }
 
 .btn-ghost:hover {
-    border-color: var(--green);
+    border-color: var(--h-accent);
     background: rgba(53, 185, 107, 0.12);
-}
-
-.btn-primary {
-    color: var(--btn-text);
-    background: var(--green);
-    border-color: var(--green);
-    font-weight: bold;
-}
-
-.btn-primary:hover {
-    background: var(--green-hover);
-    transform: translateY(-1px);
 }
 
 /* ==============================
@@ -292,39 +279,34 @@ textarea:focus-visible {
     gap: 8px;
     border: none;
     background: transparent;
-    color: var(--muted);
+    color: var(--h-text);
     font-size: 13px;
 }
 
 .toggle-track {
     display: block;
     position: relative;
-    width: 40px;
-    height: 21px;
+    width: 42px;
+    height: 22px;
     border-radius: 20px;
-    background: var(--toggle-off);
+    background: var(--h-track);
     flex-shrink: 0;
     transition: background 0.3s;
 }
 
 .toggle-thumb {
     position: absolute;
-    width: 17px;
-    height: 17px;
+    width: 18px;
+    height: 18px;
     left: 2px;
     top: 2px;
-    background: #ffffff;
+    background: var(--h-thumb);
     border-radius: 50%;
     transition: left 0.3s, background 0.3s;
 }
 
-html[data-theme="dark"] .toggle-track {
-    background: var(--green);
-}
-
 html[data-theme="dark"] .toggle-thumb {
-    left: 21px;
-    background: #07100c;
+    left: 22px;
 }
 
 .toggle-label {
@@ -339,15 +321,14 @@ html[data-theme="dark"] .toggle-thumb {
     display: none;
     background: transparent;
     border: none;
-    padding: 6px;
 }
 
 .nav-burger span {
     display: block;
     width: 25px;
     height: 2px;
-    background: var(--text);
-    margin: 5px 0;
+    background: var(--h-text);
+    margin: 5px;
 }
 
 /* ==============================
@@ -360,7 +341,7 @@ main {
     flex: 1;
     min-height: 650px;
     padding: 55px 20px 75px;
-    background-image:  url("submit.jpg");
+    background-image: url("submit.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -622,6 +603,8 @@ main {
 .footer-brand .brand-mark {
     display: inline-grid;
     vertical-align: middle;
+    background: var(--green);
+    color: #05130a;
 }
 
 .footer-brand .brand-text {
@@ -631,6 +614,10 @@ main {
     font-family: Georgia, "Times New Roman", serif;
     font-size: 18px;
     font-weight: bold;
+}
+
+.footer-brand .brand-text em {
+    color: var(--green);
 }
 
 .footer-brand p {
@@ -684,11 +671,11 @@ main {
     }
 
     .main-nav {
-        gap: 12px;
+        gap: 14px;
     }
 
     .main-nav a {
-        font-size: 0.82rem;
+        font-size: 0.85rem;
     }
 }
 
@@ -702,8 +689,10 @@ main {
         padding: 20px;
         flex-direction: column;
         align-items: flex-start;
-        background: var(--bg);
-        border-bottom: 1px solid var(--border);
+        background: var(--h-bg-open);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border-bottom: 1px solid var(--h-line);
     }
 
     .main-nav.open {
@@ -742,7 +731,7 @@ main {
 
 @media (max-width: 600px) {
     .header-inner {
-        padding: 16px;
+        padding: 14px 16px;
         gap: 12px;
     }
 
