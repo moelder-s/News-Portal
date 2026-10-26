@@ -1,7 +1,6 @@
-
 /* ==============================
    THEME VARIABLES
-   Night is the base, light-mode class switches to Day
+   Night is the base, body.light-mode switches to Day
    (same method as browse.css)
 ============================== */
 
@@ -15,15 +14,10 @@
     --green-hover: #279c55;
     --switch-bg: rgba(255,255,255,0.28);
 
-    --overlay: linear-gradient(
-        rgba(7,16,12,0.65),
-        rgba(7,16,12,0.65)
-    );
-
     --glass: linear-gradient(
         135deg,
-        rgba(255,255,255,0.12),
-        rgba(255,255,255,0.045)
+        rgba(7,16,12,0.62),
+        rgba(7,16,12,0.45)
     );
 
     --card-glass: linear-gradient(
@@ -40,11 +34,6 @@ body.light-mode {
     --heading: #17231c;
     --border: rgba(0,0,0,0.1);
     --switch-bg: rgba(0,0,0,0.22);
-
-    --overlay: linear-gradient(
-        rgba(237,243,239,0.55),
-        rgba(237,243,239,0.55)
-    );
 
     --glass: linear-gradient(
         135deg,
@@ -247,13 +236,14 @@ body.light-mode .toggle-thumb {
    SUBSCRIPTIONS PAGE
 ============================== */
 
-/* Photo background with a green fallback if bg.jpg is missing */
+/* Background photo: the same light overlay in Day and Night,
+   so the photo keeps its colours. Only the glass box changes. */
 .subs-page {
     flex: 1;
     padding: 55px 20px 80px;
     background-color: #0e3b24;
     background-image:
-        var(--overlay),
+        linear-gradient(rgba(0,0,0,0.18), rgba(0,0,0,0.18)),
         url("bg.jpg");
     background-size: cover;
     background-position: center;
@@ -261,12 +251,12 @@ body.light-mode .toggle-thumb {
     background-attachment: fixed;
 }
 
-/* Glass panel */
+/* Glass box (Day = light glass, Night = dark glass) */
 .subs-panel {
     width: 74%;
     max-width: 860px;
     margin: auto;
-    padding: 2.5rem;
+    padding: 35px 40px 45px;
 
     border: 1px solid rgba(255,255,255,0.20);
     border-radius: 18px;
@@ -308,7 +298,6 @@ body.light-mode .subs-panel {
     line-height: 1.6;
 }
 
-/* Buttons inside the panel */
 .subs-panel .btn-ghost {
     background: transparent;
     font-size: 0.9rem;
@@ -349,15 +338,27 @@ body.light-mode .subs-panel {
     padding: 1.1rem 1.5rem;
 
     background: var(--card-glass);
-    border: 1px solid var(--border);
-    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 15px;
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,0.18),
+        inset 0 1px 0 rgba(255,255,255,0.12);
 
     cursor: pointer;
     transition: transform 0.25s, border-color 0.25s;
 }
 
+body.light-mode .sub-card {
+    border-color: rgba(0,0,0,0.08);
+    box-shadow: 0 10px 25px rgba(37,67,51,0.10);
+}
+
 .sub-card:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
     border-color: var(--green);
 }
 
@@ -529,7 +530,7 @@ body.light-mode .subs-panel {
 @media (max-width: 750px) {
     .subs-panel {
         width: 95%;
-        padding: 1.75rem;
+        padding: 28px 25px;
     }
 
     .footer-inner {
@@ -554,7 +555,7 @@ body.light-mode .subs-panel {
 
     .subs-panel {
         width: 100%;
-        padding: 1.5rem 1.1rem;
+        padding: 25px 18px;
     }
 
     .subs-greeting h1 {
