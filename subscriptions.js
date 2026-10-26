@@ -62,7 +62,7 @@ burger.addEventListener("click", function () {
 // SUBSCRIPTIONS (saved in MySQL through PHP)
 // ==============================
 
-var API = "subscriptions-api.php";
+var API = "subscriptions.php";
 
 var checkboxes = document.querySelectorAll(".sub-check");
 var countText = document.getElementById("sub-count");
