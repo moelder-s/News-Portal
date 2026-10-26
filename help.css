@@ -160,34 +160,22 @@ body.dark-mode .toggle-thumb {
     transform: translateX(16px);
 }
 
-.btn-login {
-    border: 1px solid var(--text-muted);
+.btn-logout {
+    border: 1px solid var(--accent-green);
     color: var(--text-main);
     background: none;
     padding: 0.4rem 1rem;
     border-radius: 6px;
     font-size: 0.9rem;
     text-decoration: none;
-    transition: border-color 0.2s;
+    transition: color 0.2s, background-color 0.2s, box-shadow 0.2s;
 }
 
-.btn-login:hover {
-    border-color: var(--text-main);
-}
-
-.btn-register {
-    background-color: var(--accent-green);
-    color: var(--bg-solid);
-    padding: 0.4rem 1rem;
-    border-radius: 6px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: opacity 0.2s;
-}
-
-.btn-register:hover {
-    opacity: 0.85;
+.btn-logout:hover,
+.btn-logout:focus-visible {
+    background-color: transparent;
+    color: var(--text-main);
+    box-shadow: 0 0 12px var(--accent-green);
 }
 
 /* ===== FOOTER ===== */

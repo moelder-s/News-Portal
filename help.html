@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="help.css">
 </head>
 
-<body class="dark-mode">
+<body class="light-mode">
     <header class="site-header">
         <div class="header-inner">
             <a href="news.html" class="brand">
@@ -26,13 +26,12 @@
             </nav>
 
             <div class="header-actions">
-                <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch theme"
+                <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to night mode"
                     onclick="toggleTheme()">
                     <span class="toggle-track"><span class="toggle-thumb"></span></span>
-                    <span class="toggle-label">Night</span>
+                    <span class="toggle-label">Day</span>
                 </button>
-                <a href="login.html" class="btn-login">Log in</a>
-                <a href="register.html" class="btn-register">Register</a>
+                <a href="login.html" class="btn-logout">Log out</a>
             </div>
         </div>
     </header>
@@ -176,6 +175,29 @@
         </div>
     </footer>
 
+<<<<<<< HEAD
+=======
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const isDay = body.classList.contains('light-mode');
+            if (isDay) {
+                body.classList.add('dark-mode');
+                body.classList.remove('light-mode');
+            } else {
+                body.classList.add('light-mode');
+                body.classList.remove('dark-mode');
+            }
+
+            const themeLabel = isDay ? 'Night' : 'Day';
+            document.querySelector('.toggle-label').textContent = themeLabel;
+            document.getElementById('theme-toggle').setAttribute(
+                'aria-label',
+                `Switch to ${isDay ? 'day' : 'night'} mode`
+            );
+        }
+    </script>
+>>>>>>> 5df391b (Help/Support)
 </body>
 
 </html>
