@@ -360,7 +360,7 @@ main {
     flex: 1;
     min-height: 650px;
     padding: 55px 20px 75px;
-    background-image: var(--overlay), url("submit.jpg");
+    background-image:  url("submit.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
