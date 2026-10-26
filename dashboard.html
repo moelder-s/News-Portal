@@ -4,46 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="dashboard.css">
-    <script>
-        /* code for loading the previous dark / light theme values from other pages --important */
-        try { if (localStorage.getItem('theme') === 'dark') document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
-    </script>
-    <script src="dashboard.js" defer></script>
     <script src="dashboard.js"></script>
+    
 </head>
 <body>
     <header class="site-header">
         <div class="header-inner">
-            <a href="news.html" class="brand">
+            <a href="home.php" class="brand">
                 <span class="brand-mark">N</span>
                 <span class="brand-text">News <em>In Green</em></span>
             </a>
 
-            <nav class="main-nav" id="main-nav" aria-label="Primary">
-                <a href="news.html">Home</a>
-                <a href="user-dashboard.html" class="active">Dashboard</a>
-                <a href="browse.html">Browse</a>
-                <a href="bookmarks.html">Bookmarks</a>
-                <a href="submit.html">Submit an Article</a>
-                <a href="help.html">Help &amp; Support</a>
+            <nav class="main-nav" aria-label="Primary">
+                <a href="login.html" class="active">Login</a>
+                <a href="dashboard.html" class="active">Dashboard</a>
+                
             </nav>
 
             <div class="header-actions">
-                <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to night mode"
+                <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to light mode"
                     aria-pressed="false">
                     <span class="toggle-track"><span class="toggle-thumb"></span></span>
-                    <span class="toggle-label">Day</span>
+                    <span class="toggle-label">Night</span>
                 </button>
                 <a href="#" id="logout-link" class="btn btn-ghost">Log out</a>
             </div>
 
-            <button class="nav-burger" id="nav-burger" aria-label="Open menu" aria-expanded="false" aria-controls="main-nav" type="button">
+            <button class="nav-burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
                 <span></span><span></span><span></span>
             </button>
         </div>
@@ -52,11 +43,13 @@
 <main class="dashboard-main container">
     
     <section class="dashboard-greeting">
+        <!-- Group the text together on the left -->
         <div class="greeting-text">
             <h1>Welcome back</h1>
             <p>Here's everything your account can do on News In Green.</p>
         </div>
         
+        <!-- The button is now a separate item pushed to the right -->
         <a href="profile.html" class="btn-ghost">Edit profile</a>
     </section>
 
@@ -66,7 +59,7 @@
             <span class="stat-number">0</span>
         </div>
         <div class="stat-card">
-            <h3>Subscribed categories</h3>
+            <h3>Subscribed catagories</h3>
             <span class="stat-number">0</span>
         </div>
         <div class="stat-card">
@@ -78,11 +71,11 @@
             <span class="stat-number">0</span>
         </div>
     </section>
-<!--My Submissions Section -->
+<!-- 1. My Submissions Section -->
     <section class="dashboard-submissions">
         <h3>My submissions</h3>
         <div class="submissions-grid">
-            <!--have to load the connecting part here -->
+            <!-- Example of a submitted article glass tile -->
             <div class="submission-card">
                 <div class="submission-info">
                     <h4>The Future of AI in Campus Learning</h4>
@@ -92,11 +85,11 @@
             </div>
         </div>
     </section>
-<!--My Comments Section -->
+<!-- 2. My Comments Section -->
     <section class="dashboard-comments">
         <h3>My comments</h3>
         <div class="comments-grid">
-            <!-- Example --have to load the connecting part here -->
+            <!-- Example of a comment glass tile -->
             <div class="comment-card">
                 <div class="comment-info">
                     <h4>On: The Future of AI in Campus Learning</h4>
@@ -107,6 +100,7 @@
         </div>
     </section>
 
+<!-- 3. Quick Actions Section -->
     <section class="dashboard-actions-section">
         <h3>Quick actions</h3>
         <div class="actions-grid">
@@ -118,33 +112,8 @@
 </main>
 
     <footer class="site-footer">
-        <div class="footer-inner">
-            <div class="footer-brand">
-                <span class="brand-mark">N</span>
-                <span class="brand-text">News <em>In Green</em></span>
-                <p>The student-run news portal covering academics, events, sport, and campus life.</p>
-            </div>
-            <div class="footer-col">
-                <h3>Sections</h3>
-                <a href="browse.html#academic">Academic</a>
-                <a href="browse.html#events">Events</a>
-                <a href="browse.html#sports">Sports</a>
-                <a href="browse.html#general">General</a>
-            </div>
-            <div class="footer-col">
-                <h3>Account</h3>
-                <a href="login.html">Log in</a>
-                <a href="register.html">Register</a>
-                <a href="bookmarks.html">Bookmarks</a>
-                <a href="subscriptions.html">Subscriptions</a>
-                <a href="submit.html">Submit an article</a>
-            </div>
-            <div class="footer-col">
-                <h3>Contact</h3>
-                <a href="mailto:newsroom@newsingreen.edu">newsroom@newsingreen.edu</a>
-                <span>123 University Avenue, Colombo</span>
-            </div>
-        </div>
+        
+        
         <div class="footer-bottom">
             <span>&copy; 2026 News In Green</span>
         </div>
@@ -152,4 +121,3 @@
     
 </body>
 </html>
-
