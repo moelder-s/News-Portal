@@ -15,8 +15,13 @@ function toggleTheme() {
 }
 
 (function init() {
-    var saved = 'dark';
-    try { saved = localStorage.getItem('theme') === 'light' ? 'light' : 'dark'; } catch (e) {}
+    var saved = 'light';
+    try { 
+        var stored = localStorage.getItem('theme');
+        if (stored === 'dark' || stored === 'light') {
+            saved = stored;
+        }
+    } catch (e) {}
     applyTheme(saved, false);
 
     document.addEventListener('DOMContentLoaded', function () {
