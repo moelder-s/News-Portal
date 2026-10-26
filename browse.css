@@ -266,7 +266,7 @@ body.light-mode .toggle-thumb {
 
     background-image:
         linear-gradient(var(--overlay), var(--overlay)),
-        url("browse.jpg");
+        url("nsbm.jpeg");
 
     background-size: cover;
     background-position: center;
