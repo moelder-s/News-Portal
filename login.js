@@ -1,4 +1,3 @@
-
 (function () {
     "use strict";
 
@@ -51,7 +50,7 @@
                     alert("Login successful!");
 
                     // Redirect to dashboard
-                    window.location.href = "user-dashboard.html";
+                    window.location.href = "home.php";
 
                 } else {
 
