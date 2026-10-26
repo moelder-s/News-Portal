@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8">
@@ -7,7 +7,7 @@
     <title>Log in — News In Green</title>
    
     
-    <link rel="stylesheet" href="news.css">
+    
     <link rel="stylesheet" href="login.css">
 </head>
 
@@ -15,12 +15,12 @@
 
     <header class="site-header">
         <div class="header-inner">
-            <a href="home.html" class="brand">
+            <a href="home.php" class="brand">
                 <span class="brand-mark">N</span>
                 <span class="brand-text">News <em>In Green</em></span>
             </a>
-            <nav class="main-nav" aria-label="Primary">
-                <a href="home.html">Home</a>
+            <nav class="main-nav" id="main-nav" aria-label="Primary">
+                <a href="home.php">Home</a>
                 <a href="user-dashboard.html">Dashboard</a>
                 <a href="browse.html">Browse</a>
                 <a href="bookmarks.html">Bookmarks</a>
@@ -28,13 +28,13 @@
                 <a href="help.html">Help & Support</a>
             </nav>
             <div class="header-actions">
-                <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to light mode"
+                <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to night mode"
                     aria-pressed="false">
                     <span class="toggle-track"><span class="toggle-thumb"></span></span>
                     <span class="toggle-label">Night</span>
                 </button>
             </div>
-            <button class="nav-burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
+            <button type="button" class="nav-burger" id="nav-burger" aria-controls="main-nav" aria-label="Open menu" aria-expanded="false">
                 <span></span><span></span><span></span>
             </button>
         </div>
@@ -67,11 +67,7 @@
         </div>
     </footer>
 
-    <script src="home.js"></script>
-    <script src="login.js"></script>
-    <script src="home.js"></script>
-    <script src="login.js"></script>
+    <script src="login.js" defer></script>
 </body>
-
 
 </html>
