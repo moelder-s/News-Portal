@@ -1,38 +1,72 @@
 
-/* GLOBAL STYLES */
+/* ==============================
+   THEME VARIABLES
+   Night is the base, light-mode class switches to Day
+   (same method as browse.css)
+============================== */
+
+:root {
+    --bg: #07100c;
+    --text: #eeeeee;
+    --text-muted: #a0aaa4;
+    --heading: #ffffff;
+    --border: rgba(255,255,255,0.15);
+    --green: #35b96b;
+    --green-hover: #279c55;
+    --switch-bg: rgba(255,255,255,0.28);
+
+    --overlay: linear-gradient(
+        rgba(7,16,12,0.65),
+        rgba(7,16,12,0.65)
+    );
+
+    --glass: linear-gradient(
+        135deg,
+        rgba(255,255,255,0.12),
+        rgba(255,255,255,0.045)
+    );
+
+    --card-glass: linear-gradient(
+        135deg,
+        rgba(255,255,255,0.13),
+        rgba(255,255,255,0.045)
+    );
+}
+
+body.light-mode {
+    --bg: #edf3ef;
+    --text: #152019;
+    --text-muted: #66736c;
+    --heading: #17231c;
+    --border: rgba(0,0,0,0.1);
+    --switch-bg: rgba(0,0,0,0.22);
+
+    --overlay: linear-gradient(
+        rgba(237,243,239,0.55),
+        rgba(237,243,239,0.55)
+    );
+
+    --glass: linear-gradient(
+        135deg,
+        rgba(255,255,255,0.65),
+        rgba(255,255,255,0.35)
+    );
+
+    --card-glass: linear-gradient(
+        135deg,
+        rgba(255,255,255,0.70),
+        rgba(255,255,255,0.38)
+    );
+}
+
+/* ==============================
+   GENERAL
+============================== */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-:root {
-    --green: #35a66f;
-    --green-dark: #237c50;
-    --bg: #edf3ee;
-    --text: #203328;
-    --muted: #52645a;
-    --glass: rgba(255, 255, 255, 0.65);
-    --border: rgba(255, 255, 255, 0.45);
-    --card: rgba(255, 255, 255, 0.65);
-    --header-bg: rgba(250, 253, 250, 0.90);
-    --footer-bg: rgba(248, 251, 248, 0.95);
-    --footer-text: #637569;
-    --switch-bg: rgba(0, 0, 0, 0.22);
-}
-
-/* DARK MODE */
-html[data-theme="dark"] {
-    --bg: #08110c;
-    --text: #f4f7f4;
-    --muted: #aab8af;
-    --glass: rgba(12, 25, 17, 0.70);
-    --border: rgba(255, 255, 255, 0.16);
-    --card: rgba(8, 14, 11, 0.55);
-    --header-bg: rgba(7, 17, 11, 0.90);
-    --footer-bg: rgba(6, 15, 9, 0.97);
-    --footer-text: #aab8af;
-    --switch-bg: rgba(255, 255, 255, 0.28);
 }
 
 html {
@@ -43,30 +77,10 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-
     font-family: Arial, Helvetica, sans-serif;
+    background: var(--bg);
     color: var(--text);
-    line-height: 1.6;
-
-    background:
-        linear-gradient(
-            rgba(255,255,255,0.14),
-            rgba(255,255,255,0.14)
-        ),
-        url("bg.jpg") center / cover fixed no-repeat,
-        var(--bg);
-
-    transition: background-color 0.3s, color 0.3s;
-}
-
-html[data-theme="dark"] body {
-    background:
-        linear-gradient(
-            rgba(0,0,0,0.50),
-            rgba(0,0,0,0.50)
-        ),
-        url("bg.jpg") center / cover fixed no-repeat,
-        var(--bg);
+    transition: background 0.3s, color 0.3s;
 }
 
 a {
@@ -74,63 +88,54 @@ a {
     text-decoration: none;
 }
 
-button,
-input {
-    font: inherit;
+button, input {
+    font-family: inherit;
 }
 
 button {
     cursor: pointer;
 }
 
-/* HEADER */
+/* ==============================
+   HEADER (same as browse.css)
+============================== */
+
 .site-header {
     position: sticky;
     top: 0;
-    z-index: 1000;
-
-    background: var(--header-bg);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    z-index: 20;
+    background: var(--bg);
     border-bottom: 1px solid var(--border);
 }
 
 .header-inner {
-    max-width: 1200px;
-    min-height: 76px;
+    max-width: 1380px;
     margin: auto;
-    padding: 12px 24px;
-
+    padding: 16px 24px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 16px;
+    gap: 28px;
 }
 
-/* BRAND */
 .brand {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     gap: 10px;
-    flex-shrink: 0;
-
     font-family: Georgia, serif;
-    font-size: 19px;
-    font-weight: bold;
+    font-size: 1.15rem;
+    font-weight: 600;
+    white-space: nowrap;
+    margin-right: auto;
 }
 
 .brand-mark {
-    width: 34px;
-    height: 34px;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
     background: var(--green);
-    color: #07150d;
-    border-radius: 9px;
-    font-size: 21px;
+    color: #05130a;
+    display: grid;
+    place-items: center;
     font-weight: bold;
 }
 
@@ -139,183 +144,186 @@ button {
     font-style: normal;
 }
 
-/* NAVIGATION */
 .main-nav {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 18px;
+    gap: 20px;
 }
 
 .main-nav a {
-    font-size: 13px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
     white-space: nowrap;
-    color: var(--muted);
-    transition: 0.25s;
 }
 
 .main-nav a:hover,
 .main-nav a.active {
-    color: var(--green);
+    color: var(--text);
+    border-bottom-color: var(--green);
 }
 
-.main-nav a.active {
-    border-bottom: 2px solid var(--green);
-    padding-bottom: 6px;
-}
-
-/* HEADER ACTIONS */
 .header-actions {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 14px;
 }
 
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 10px 16px;
-    border-radius: 9px;
-    border: 1px solid var(--border);
-    background: transparent;
+.btn-ghost {
     color: var(--text);
-
-    font-size: 14px;
-    transition: 0.25s;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 20px;
+    white-space: nowrap;
+    transition: 0.2s;
 }
 
-.btn:hover {
-    background: rgba(53, 166, 111, 0.16);
+.btn-ghost:hover {
     border-color: var(--green);
+    background: rgba(53,185,107,0.12);
 }
 
-/* NIGHT MODE BUTTON */
-.theme-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
+/* ==============================
+   THEME TOGGLE
+============================== */
 
-    padding: 6px;
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     border: none;
     background: transparent;
-    color: var(--text);
+    color: var(--text-muted);
+    font-size: 13px;
 }
 
 .toggle-track {
-    width: 39px;
-    height: 22px;
-    padding: 3px;
-
-    display: flex;
-    align-items: center;
-
+    display: block;
+    position: relative;
+    width: 40px;
+    height: 21px;
     border-radius: 20px;
-    background: #87958a;
-    transition: 0.3s;
+    background: #35b96b;
+    flex-shrink: 0;
+    transition: background 0.3s;
 }
 
 .toggle-thumb {
-    width: 16px;
-    height: 16px;
-
+    position: absolute;
+    width: 17px;
+    height: 17px;
+    left: 21px;
+    top: 2px;
+    background: #07100c;
     border-radius: 50%;
+    transition: left 0.3s, background 0.3s;
+}
+
+body.light-mode .toggle-track {
+    background: #b9c8be;
+}
+
+body.light-mode .toggle-thumb {
+    left: 2px;
     background: white;
-    transition: transform 0.3s;
 }
 
-html[data-theme="dark"] .toggle-track {
-    background: var(--green);
-}
-
-html[data-theme="dark"] .toggle-thumb {
-    transform: translateX(17px);
-}
-
-.toggle-label {
-    font-size: 12px;
-}
-
-/* MOBILE MENU BUTTON */
 .nav-burger {
     display: none;
-    flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-
-    padding: 8px;
-    border: none;
     background: transparent;
+    border: none;
 }
 
 .nav-burger span {
-    width: 24px;
+    display: block;
+    width: 25px;
     height: 2px;
     background: var(--text);
-    border-radius: 2px;
+    margin: 5px;
 }
 
-/* MAIN CONTENT */
-.subs-main {
+/* ==============================
+   SUBSCRIPTIONS PAGE
+============================== */
+
+/* Photo background with a green fallback if bg.jpg is missing */
+.subs-page {
     flex: 1;
-    width: 100%;
-    max-width: 860px;
-
-    margin: 3rem auto;
-    padding: 0 1.5rem;
+    padding: 55px 20px 80px;
+    background-color: #0e3b24;
+    background-image:
+        var(--overlay),
+        url("bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
-/* GLASS PANEL */
+/* Glass panel */
 .subs-panel {
+    width: 74%;
+    max-width: 860px;
+    margin: auto;
     padding: 2.5rem;
-    border-radius: 36px;
 
+    border: 1px solid rgba(255,255,255,0.20);
+    border-radius: 18px;
     background: var(--glass);
-    border: 1px solid var(--border);
-    color: var(--text);
 
-    backdrop-filter: blur(18px) saturate(130%);
-    -webkit-backdrop-filter: blur(18px) saturate(130%);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
 
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
-
-    transition: background 0.3s, color 0.3s;
+    box-shadow:
+        0 25px 70px rgba(0,0,0,0.28),
+        inset 0 1px 0 rgba(255,255,255,0.18);
 }
 
-/* GREETING */
+body.light-mode .subs-panel {
+    border-color: rgba(255,255,255,0.8);
+    box-shadow: 0 25px 70px rgba(37,67,51,0.15);
+}
+
 .subs-greeting {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
     flex-wrap: wrap;
-
     margin-bottom: 2rem;
 }
 
 .subs-greeting h1 {
     font-family: Georgia, serif;
-    font-size: 2.2rem;
-    margin-bottom: 0.25rem;
+    font-size: 36px;
+    color: var(--heading);
+    margin-bottom: 10px;
 }
 
 .subs-greeting p {
     max-width: 520px;
-    font-size: 0.9rem;
-    color: var(--muted);
+    color: var(--text-muted);
+    font-size: 15px;
+    line-height: 1.6;
 }
 
-/* SUMMARY */
+/* Buttons inside the panel */
+.subs-panel .btn-ghost {
+    background: transparent;
+    font-size: 0.9rem;
+}
+
 .sub-summary {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
     flex-wrap: wrap;
-
     margin-bottom: 1.25rem;
-    color: var(--muted);
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
     font-size: 0.95rem;
 }
 
@@ -325,7 +333,7 @@ html[data-theme="dark"] .toggle-thumb {
     flex-wrap: wrap;
 }
 
-/* SUBSCRIPTION CARDS */
+/* Category rows */
 .sub-grid {
     display: flex;
     flex-direction: column;
@@ -334,20 +342,18 @@ html[data-theme="dark"] .toggle-thumb {
 
 .sub-card {
     position: relative;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
-
     padding: 1.1rem 1.5rem;
 
-    background: var(--card);
+    background: var(--card-glass);
     border: 1px solid var(--border);
     border-radius: 12px;
 
     cursor: pointer;
-    transition: 0.25s;
+    transition: transform 0.25s, border-color 0.25s;
 }
 
 .sub-card:hover {
@@ -357,20 +363,20 @@ html[data-theme="dark"] .toggle-thumb {
 
 .sub-card.is-subscribed {
     border-color: var(--green);
-    box-shadow: 0 0 12px rgba(53, 166, 111, 0.15);
 }
 
 .sub-card h4 {
+    color: var(--heading);
     font-size: 1.05rem;
     margin-bottom: 0.15rem;
 }
 
 .sub-card p {
+    color: var(--text-muted);
     font-size: 0.85rem;
-    color: var(--muted);
 }
 
-/* SUBSCRIPTION SWITCH */
+/* Real checkbox is hidden, the switch below is shown */
 .sub-check {
     position: absolute;
     opacity: 0;
@@ -381,13 +387,11 @@ html[data-theme="dark"] .toggle-thumb {
 .switch {
     flex: none;
     position: relative;
-
     width: 46px;
     height: 26px;
-
     border-radius: 26px;
     background: var(--switch-bg);
-    transition: 0.25s;
+    transition: background-color 0.25s;
 }
 
 .switch::after {
@@ -395,12 +399,10 @@ html[data-theme="dark"] .toggle-thumb {
     position: absolute;
     top: 3px;
     left: 3px;
-
     width: 20px;
     height: 20px;
-
-    background: white;
     border-radius: 50%;
+    background: #ffffff;
     transition: transform 0.25s;
 }
 
@@ -417,59 +419,52 @@ html[data-theme="dark"] .toggle-thumb {
     outline-offset: 3px;
 }
 
-/* MESSAGES */
 .sub-message {
     min-height: 1.5rem;
     margin-top: 1.25rem;
-
-    font-size: 0.9rem;
     color: var(--green);
+    font-size: 0.9rem;
 }
 
-/* FOOTER */
-.site-footer {
-    background: var(--footer-bg);
-    border-top: 1px solid var(--border);
+/* ==============================
+   FOOTER (same as browse.css)
+============================== */
 
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+.site-footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 4rem 2rem 2rem;
+    margin-top: auto;
 }
 
 .footer-inner {
     max-width: 1200px;
     margin: auto;
-    padding: 45px 24px;
-
     display: grid;
-    grid-template-columns: 1.5fr 0.8fr 0.9fr 1.2fr;
-    gap: 38px;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
 }
 
 .footer-brand p {
-    max-width: 280px;
-    margin-top: 18px;
-    color: var(--footer-text);
-    font-size: 13px;
-}
-
-.footer-col {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+    color: var(--text-muted);
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    max-width: 250px;
+    line-height: 1.6;
 }
 
 .footer-col h3 {
-    margin-bottom: 8px;
-    font-size: 14px;
-    color: var(--text);
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .footer-col a,
 .footer-col span {
-    color: var(--footer-text);
-    font-size: 13px;
-    overflow-wrap: anywhere;
+    display: block;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
 }
 
 .footer-col a:hover {
@@ -477,50 +472,44 @@ html[data-theme="dark"] .toggle-thumb {
 }
 
 .footer-bottom {
-    padding: 20px;
-    text-align: center;
+    max-width: 1200px;
+    margin: auto;
+    padding-top: 1.5rem;
     border-top: 1px solid var(--border);
-
-    color: var(--footer-text);
-    font-size: 12px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
 }
 
-/* RESPONSIVE */
-@media (max-width: 1100px) {
+/* ==============================
+   RESPONSIVE
+============================== */
+
+@media (max-width: 1200px) {
     .header-inner {
+        gap: 16px;
+    }
+
+    .main-nav {
         gap: 12px;
     }
 
-    .main-nav {
-        gap: 10px;
-    }
-
     .main-nav a {
-        font-size: 12px;
+        font-size: 0.82rem;
     }
 }
 
-@media (max-width: 900px) {
-    .nav-burger {
-        display: flex;
-    }
-
+@media (max-width: 1050px) {
     .main-nav {
         display: none;
-
         position: absolute;
         top: 100%;
         left: 0;
         right: 0;
-
         padding: 20px;
         flex-direction: column;
-        align-items: stretch;
-        gap: 0;
-
-        background: var(--header-bg);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
+        align-items: flex-start;
+        background: var(--bg);
         border-bottom: 1px solid var(--border);
     }
 
@@ -528,19 +517,19 @@ html[data-theme="dark"] .toggle-thumb {
         display: flex;
     }
 
-    .main-nav a {
-        padding: 12px 8px;
-        font-size: 14px;
+    .nav-burger {
+        display: block;
     }
 
-    .main-nav a.active {
-        border-bottom: none;
-        border-left: 3px solid var(--green);
-        padding-left: 13px;
+    .subs-panel {
+        width: 88%;
     }
+}
 
-    .header-actions {
-        margin-left: auto;
+@media (max-width: 750px) {
+    .subs-panel {
+        width: 95%;
+        padding: 1.75rem;
     }
 
     .footer-inner {
@@ -550,41 +539,40 @@ html[data-theme="dark"] .toggle-thumb {
 
 @media (max-width: 600px) {
     .header-inner {
-        padding: 12px 16px;
+        padding: 16px;
+        gap: 12px;
     }
 
-    .brand {
-        font-size: 16px;
-    }
-
-    .header-actions .btn {
+    .header-actions .btn-ghost {
         display: none;
     }
 
-    .subs-main {
-        margin: 1.5rem auto;
-        padding: 0 1rem;
+    .subs-page {
+        padding: 30px 12px 50px;
+        background-attachment: scroll;
     }
 
     .subs-panel {
-        padding: 1.5rem;
-        border-radius: 24px;
+        width: 100%;
+        padding: 1.5rem 1.1rem;
     }
 
     .subs-greeting h1 {
-        font-size: 1.8rem;
-    }
-
-    .sub-card {
-        padding: 1rem;
+        font-size: 29px;
     }
 
     .footer-inner {
-        grid-template-columns: 1fr 1fr;
-        gap: 28px 16px;
+        grid-template-columns: 1fr;
+        text-align: center;
     }
 
-    .footer-brand {
-        grid-column: 1 / -1;
+    .footer-brand p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .footer-brand .brand {
+        justify-content: center;
+        margin-right: 0;
     }
 }

@@ -1,249 +1,160 @@
+// ==============================
+// DAY / NIGHT THEME (same method as browse.js)
+// ==============================
 
-// =======================================
-// NEWS IN GREEN - SUBSCRIPTIONS PAGE
-// =======================================
+var themeToggle = document.getElementById("theme-toggle");
+var themeLabel = document.querySelector(".toggle-label");
 
-document.addEventListener("DOMContentLoaded", function () {
-
-    // ===================================
-    // 1. NIGHT / DAY MODE
-    // ===================================
-
-    const themeToggle = document.getElementById("theme-toggle");
-    const themeLabel = document.querySelector(".toggle-label");
-
-    function applyTheme(theme) {
-
-        document.documentElement.setAttribute("data-theme", theme);
-
-        if (theme === "dark") {
-            themeLabel.textContent = "Night";
-            themeToggle.setAttribute("aria-pressed", "true");
-            themeToggle.setAttribute(
-                "aria-label", "Switch to day mode"
-            );
-        } else {
-            themeLabel.textContent = "Day";
-            themeToggle.setAttribute("aria-pressed", "false");
-            themeToggle.setAttribute(
-                "aria-label", "Switch to night mode"
-            );
-        }
+function getSavedTheme() {
+    try {
+        return localStorage.getItem("theme");
+    } catch (error) {
+        return null;
     }
+}
 
-    let savedTheme = localStorage.getItem("theme");
-
-    if (savedTheme !== "dark" && savedTheme !== "light") {
-        savedTheme = "light";
+function saveTheme(theme) {
+    try {
+        localStorage.setItem("theme", theme);
+    } catch (error) {
+        // storage blocked, the page still works
     }
+}
 
-    applyTheme(savedTheme);
+function setTheme(theme) {
+    var light = theme === "light";
 
-    themeToggle.addEventListener("click", function () {
+    document.body.classList.toggle("light-mode", light);
 
-        const currentTheme =
-            document.documentElement.getAttribute("data-theme");
+    themeLabel.textContent = light ? "Day" : "Night";
+    themeToggle.setAttribute("aria-pressed", String(light));
+    themeToggle.setAttribute(
+        "aria-label",
+        light ? "Switch to dark mode" : "Switch to light mode"
+    );
 
-        const newTheme =
-            currentTheme === "dark" ? "light" : "dark";
+    saveTheme(theme);
+}
 
-        applyTheme(newTheme);
-        localStorage.setItem("theme", newTheme);
-    });
+// Day is the default
+setTheme(getSavedTheme() === "dark" ? "dark" : "light");
 
-
-    // ===================================
-    // 2. MOBILE NAVIGATION
-    // ===================================
-
-    const menuButton = document.getElementById("nav-burger");
-    const mainNav = document.getElementById("main-nav");
-
-    menuButton.addEventListener("click", function () {
-
-        mainNav.classList.toggle("open");
-
-        const isOpen = mainNav.classList.contains("open");
-
-        menuButton.setAttribute("aria-expanded", String(isOpen));
-        menuButton.setAttribute(
-            "aria-label",
-            isOpen ? "Close menu" : "Open menu"
-        );
-    });
-
-    // Close the menu after clicking a link
-    const navLinks = mainNav.querySelectorAll("a");
-
-    navLinks.forEach(function (link) {
-        link.addEventListener("click", function () {
-
-            mainNav.classList.remove("open");
-            menuButton.setAttribute("aria-expanded", "false");
-            menuButton.setAttribute("aria-label", "Open menu");
-        });
-    });
-
-
-    // ===================================
-    // 3. SUBSCRIPTIONS
-    // ===================================
-
-    const STORAGE_KEY = "nig_subscriptions";
-
-    const checkboxes = document.querySelectorAll(".sub-check");
-    const countText = document.getElementById("sub-count");
-    const message = document.getElementById("sub-message");
-
-    const subscribeAllBtn = document.getElementById("subscribe-all");
-    const clearAllBtn = document.getElementById("clear-all");
-
-
-    // Load previously saved subscriptions
-    function loadSubscriptions() {
-
-        try {
-            const saved = localStorage.getItem(STORAGE_KEY);
-            const result = saved ? JSON.parse(saved) : [];
-
-            return Array.isArray(result) ? result : [];
-
-        } catch (error) {
-            return [];
-        }
-    }
-
-
-    // Get selected category names
-    function getSelected() {
-
-        const selected = [];
-
-        checkboxes.forEach(function (checkbox) {
-
-            if (checkbox.checked) {
-                selected.push(checkbox.value);
-            }
-
-        });
-
-        return selected;
-    }
-
-
-    // Save subscriptions
-    function saveSubscriptions() {
-
-        const selected = getSelected();
-
-        try {
-            localStorage.setItem(
-                STORAGE_KEY,
-                JSON.stringify(selected)
-            );
-        } catch (error) {
-            message.textContent =
-                "Unable to save subscriptions in this browser.";
-        }
-    }
-
-
-    // Update subscription count and card design
-    function refreshPage() {
-
-        let count = 0;
-
-        checkboxes.forEach(function (checkbox) {
-
-            const card = checkbox.closest(".sub-card");
-
-            if (checkbox.checked) {
-                count++;
-                card.classList.add("is-subscribed");
-            } else {
-                card.classList.remove("is-subscribed");
-            }
-
-        });
-
-        countText.textContent =
-            count + " of " + checkboxes.length +
-            " categories subscribed";
-    }
-
-
-    // Turn category name into readable text
-    function niceName(value) {
-
-        return value.charAt(0).toUpperCase() +
-               value.slice(1);
-    }
-
-
-    // Load saved checkbox states
-    const savedSubscriptions = loadSubscriptions();
-
-    checkboxes.forEach(function (checkbox) {
-
-        checkbox.checked =
-            savedSubscriptions.includes(checkbox.value);
-
-        checkbox.addEventListener("change", function () {
-
-            refreshPage();
-            saveSubscriptions();
-
-            if (checkbox.checked) {
-                message.textContent =
-                    "Subscribed to " + niceName(checkbox.value) + ".";
-            } else {
-                message.textContent =
-                    "Unsubscribed from " + niceName(checkbox.value) + ".";
-            }
-
-        });
-
-    });
-
-
-    // ===================================
-    // 4. SUBSCRIBE TO ALL
-    // ===================================
-
-    subscribeAllBtn.addEventListener("click", function () {
-
-        checkboxes.forEach(function (checkbox) {
-            checkbox.checked = true;
-        });
-
-        refreshPage();
-        saveSubscriptions();
-
-        message.textContent = "Subscribed to all categories!";
-    });
-
-
-    // ===================================
-    // 5. CLEAR ALL
-    // ===================================
-
-    clearAllBtn.addEventListener("click", function () {
-
-        checkboxes.forEach(function (checkbox) {
-            checkbox.checked = false;
-        });
-
-        refreshPage();
-        saveSubscriptions();
-
-        message.textContent = "All subscriptions cleared!";
-    });
-
-
-    // ===================================
-    // 6. INITIAL PAGE UPDATE
-    // ===================================
-
-    refreshPage();
-
+themeToggle.addEventListener("click", function () {
+    var light = document.body.classList.contains("light-mode");
+    setTheme(light ? "dark" : "light");
 });
+
+
+// ==============================
+// MOBILE MENU
+// ==============================
+
+var burger = document.getElementById("nav-burger");
+var nav = document.getElementById("main-nav");
+
+burger.addEventListener("click", function () {
+    var open = nav.classList.toggle("open");
+    burger.setAttribute("aria-expanded", String(open));
+});
+
+
+// ==============================
+// SUBSCRIPTIONS (saved in MySQL through PHP)
+// ==============================
+
+var API = "subscriptions-api.php";
+
+var checkboxes = document.querySelectorAll(".sub-check");
+var countText = document.getElementById("sub-count");
+var message = document.getElementById("sub-message");
+var subscribeAllBtn = document.getElementById("subscribe-all");
+var clearAllBtn = document.getElementById("clear-all");
+
+function showMessage(text) {
+    message.textContent = text;
+}
+
+function niceName(value) {
+    return value.charAt(0).toUpperCase() + value.slice(1);
+}
+
+// Send one request to the PHP file
+function sendRequest(action, category) {
+    var data = new FormData();
+    data.append("action", action);
+    if (category) {
+        data.append("category", category);
+    }
+
+    return fetch(API, { method: "POST", body: data }).then(function (response) {
+        return response.json();
+    });
+}
+
+// Update the green borders and the "x of 4" text
+function refreshPage() {
+    var count = 0;
+
+    for (var i = 0; i < checkboxes.length; i++) {
+        var card = checkboxes[i].closest(".sub-card");
+        card.classList.toggle("is-subscribed", checkboxes[i].checked);
+        if (checkboxes[i].checked) {
+            count++;
+        }
+    }
+
+    countText.textContent = count + " of " + checkboxes.length + " categories subscribed";
+}
+
+// Tick the boxes that the database says are subscribed
+function showSubscribed(list) {
+    for (var i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].checked = list.indexOf(checkboxes[i].value) !== -1;
+    }
+    refreshPage();
+}
+
+function serverError() {
+    showMessage("Could not reach the server. Open this page through http://localhost and start Apache and MySQL.");
+}
+
+// One switch changed
+function handleChange(event) {
+    var box = event.target;
+    var action = box.checked ? "subscribe" : "unsubscribe";
+
+    sendRequest(action, box.value)
+        .then(function (result) {
+            showSubscribed(result.subscribed);
+            showMessage((box.checked ? "Subscribed to " : "Unsubscribed from ") + niceName(box.value) + ".");
+        })
+        .catch(function () {
+            box.checked = !box.checked;
+            refreshPage();
+            serverError();
+        });
+}
+
+// Subscribe to all / Clear all
+function setAll(state) {
+    sendRequest(state ? "subscribe_all" : "clear_all")
+        .then(function (result) {
+            showSubscribed(result.subscribed);
+            showMessage(state ? "Subscribed to all categories." : "All subscriptions cleared.");
+        })
+        .catch(serverError);
+}
+
+for (var i = 0; i < checkboxes.length; i++) {
+    checkboxes[i].addEventListener("change", handleChange);
+}
+
+subscribeAllBtn.addEventListener("click", function () { setAll(true); });
+clearAllBtn.addEventListener("click", function () { setAll(false); });
+
+// When the page opens, load saved subscriptions from the database
+sendRequest("list")
+    .then(function (result) {
+        showSubscribed(result.subscribed);
+    })
+    .catch(serverError);
