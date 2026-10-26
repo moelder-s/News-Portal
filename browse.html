@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,6 +10,15 @@
 </head>
 
 <body>
+
+    <!-- Apply saved theme immediately (prevents flash of wrong theme) -->
+    <script>
+        try {
+            if (localStorage.getItem("theme") === "light") {
+                document.body.classList.add("light-mode");
+            }
+        } catch (e) {}
+    </script>
 
     <!-- HEADER -->
     <header class="site-header">
@@ -30,7 +38,7 @@
                 <a href="bookmarks.html">Bookmarks</a>
                 <a href="submit.html">Submit an article</a>
                 <a href="sub.html">Subscription</a>
-                <a href="help.html">Help & Support</a>
+                <a href="help.html">Help &amp; Support</a>
             </nav>
 
             <div class="header-actions">
@@ -122,9 +130,7 @@
 
                 <div id="articles-container"
                     class="articles-container">
-
                     <!-- Articles are added by browse.js -->
-
                 </div>
 
                 <div id="empty-message"

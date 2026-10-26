@@ -1,9 +1,9 @@
-
 document.addEventListener("DOMContentLoaded", function () {
     "use strict";
 
     // ==================================
     // DARK / LIGHT THEME
+    // (same "theme" key as the dashboard, so both pages stay in sync)
     // ==================================
 
     const themeToggle = document.getElementById("theme-toggle");
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    function setTheme(theme) {
+    function applyTheme(theme) {
         const light = theme === "light";
 
         document.body.classList.toggle("light-mode", light);
@@ -41,19 +41,28 @@ document.addEventListener("DOMContentLoaded", function () {
                 light ? "Switch to dark mode" : "Switch to light mode"
             );
         }
+    }
 
+    function setTheme(theme) {
+        applyTheme(theme);
         saveTheme(theme);
     }
 
-    setTheme(getSavedTheme() === "light" ? "light" : "dark");
+    applyTheme(getSavedTheme() === "light" ? "light" : "dark");
 
     if (themeToggle) {
         themeToggle.addEventListener("click", function () {
             const light = document.body.classList.contains("light-mode");
-
             setTheme(light ? "dark" : "light");
         });
     }
+
+    // Keep theme in sync if changed in another tab
+    window.addEventListener("storage", function (event) {
+        if (event.key === "theme") {
+            applyTheme(event.newValue === "light" ? "light" : "dark");
+        }
+    });
 
     // ==================================
     // MOBILE MENU
@@ -206,11 +215,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 article.description.toLowerCase().includes(query) ||
                 article.category.toLowerCase().includes(query);
 
-            const matchesFrom =
-                !from || article.date >= from;
-
-            const matchesTo =
-                !to || article.date <= to;
+            const matchesFrom = !from || article.date >= from;
+            const matchesTo = !to || article.date <= to;
 
             return (
                 matchesCategory &&
