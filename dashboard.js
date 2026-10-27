@@ -1,36 +1,126 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const themeToggle = document.getElementById('theme-toggle');
-    const themeLabel = themeToggle.querySelector('.toggle-label');
 
-    // 1. Check local storage for saved theme preference
-    const savedTheme = localStorage.getItem('theme');
-    
-    // Apply dark theme on load if it was saved
-    if (savedTheme === 'dark') {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        themeToggle.setAttribute('aria-pressed', 'true');
-        themeLabel.textContent = 'Night';
-    } else {
-        themeLabel.textContent = 'Day';
+// ==========================================
+// NEWS IN GREEN - USER DASHBOARD
+// ==========================================
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    "use strict";
+
+    // ==========================================
+    // 1. DAY MODE & NIGHT MODE
+    // ==========================================
+
+    const root = document.documentElement;
+    const themeButton = document.getElementById("theme-toggle");
+    const themeLabel = document.querySelector(".toggle-label");
+
+    function changeTheme(theme) {
+
+        const isDark = theme === "dark";
+
+        // Apply the theme to the page
+        root.setAttribute(
+            "data-theme",
+            isDark ? "dark" : "light"
+        );
+
+        // Update theme name
+        if (themeLabel) {
+            themeLabel.textContent = isDark ? "Night" : "Day";
+        }
+
+        // Update switch position
+        if (themeButton) {
+            themeButton.setAttribute(
+                "aria-pressed",
+                String(isDark)
+            );
+
+            themeButton.setAttribute(
+                "aria-label",
+                isDark
+                    ? "Switch to day mode"
+                    : "Switch to night mode"
+            );
+        }
     }
 
-    // 2. Listen for toggle clicks
-    themeToggle.addEventListener('click', () => {
-        // Check if dark mode is currently active
-        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        
-        if (isDark) {
-            // Turn off Dark Mode (Switch to Light)
-            document.documentElement.removeAttribute('data-theme');
-            localStorage.setItem('theme', 'light');
-            themeToggle.setAttribute('aria-pressed', 'false');
-            themeLabel.textContent = 'Day';
-        } else {
-            // Turn on Dark Mode
-            document.documentElement.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
-            themeToggle.setAttribute('aria-pressed', 'true');
-            themeLabel.textContent = 'Night';
-        }
-    });
+    // DEFAULT - DAY MODE
+    changeTheme("light");
+
+    // Change theme on click
+    if (themeButton) {
+
+        themeButton.addEventListener("click", function () {
+
+            const currentTheme =
+                root.getAttribute("data-theme");
+
+            if (currentTheme === "light") {
+                changeTheme("dark");
+            } else {
+                changeTheme("light");
+            }
+
+        });
+    }
+
+
+    // ==========================================
+    // 2. MOBILE NAVIGATION
+    // ==========================================
+
+    const menuButton = document.getElementById("nav-burger");
+    const nav = document.getElementById("main-nav");
+
+    if (menuButton && nav) {
+
+        menuButton.addEventListener("click", function () {
+
+            const isOpen = nav.classList.toggle("open");
+
+            menuButton.setAttribute(
+                "aria-expanded",
+                String(isOpen)
+            );
+
+            menuButton.setAttribute(
+                "aria-label",
+                isOpen ? "Close menu" : "Open menu"
+            );
+
+        });
+
+        // Close menu after clicking a navigation link
+        nav.querySelectorAll("a").forEach(function (link) {
+
+            link.addEventListener("click", function () {
+
+                nav.classList.remove("open");
+
+                menuButton.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+                menuButton.setAttribute(
+                    "aria-label",
+                    "Open menu"
+                );
+
+            });
+        });
+    }
+
+    // ==========================================
+    // 3. DASHBOARD DATA
+    // ==========================================
+
+    // The statistics and sample submissions
+    // currently come from dashboard.html.
+    //
+    // Connect these to your PHP/MySQL backend
+    // when you are ready to display real user data.
+
 });
