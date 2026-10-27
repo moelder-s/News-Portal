@@ -17,10 +17,7 @@ function toggleTheme() {
 (function init() {
     var saved = 'light';
     try { 
-        var stored = localStorage.getItem('theme');
-        if (stored === 'dark' || stored === 'light') {
-            saved = stored;
-        }
+        localStorage.setItem('theme', 'light');
     } catch (e) {}
     applyTheme(saved, false);
 

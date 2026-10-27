@@ -69,9 +69,7 @@ body {
     color: var(--text);
     background-color: var(--bg);
 
-    background-image:
-        var(--overlay),
-        url("bookmark.jpeg");
+    background-image:url("bookmark.jpeg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
