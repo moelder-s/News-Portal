@@ -78,61 +78,22 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // ==================================
-    // DEMO ARTICLE DATA
-    // Replace with actual approved articles
-    // ==================================
+    const articleCards = Array.from(
+    document.querySelectorAll(".article-card")
+);
 
-    const articles = [
-        {
-            title: "University Examination Updates",
-            category: "Academic",
-            description: "Important information about upcoming examinations and university schedules.",
-            date: "2026-10-21"
-        },
-        {
-            title: "Annual University Sports Meet",
-            category: "Sports",
-            description: "Students are preparing for the annual university sports competition.",
-            date: "2026-10-20"
-        },
-        {
-            title: "Campus Cultural Festival",
-            category: "Events",
-            description: "A special cultural event celebrating student creativity and talent.",
-            date: "2026-10-18"
-        },
-        {
-            title: "University Library Opening Hours",
-            category: "Academic",
-            description: "Updated library opening hours for students during the semester.",
-            date: "2026-10-15"
-        },
-        {
-            title: "Student Cricket Tournament",
-            category: "Sports",
-            description: "The interfaculty cricket tournament begins this month.",
-            date: "2026-10-14"
-        },
-        {
-            title: "Student Community News",
-            category: "General",
-            description: "Latest updates and announcements from the student community.",
-            date: "2026-10-12"
-        },
-        {
-            title: "Technology Workshop",
-            category: "Events",
-            description: "A technology workshop for students interested in software development.",
-            date: "2026-10-10"
-        },
-        {
-            title: "New Student Facilities",
-            category: "General",
-            description: "New facilities have been introduced to improve campus life.",
-            date: "2026-10-08"
-        }
-    ];
+      const articles = articleCards.map(function (card) {
+
+    return {
+        element: card,
+        title: card.querySelector("h3").textContent,
+        category: card.dataset.category,
+        description: card.querySelector("p").textContent,
+        date: card.dataset.date
+    };
+
+}
+);
 
     // ==================================
     // GET HTML ELEMENTS
@@ -162,37 +123,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // ARTICLE CARD CREATION
     // ==================================
 
-    function createArticleCard(article) {
-        const card = document.createElement("article");
-        card.className = "article-card";
-        card.dataset.category = article.category;
-        card.dataset.date = article.date;
-
-        const category = document.createElement("span");
-        category.className = "article-category";
-        category.textContent = article.category;
-
-        const title = document.createElement("h3");
-        title.textContent = article.title;
-
-        const description = document.createElement("p");
-        description.textContent = article.description;
-
-        const meta = document.createElement("div");
-        meta.className = "article-meta";
-
-        const date = document.createElement("span");
-        date.textContent = article.date;
-
-        meta.appendChild(date);
-
-        card.appendChild(category);
-        card.appendChild(title);
-        card.appendChild(description);
-        card.appendChild(meta);
-
-        return card;
-    }
 
     // ==================================
     // FILTER ARTICLES
@@ -230,42 +160,47 @@ document.addEventListener("DOMContentLoaded", function () {
     // ==================================
     // DISPLAY ARTICLES
     // ==================================
+function displayArticles() {
 
-    function displayArticles() {
-        const filtered = getFilteredArticles();
+    const filtered = getFilteredArticles();
+    const totalPages = Math.max(
+        1,
+        Math.ceil(filtered.length / articlesPerPage)
+    );
 
-        const totalPages = Math.max(
-            1,
-            Math.ceil(filtered.length / articlesPerPage)
-        );
-
-        if (currentPage > totalPages) {
-            currentPage = totalPages;
-        }
-
-        const start = (currentPage - 1) * articlesPerPage;
-        const end = start + articlesPerPage;
-
-        const visibleArticles = filtered.slice(start, end);
-
-        container.innerHTML = "";
-
-        visibleArticles.forEach(function (article) {
-            container.appendChild(createArticleCard(article));
-        });
-
-        emptyMessage.hidden = filtered.length > 0;
-
-        if (filtered.length === 0) {
-            emptyMessage.textContent = "No articles found.";
-        }
-
-        pageNumber.textContent = currentPage;
-
-        previousBtn.disabled = currentPage === 1;
-        nextBtn.disabled = currentPage >= totalPages;
+    if (currentPage > totalPages) {
+        currentPage = totalPages;
     }
 
+    const start = (currentPage - 1) * articlesPerPage;
+    const end = start + articlesPerPage;
+
+    const visibleArticles = filtered.slice(start, end);
+
+    // Hide all articles first
+    articleCards.forEach(function (card) {
+        card.style.display = "none";
+    });
+
+    // Show only articles for current page
+    visibleArticles.forEach(function (article) {
+        article.element.style.display = "";
+    });
+
+    // Show / hide empty message
+    emptyMessage.hidden = filtered.length > 0;
+
+    if (filtered.length === 0) {
+        emptyMessage.textContent = "No articles found.";
+    }
+
+    // Update page number
+    pageNumber.textContent = currentPage;
+
+    // Update pagination buttons
+    previousBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage >= totalPages;
+}
     // ==================================
     // CATEGORY BUTTONS
     // ==================================

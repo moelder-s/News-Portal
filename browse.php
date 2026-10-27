@@ -1,3 +1,14 @@
+<?php
+include "db.php";
+
+$sql = "SELECT * FROM news_articles ORDER BY created_at DESC";
+$result = $conn->query($sql);
+
+if (!$result) {
+    die("SQL Error: " . $conn->error);
+}
+echo "Articles found: " . $result->num_rows;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,10 +49,10 @@
             <nav class="main-nav" id="main-nav">
                 <a href="home.php">Home</a>
                 <a href="user-dashboard.html">Dashboard</a>
-                <a href="browse.html" class="active">Browse</a>
+                <a href="browse.php" class="active">Browse</a>
                 <a href="bookmarks.html">Bookmarks</a>
                 <a href="submit.html">Submit an article</a>
-                <a href="sub.html">Subscription</a>
+                <a href="subscription.html">Subscription</a>
                 <a href="help.html">Help &amp; Support</a>
             </nav>
 
@@ -132,10 +143,46 @@
             <section class="results-section">
                 <h2>Results</h2>
 
-                <div id="articles-container"
-                    class="articles-container">
-                    <!-- Articles are added by browse.js -->
-                </div>
+  <div id="articles-container" class="articles-container">
+    <?php
+    if ($result && $result->num_rows > 0) {
+        while ($article = $result->fetch_assoc()) {
+    ?>
+
+        <article
+            class="article-card"
+            data-category="<?php echo htmlspecialchars($article['category']); ?>"
+            data-date="<?php echo htmlspecialchars($article['created_at']); ?>"
+        >
+
+            <span class="article-category">
+                <?php echo htmlspecialchars($article['category']); ?>
+            </span>
+
+            <h3>
+                <?php echo htmlspecialchars($article['title']); ?>
+            </h3>
+
+            <p>
+                <?php echo htmlspecialchars($article['description']); ?>
+            </p>
+
+            <div class="article-meta">
+                <span>
+                    <?php echo htmlspecialchars($article['created_at']); ?>
+                </span>
+            </div>
+
+        </article>
+    <?php
+        }
+    } else {
+    ?>
+        <p>No articles found.</p>
+    <?php
+    }
+    ?>
+  </div>
 
                 <div id="empty-message"
                     class="empty-message" hidden>
@@ -180,10 +227,10 @@
 
             <div class="footer-col">
                 <h3>Sections</h3>
-                <a href="browse.html#academic">Academic</a>
-                <a href="browse.html#events">Events</a>
-                <a href="browse.html#sports">Sports</a>
-                <a href="browse.html#general">General</a>
+                <a href="browse.php#academic">Academic</a>
+                <a href="browse.php#events">Events</a>
+                <a href="browse.php#sports">Sports</a>
+                <a href="browse.php#general">General</a>
             </div>
 
             <div class="footer-col">
