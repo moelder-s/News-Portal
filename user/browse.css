@@ -742,3 +742,112 @@ body.light-mode .toggle-thumb {
         margin-right: auto;
     }
 }
+/* ==============================
+   FULL-SCREEN ARTICLE READER
+============================== */
+
+.article-card[role="button"] {
+    cursor: pointer;
+}
+
+.article-card[role="button"]:focus-visible {
+    outline: 3px solid var(--green);
+    outline-offset: 4px;
+}
+body.article-reader-open {
+    overflow: hidden;
+}
+
+.article-reader[hidden] {
+    display: none !important;
+}
+
+.article-reader {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    overflow-y: auto;
+    background: var(--bg);
+    color: var(--text);
+    padding: 24px clamp(18px, 5vw, 72px) 64px;
+}
+.reader-topbar {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--border);
+}
+
+.reader-back {
+    color: var(--text-muted);
+    font-size: 14px;
+    padding: 10px 0;
+}
+
+.reader-back:hover {
+    color: var(--green);
+}
+
+.reader-close {
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: var(--input-bg);
+    color: var(--text);
+    font-size: 30px;
+    line-height: 1;
+}
+
+.reader-close:hover {
+    border-color: var(--green);
+}
+.reader-content {
+    max-width: 850px;
+    margin: clamp(36px, 8vh, 90px) auto 0;
+}
+
+.reader-content .article-category {
+    margin-bottom: 22px;
+}
+
+.reader-content h1 {
+    color: var(--heading);
+    font-family: Georgia, serif;
+    font-size: clamp(2rem, 5vw, 3.8rem);
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+    margin-bottom: 20px;
+}
+
+.reader-date {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.reader-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 28px 0;
+}
+
+.reader-body {
+    color: var(--text);
+    font-size: clamp(1rem, 1.5vw, 1.15rem);
+    line-height: 1.9;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+@media (max-width: 600px) {
+    .article-reader {
+        padding: 14px 20px 40px;
+    }
+
+    .reader-content {
+        margin-top: 38px;
+    }
+}

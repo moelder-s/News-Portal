@@ -7,8 +7,6 @@ $result = $conn->query($sql);
 if (!$result) {
     die("SQL Error: " . $conn->error);
 }
-echo "Articles found: " . $result->num_rows;
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,7 +51,7 @@ echo "Articles found: " . $result->num_rows;
                 <a href="browse.php" class="active">Browse</a>
                 <a href="bookmarks.html">Bookmarks</a>
                 <a href="submit.html">Submit an article</a>
-                <a href="subscriptions.html">Subscription</a>
+                <a href="subscription.html">Subscription</a>
                 <a href="help.html">Help &amp; Support</a>
             </nav>
 
@@ -192,6 +190,33 @@ echo "Articles found: " . $result->num_rows;
                 </div>
             </section>
 
+            <!-- FULL-SCREEN ARTICLE READER -->
+<section id="article-reader"
+    class="article-reader"
+    hidden
+    aria-hidden="true"
+    aria-labelledby="reader-title">
+
+    <div class="reader-topbar">
+        <a href="#articles-container" id="reader-back"
+           class="reader-back" role="button">
+            ← Back to articles
+        </a>
+
+        <button type="button" id="reader-close"
+            class="reader-close" aria-label="Close article">
+            ×
+        </button>
+    </div>
+
+    <article class="reader-content">
+        <span id="reader-category" class="article-category"></span>
+        <h1 id="reader-title"></h1>
+        <p id="reader-date" class="reader-date"></p>
+        <div class="reader-divider"></div>
+        <div id="reader-body" class="reader-body"></div>
+    </article>
+</section>
             <!-- PAGINATION -->
             <div class="pagination">
                 <button id="previous-btn" type="button" disabled>
@@ -240,7 +265,7 @@ echo "Articles found: " . $result->num_rows;
                 <a href="login.html">Log in</a>
                 <a href="register.html">Register</a>
                 <a href="bookmarks.html">Bookmarks</a>
-                <a href="subscriptions.html">Subscription</a>
+                <a href="sub.html">Subscription</a>
                 <a href="submit.html">Submit an article</a>
             </div>
 

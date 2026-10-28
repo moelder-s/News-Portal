@@ -115,9 +115,122 @@ document.addEventListener("DOMContentLoaded", function () {
     const nextBtn = document.getElementById("next-btn");
     const pageNumber = document.getElementById("page-number");
 
+    // Full-screen article reader
+    const articleReader = document.getElementById("article-reader");
+    const readerTitle = document.getElementById("reader-title");
+    const readerCategory = document.getElementById("reader-category");
+    const readerDate = document.getElementById("reader-date");
+    const readerBody = document.getElementById("reader-body");
+    const readerClose = document.getElementById("reader-close");
+    const readerBack = document.getElementById("reader-back");
+let previouslyFocusedCard = null;
+
+function openArticle(card) {
+    if (!articleReader) return;
+
+    previouslyFocusedCard = card;
+
+    readerTitle.textContent =
+        card.querySelector("h3")?.textContent.trim()
+        || "Untitled article";
+
+    readerCategory.textContent =
+        card.dataset.category || "News";
+
+    readerDate.textContent =
+        card.dataset.date || "";
+
+    // Display article description safely
+    readerBody.textContent =
+        card.querySelector("p")?.textContent.trim()
+        || "No article description is available.";
+
+    articleReader.hidden = false;
+    articleReader.setAttribute("aria-hidden", "false");
+
+    document.body.classList.add("article-reader-open");
+    readerClose?.focus();
+}
+function closeArticle() {
+    if (!articleReader) return;
+
+    articleReader.hidden = true;
+    articleReader.setAttribute("aria-hidden", "true");
+
+    document.body.classList.remove("article-reader-open");
+
+    previouslyFocusedCard?.focus();
+}
+articleCards.forEach(function (card) {
+    card.tabIndex = 0;
+    card.setAttribute("role", "button");
+
+    card.setAttribute(
+        "aria-label",
+        "Read article: " +
+        (card.querySelector("h3")?.textContent.trim()
+            || "Untitled article")
+    );
+
+    card.addEventListener("click", function (event) {
+        if (event.target.closest("a, button, input")) return;
+        openArticle(card);
+    });
+
+    card.addEventListener("keydown", function (event) {
+        if (event.target !== card) return;
+
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            openArticle(card);
+        }
+    });
+});
+articleCards.forEach(function (card) {
+    card.tabIndex = 0;
+    card.setAttribute("role", "button");
+
+    card.setAttribute(
+        "aria-label",
+        "Read article: " +
+        (card.querySelector("h3")?.textContent.trim()
+            || "Untitled article")
+    );
+
+    card.addEventListener("click", function (event) {
+        if (event.target.closest("a, button, input")) return;
+        openArticle(card);
+    });
+
+    card.addEventListener("keydown", function (event) {
+        if (event.target !== card) return;
+
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            openArticle(card);
+        }
+    });
+});
+
+readerClose?.addEventListener("click", closeArticle);
+
+readerBack?.addEventListener("click", function (event) {
+    event.preventDefault();
+    closeArticle();
+});
+
+document.addEventListener("keydown", function (event) {
+    if (
+        event.key === "Escape" &&
+        articleReader &&
+        !articleReader.hidden
+    ) {
+        closeArticle();
+    }
+});
     let selectedCategory = "All";
     let currentPage = 1;
-    const articlesPerPage = 100; // change to 4 if not working
+    const articlesPerPage = 4;
 
     function normalizeCategory(category) {
         const normalized = category.trim().toLowerCase();
