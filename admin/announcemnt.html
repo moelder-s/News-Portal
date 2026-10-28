@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Announcements - News In Green</title>
+
+    <link rel="stylesheet" href="announcement.css">
+</head>
+
+<body>
+
+    <!-- ANIMATED BACKGROUND -->
+    <div class="aurora" aria-hidden="true"></div>
+    <canvas id="stars" aria-hidden="true"></canvas>
+
+    <!-- GLASS HEADER -->
+    <header class="admin-header">
+
+        <div class="header-left">
+            <a href="news.html" class="brand">
+                <span class="brand-mark">N</span>
+                <span class="brand-text">News <em>In Green</em></span>
+            </a>
+
+            <h1 class="page-title">
+                <span class="dot"></span>
+                Announcements
+            </h1>
+        </div>
+
+        <div class="header-right">
+
+            <a href="#" id="logout-link" class="pill-btn">Log out</a>
+
+            <button id="theme-toggle" class="theme-pill" type="button"
+                aria-label="Switch to night mode" aria-pressed="true">
+                <span class="thumb"></span>
+                <span class="theme-label">Day</span>
+            </button>
+
+            <a href="news.html" class="pill-btn">Home</a>
+
+            <div class="admin-chip">
+                <span class="avatar">A</span>
+                <span class="admin-name">Admin</span>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- CONTENT -->
+    <main class="content">
+
+        <section class="glass-card">
+
+            <div class="card-head">
+                <h2>Featured &amp; breaking news</h2>
+                <button type="button" class="btn-primary" id="new-btn">+ New announcement</button>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Type</th>
+                            <th>Category</th>
+                            <th class="col-actions">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rows"></tbody>
+                </table>
+            </div>
+
+            <p class="empty-msg" id="empty-msg">No featured or breaking items right now.</p>
+
+        </section>
+
+    </main>
+
+    <!-- MODAL -->
+    <div class="modal-backdrop" id="modal" hidden>
+        <form class="modal glass-card" id="ann-form">
+
+            <h2 id="modal-title">New announcement</h2>
+
+            <label for="f-title">Title</label>
+            <input type="text" id="f-title" required maxlength="120" placeholder="Announcement title">
+
+            <div class="two-col">
+                <div>
+                    <label for="f-type">Type</label>
+                    <select id="f-type">
+                        <option value="Featured">Featured</option>
+                        <option value="Breaking">Breaking</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="f-cat">Category</label>
+                    <select id="f-cat">
+                        <option>Academic</option>
+                        <option>Events</option>
+                        <option>Sports</option>
+                        <option>General</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="pill-btn" id="cancel-btn">Cancel</button>
+                <button type="submit" class="btn-primary">Save</button>
+            </div>
+
+        </form>
+    </div>
+
+    <script src="announcement.js"></script>
+</body>
+
+</html>
