@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Settings — News In Green Admin</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="settings.css">
+    <script src="settings.js" defer></script>
+</head>
+
+<body class="light-mode">
+
+    <header class="site-header">
+        <div class="header-inner">
+
+            <a href="admin-dashboard.html" class="brand">
+                <span class="brand-mark">N</span>
+                <span class="brand-text">News <em>In Green</em></span>
+            </a>
+
+            <h1 class="page-title"><span class="title-dot"></span>Settings</h1>
+
+            <div class="header-actions">
+
+                <a href="admin-login.html" class="btn-ghost">Log out</a>
+
+                <button id="theme-toggle" class="theme-toggle" type="button"
+                        aria-label="Switch to dark mode" aria-pressed="true">
+                    <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                    <span class="toggle-label">Day</span>
+                </button>
+
+                <a href="admin-dashboard.html" class="btn-ghost btn-home">Home</a>
+
+                <a href="settings.html" class="admin-pill">
+                    <span class="admin-avatar">A</span>
+                    <span class="admin-name">Admin</span>
+                </a>
+
+            </div>
+        </div>
+    </header>
+
+    <main class="settings-page">
+
+        <!-- CHANGE PASSWORD -->
+        <section class="settings-card">
+            <div class="card-head">
+                <h2>Change password</h2>
+            </div>
+
+            <form id="pw-form" class="card-body" novalidate>
+
+                <p id="msg" class="msg" role="status" aria-live="polite"></p>
+
+                <div class="form-group">
+                    <label for="current">Current password</label>
+                    <input type="password" id="current" name="current"
+                           autocomplete="current-password">
+                </div>
+
+                <div class="form-group">
+                    <label for="new">New password</label>
+                    <input type="password" id="new" name="new"
+                           autocomplete="new-password">
+                </div>
+
+                <div class="form-group">
+                    <label for="confirm">Confirm new password</label>
+                    <input type="password" id="confirm" name="confirm"
+                           autocomplete="new-password">
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Update password</button>
+                </div>
+
+            </form>
+        </section>
+
+        <!-- ADMIN ID -->
+        <section class="settings-card">
+            <div class="card-head">
+                <h2>Admin ID</h2>
+            </div>
+
+            <div class="card-body">
+                <p class="admin-id-text">
+                    Your admin ID is <strong id="admin-id">880005</strong> and can't be changed from here.
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>
