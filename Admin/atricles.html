@@ -1,11 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Articles - News in Green</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Articles — News In Green Admin</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
-    
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <header class="topbar">
+    <div class="identity">
+      <a class="brand" href="admin-articles.html"><span class="logo">N</span><span>News <strong>In Green</strong></span></a>
+      <h1><span class="live-dot"></span>Articles</h1>
+    </div>
+    <nav aria-label="Admin navigation">
+      <!-- Update these links to match your project. Logout needs a backend session handler. -->
+      <a class="button" href="admin-login.html">Log out</a>
+      <button class="theme-button" id="themeToggle" type="button" role="switch" aria-checked="true" aria-label="Night mode"><span class="switch"></span><span id="themeLabel">Night</span></button>
+      <a class="button home" href="index.html">Home</a>
+      <div class="profile"><span class="avatar">A</span><span>Admin</span></div>
+    </nav>
+  </header>
+  <main>
+    <section class="articles-panel" aria-labelledby="articlesHeading">
+      <div class="panel-heading"><h2 id="articlesHeading">All articles</h2><button class="primary" id="newArticle" type="button">+ New article</button></div>
+      <div class="table-scroll"><table><thead><tr><th scope="col">Title</th><th scope="col">Category</th><th scope="col">Author</th><th scope="col">Status</th><th scope="col">Created</th></tr></thead><tbody id="articleRows"><tr><td colspan="5" class="empty">No articles yet — create the first one.</td></tr></tbody></table></div>
+    </section>
+    <p id="notice" class="notice" role="status"></p>
+  </main>
+  <dialog id="articleDialog">
+    <form id="articleForm">
+      <div class="dialog-heading"><h2>New article</h2><button class="close" id="closeDialog" type="button" aria-label="Close">×</button></div>
+      <label>Title<input name="title" required maxlength="150" autocomplete="off"></label>
+      <label>Category<select name="category"><option>General</option><option>Environment</option><option>Technology</option><option>Business</option><option>Sports</option><option>Politics</option></select></label>
+      <label>Author<input name="author" required maxlength="70" value="Admin"></label>
+      <label>Status<select name="status"><option>Draft</option><option>Published</option></select></label>
+      <label>Article content<textarea name="content" rows="5" required></textarea></label>
+      <div class="form-actions"><button class="button" id="cancelDialog" type="button">Cancel</button><button class="primary" type="submit">Save article</button></div>
+    </form>
+  </dialog>
 </body>
 </html>
