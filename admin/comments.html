@@ -1,11 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Comments — News In Green Admin</title>
+    <link rel="stylesheet" href="admin-comments.css">
+    <script src="admin-comments.js" defer></script>
 </head>
-<body>
-    
+
+<body class="day">
+    <header class="topbar">
+        <div class="brand"><span class="logo">N</span><span>News <em>In Green</em></span><span
+                class="dot"></span><strong>Comments</strong></div>
+        <nav><a class="logout" href="#" data-placeholder="logout">Log out</a><button id="themeToggle" class="theme"
+                type="button" aria-label="Toggle day and night theme"><span class="switch"></span><span
+                    id="themeLabel">Day</span></button><a class="home" href="#" data-placeholder="home">Home</a><span
+                class="profile"><b>A</b> Admin</span></nav>
+    </header>
+    <main>
+        <section class="glass">
+            <h2>Comments awaiting moderation</h2>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Commenter</th>
+                            <th>Comment</th>
+                            <th>Article</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="commentRows"></tbody>
+                </table>
+            </div>
+            <p id="emptyMessage" class="empty">Nothing waiting for moderation right now.</p>
+        </section>
+    </main>
 </body>
+
 </html>
