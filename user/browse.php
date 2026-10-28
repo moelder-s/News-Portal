@@ -1,0 +1,263 @@
+<?php
+include "db.php";
+
+$sql = "SELECT * FROM news_articles ORDER BY created_at DESC";
+$result = $conn->query($sql);
+
+if (!$result) {
+    die("SQL Error: " . $conn->error);
+}
+echo "Articles found: " . $result->num_rows;
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Articles - News In Green</title>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Work+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="register.css">
+    <link rel="stylesheet" href="browse.css">
+    <script src="browse.js" defer></script>
+</head>
+
+<body>
+
+    <!-- Apply saved theme immediately (prevents flash of wrong theme) -->
+    <script>
+        try {
+            if (localStorage.getItem("theme") === "light") {
+                document.body.classList.add("light-mode");
+            }
+        } catch (e) {}
+    </script>
+
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="header-inner">
+
+            <a href="home.php" class="brand">
+                <span class="brand-mark">N</span>
+                <span class="brand-text">
+                    News <em>In Green</em>
+                </span>
+            </a>
+
+            <nav class="main-nav" id="main-nav">
+                <a href="home.php">Home</a>
+                <a href="user-dashboard.html">Dashboard</a>
+                <a href="browse.php" class="active">Browse</a>
+                <a href="bookmarks.html">Bookmarks</a>
+                <a href="submit.html">Submit an article</a>
+                <a href="subscriptions.html">Subscription</a>
+                <a href="help.html">Help &amp; Support</a>
+            </nav>
+
+            <div class="header-actions">
+                <button id="theme-toggle" class="theme-toggle"
+                    type="button" aria-pressed="false">
+                    <span class="toggle-track">
+                        <span class="toggle-thumb"></span>
+                    </span>
+                    <span class="toggle-label">Night</span>
+                </button>
+
+                <a href="#" id="logout-link" class="btn-ghost">
+                    Log out
+                </a>
+            </div>
+
+            <button class="nav-burger" id="nav-burger"
+                type="button" aria-label="Open menu"
+                aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+        </div>
+    </header>
+
+    <!-- BROWSE PAGE -->
+    <main class="browse-page">
+        <section class="browse-container">
+
+            <div class="browse-heading">
+                <div>
+                    <h1>Browse articles</h1>
+                    <p>
+                        Filter by category, or search across every
+                        approved article on the portal.
+                    </p>
+                </div>
+            </div>
+
+            <!-- CATEGORY BUTTONS -->
+            <div class="category-filter">
+                <button class="category-btn active"
+                    data-category="All" type="button">All</button>
+
+                <button class="category-btn"
+                    data-category="Academic" type="button">Academic</button>
+
+                <button class="category-btn"
+                    data-category="Events" type="button">Events</button>
+
+                <button class="category-btn"
+                    data-category="Sports" type="button">Sports</button>
+
+                <button class="category-btn"
+                    data-category="General" type="button">General</button>
+            </div>
+
+            <!-- SEARCH AND DATE -->
+            <div class="filter-area">
+
+                <div class="search-box">
+                    <input type="search" id="search-input"
+                        placeholder="Search articles..."
+                        aria-label="Search articles">
+                </div>
+
+                <div class="date-filter">
+                    <label for="from-date">From</label>
+                    <input type="date" id="from-date">
+
+                    <label for="to-date">To</label>
+                    <input type="date" id="to-date">
+
+                    <button id="filter-btn" type="button">
+                        Filter
+                    </button>
+
+                    <button id="clear-btn" type="button">
+                        Clear
+                    </button>
+                </div>
+            </div>
+
+            <!-- RESULTS -->
+            <section class="results-section">
+                <h2>Results</h2>
+
+<div id="articles-container" class="articles-container">
+
+  <?php if ($result->num_rows > 0): ?>
+
+    <?php while ($article = $result->fetch_assoc()): ?>
+
+        <article
+            class="article-card"
+            data-category="<?php echo htmlspecialchars($article['category']); ?>"
+            data-date="<?php echo htmlspecialchars($article['created_at']); ?>"
+        >
+
+            <span class="article-category">
+                <?php echo htmlspecialchars($article['category']); ?>
+            </span>
+
+            <h3>
+                <?php echo htmlspecialchars($article['title']); ?>
+            </h3>
+
+            <p>
+                <?php echo htmlspecialchars($article['description']); ?>
+            </p>
+
+            <div class="article-meta">
+                <span>
+                    <?php echo htmlspecialchars($article['created_at']); ?>
+                </span>
+            </div>
+
+        </article>
+
+    <?php endwhile; ?>
+
+<?php else: ?>
+
+    <p>No articles found.</p>
+
+<?php endif; ?>
+
+</div>
+
+                <div id="empty-message"
+                    class="empty-message" hidden>
+                    No articles found.
+                </div>
+            </section>
+
+            <!-- PAGINATION -->
+            <div class="pagination">
+                <button id="previous-btn" type="button" disabled>
+                    Previous
+                </button>
+
+                <span>
+                    Page <strong id="page-number">1</strong>
+                </span>
+
+                <button id="next-btn" type="button" disabled>
+                    Next
+                </button>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+
+            <div class="footer-brand">
+                <div class="brand">
+                    <span class="brand-mark">N</span>
+                    <span class="brand-text">
+                        News <em>In Green</em>
+                    </span>
+                </div>
+                <p>
+                    The student-run news portal covering academics,
+                    events, sport, and campus life.
+                </p>
+            </div>
+
+            <div class="footer-col">
+                <h3>Sections</h3>
+                <a href="browse.php#academic">Academic</a>
+                <a href="browse.php#events">Events</a>
+                <a href="browse.php#sports">Sports</a>
+                <a href="browse.php#general">General</a>
+            </div>
+
+            <div class="footer-col">
+                <h3>Account</h3>
+                <a href="login.html">Log in</a>
+                <a href="register.html">Register</a>
+                <a href="bookmarks.html">Bookmarks</a>
+                <a href="subscriptions.html">Subscription</a>
+                <a href="submit.html">Submit an article</a>
+            </div>
+
+            <div class="footer-col">
+                <h3>Contact</h3>
+                <a href="mailto:newsroom@newsingreen.edu">
+                    newsroom@newsingreen.edu
+                </a>
+                <span>123 University Avenue, Colombo</span>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            &copy; 2026 News In Green
+        </div>
+    </footer>
+
+</body>
+</html>
