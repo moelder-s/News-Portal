@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="News In Green Admin Announcements">
+
+    <title>Announcements — News In Green</title>
+
+    <link rel="stylesheet"
+          href="admin.css">
+</head>
+
+<body>
+
+    <!-- =========================================
+         ANIMATED BACKGROUND
+    ========================================== -->
+
+    <div class="stars"></div>
+    <div class="stars stars-2"></div>
+    <div class="stars stars-3"></div>
+
+
+    <!-- =========================================
+         ADMIN HEADER
+    ========================================== -->
+
+    <header class="admin-header">
+
+        <div class="header-left">
+
+            <a href="news.html" class="brand">
+
+                <span class="brand-logo">N</span>
+
+                <span class="brand-name">
+                    News <em>In Green</em>
+                </span>
+
+            </a>
+
+
+            <div class="page-title">
+
+                <span class="title-dot"></span>
+
+                <h1>Announcements</h1>
+
+            </div>
+
+        </div>
+
+
+        <!-- Header right -->
+
+        <div class="header-right">
+
+            <button class="header-btn logout-btn"
+                    id="logoutBtn">
+                Log out
+            </button>
+
+
+            <button class="theme-btn"
+                    id="themeToggle"
+                    aria-label="Switch to light mode">
+
+                <span class="theme-circle"></span>
+
+                <span id="themeText">
+                    Day
+                </span>
+
+            </button>
+
+
+            <a href="news.html"
+               class="header-btn home-btn">
+                Home
+            </a>
+
+
+            <div class="admin-profile">
+
+                <span class="admin-avatar">
+                    A
+                </span>
+
+                <span>Admin</span>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================================
+         MAIN CONTENT
+    ========================================== -->
+
+    <main class="main-container">
+
+
+        <!-- =====================================
+             ANNOUNCEMENT CARD
+        ====================================== -->
+
+        <section class="announcement-card">
+
+
+            <!-- Card heading -->
+
+            <div class="card-top">
+
+                <div>
+
+                    <h2>
+                        Featured &amp; breaking news
+                    </h2>
+
+                    <p>
+                        Manage important announcements
+                        for News In Green.
+                    </p>
+
+                </div>
+
+
+                <button class="new-btn"
+                        id="openModalBtn">
+
+                    <span>+</span>
+                    New announcement
+
+                </button>
+
+            </div>
+
+
+
+            <!-- =================================
+                 SEARCH / FILTER
+            ================================== -->
+
+            <div class="tools-bar">
+
+                <div class="search-box">
+
+                    <span class="search-icon">
+                        ⌕
+                    </span>
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search announcements..."
+                    >
+
+                </div>
+
+
+                <select id="typeFilter">
+
+                    <option value="all">
+                        All types
+                    </option>
+
+                    <option value="Breaking">
+                        Breaking
+                    </option>
+
+                    <option value="Featured">
+                        Featured
+                    </option>
+
+                    <option value="General">
+                        General
+                    </option>
+
+                </select>
+
+
+                <select id="categoryFilter">
+
+                    <option value="all">
+                        All categories
+                    </option>
+
+                    <option value="University">
+                        University
+                    </option>
+
+                    <option value="Technology">
+                        Technology
+                    </option>
+
+                    <option value="Sports">
+                        Sports
+                    </option>
+
+                    <option value="Events">
+                        Events
+                    </option>
+
+                    <option value="General">
+                        General
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- =================================
+                 TABLE
+            ================================== -->
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Title</th>
+
+                            <th>Type</th>
+
+                            <th>Category</th>
+
+                            <th>Date</th>
+
+                            <th>Status</th>
+
+                            <th>Actions</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="announcementTable">
+
+                        <!-- JavaScript will add rows here -->
+
+                    </tbody>
+
+                </table>
+
+
+                <!-- Empty message -->
+
+                <div class="empty-state"
+                     id="emptyState">
+
+                    <div class="empty-icon">
+                        ◇
+                    </div>
+
+                    <h3>
+                        No announcements found
+                    </h3>
+
+                    <p>
+                        Create your first announcement
+                        using the button above.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =========================================
+         NEW ANNOUNCEMENT MODAL
+    ========================================== -->
+
+    <div class="modal-overlay"
+         id="modalOverlay">
+
+        <div class="announcement-modal">
+
+
+            <!-- Modal header -->
+
+            <div class="modal-header">
+
+                <div>
+
+                    <span class="modal-small-title">
+                        ADMIN PANEL
+                    </span>
+
+                    <h2 id="modalTitle">
+                        New Announcement
+                    </h2>
+
+                </div>
+
+
+                <button class="close-btn"
+                        id="closeModalBtn">
+
+                    ×
+
+                </button>
+
+            </div>
+
+
+
+            <!-- Form -->
+
+            <form id="announcementForm">
+
+
+                <input type="hidden"
+                       id="editId">
+
+
+                <!-- Title -->
+
+                <div class="form-group">
+
+                    <label for="announcementTitle">
+                        Announcement title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="announcementTitle"
+                        placeholder="Enter announcement title"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- Description -->
+
+                <div class="form-group">
+
+                    <label for="announcementDescription">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="announcementDescription"
+                        rows="4"
+                        placeholder="Write announcement details..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+
+                <!-- Type -->
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="announcementType">
+                            Type
+                        </label>
+
+                        <select id="announcementType"
+                                required>
+
+                            <option value="">
+                                Select type
+                            </option>
+
+                            <option value="Breaking">
+                                Breaking
+                            </option>
+
+                            <option value="Featured">
+                                Featured
+                            </option>
+
+                            <option value="General">
+                                General
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- Category -->
+
+                    <div class="form-group">
+
+                        <label for="announcementCategory">
+                            Category
+                        </label>
+
+                        <select id="announcementCategory"
+                                required>
+
+                            <option value="">
+                                Select category
+                            </option>
+
+                            <option value="University">
+                                University
+                            </option>
+
+                            <option value="Technology">
+                                Technology
+                            </option>
+
+                            <option value="Sports">
+                                Sports
+                            </option>
+
+                            <option value="Events">
+                                Events
+                            </option>
+
+                            <option value="General">
+                                General
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Status -->
+
+                <div class="form-group">
+
+                    <label for="announcementStatus">
+                        Status
+                    </label>
+
+                    <select id="announcementStatus">
+
+                        <option value="Published">
+                            Published
+                        </option>
+
+                        <option value="Draft">
+                            Draft
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- Buttons -->
+
+                <div class="form-actions">
+
+                    <button type="button"
+                            class="cancel-btn"
+                            id="cancelBtn">
+
+                        Cancel
+
+                    </button>
+
+
+                    <button type="submit"
+                            class="save-btn">
+
+                        Save announcement
+
+                    </button>
+
+                </div>
+
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         TOAST MESSAGE
+    ========================================== -->
+
+    <div class="toast"
+         id="toast">
+
+        <span id="toastMessage">
+            Announcement saved!
+        </span>
+
+    </div>
+
+
+
+    <script src="admin.js"></script>
+
+</body>
+</html>
