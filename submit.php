@@ -1,5 +1,10 @@
+
 <?php
 header('Content-Type: application/json; charset=utf-8');
+
+// Never print PHP errors as HTML; make mysqli return false instead of throwing
+ini_set('display_errors', 0);
+mysqli_report(MYSQLI_REPORT_OFF);
 
 // Allow POST requests only
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -11,8 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// Database connection
-$conn = new mysqli('localhost', 'root', '', 'news_in_green');
+// Database connection (database name updated to news_portal)
+$conn = new mysqli('localhost', 'root', '', 'news_portal');
 
 if ($conn->connect_error) {
     http_response_code(500);
@@ -109,5 +114,3 @@ if ($stmt->execute()) {
 
 $stmt->close();
 $conn->close();
-
-
