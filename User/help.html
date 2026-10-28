@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
     <title>Help & Support — News In Green</title>
     <link rel="stylesheet" href="help.css">
 </head>
@@ -47,10 +48,11 @@
             <h1>How can we help?</h1>
             <p class="hero-desc">Search our guides or ask a question.</p>
 
-            <div class="search-box">
+            <form id="helpForm" class="search-box">
                 <span class="search-icon">🔍</span>
-                <input type="text" placeholder="Ask or search anything...">
-            </div>
+                <input type="text" id="questionInput" placeholder="Ask or search anything..." required>
+                <button type="submit" class="btn-send">Send</button>
+            </form>
 
             <div class="quick-tags">
                 <span class="tag-label">Common questions:</span>
