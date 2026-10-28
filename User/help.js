@@ -13,10 +13,11 @@ function toggleTheme() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
+    // 1. Help Form Submission
     const helpForm = document.getElementById('helpForm');
     if (helpForm) {
-        helpForm.addEventListener('submit', async function(event) {
+        helpForm.addEventListener('submit', async function (event) {
             event.preventDefault();
 
             const questionInput = document.getElementById('questionInput');
@@ -52,6 +53,18 @@ document.addEventListener("DOMContentLoaded", function() {
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Send';
             }
+        });
+    }
+
+    // 2. Mobile Navigation Toggle
+    const button = document.getElementById('nav-burger');
+    const menu = document.getElementById('main-nav');
+
+    if (button && menu) {
+        button.addEventListener('click', function () {
+            const isOpen = menu.classList.toggle('open');
+            button.setAttribute('aria-expanded', String(isOpen));
+            button.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
         });
     }
 });
