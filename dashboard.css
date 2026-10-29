@@ -1,479 +1,910 @@
+
+/* ==================================================
+   NEWS IN GREEN - COMPLETE DASHBOARD CSS
+   Day Mode + Night Mode
+   Browse-style Header and Footer
+   Glass Dashboard Design
+================================================== */
+
+/* ---------- DAY MODE (DEFAULT) ---------- */
+
 :root {
-    /* Background Image */
-    --auth-photo: url("bg.jpg"); 
-    --font-display: Georgia, serif;
-    --font-body: system-ui, sans-serif;
-    
-    --bg-solid: #f7faf8; 
+    --font-display: Georgia, "Times New Roman", serif;
+    --font-body: Arial, Helvetica, sans-serif;
+
+    --bg: #edf4ef;
+    --header-bg: #f8faf8;
+    --footer-bg: #edf4ef;
+
     --text-main: #12180f;
-    --text-muted: #2f3f35;
-    --accent-green: #1f6f45; 
+    --text-muted: #536355;
+    --border: #d8e0d9;
+    --green: #1f8050;
+
     --glass-bg: rgba(255, 255, 255, 0.58);
     --glass-border: rgba(255, 255, 255, 0.65);
     --glass-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
-    --card-inner: #ffffff;
-    --card-inner-border: rgba(0, 0, 0, 0.14);
+
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --card-border: rgba(0, 0, 0, 0.08);
+    --card-text: #12180f;
+    --card-muted: #37463c;
+
+    --background-overlay: rgba(0, 0, 0, 0.10);
 }
+
+/* ---------- NIGHT MODE ---------- */
 
 html[data-theme="dark"] {
-    --bg-solid: #0e1612;
+    --bg: #0b0f0c;
+    --header-bg: #0b0f0c;
+    --footer-bg: #101812;
+
     --text-main: #f1f6f3;
-    --text-muted: rgba(255, 255, 255, 0.8);
-    --accent-green: #4ade80;
-    --glass-bg: rgba(14, 22, 18, 0.58);
+    --text-muted: #a5b8aa;
+    --border: #29382d;
+    --green: #4fb579;
+
+    --glass-bg: rgba(14, 22, 18, 0.68);
     --glass-border: rgba(255, 255, 255, 0.14);
-    --glass-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
-    --card-inner: rgba(8, 14, 11, 0.55);
-    --card-inner-border: rgba(255, 255, 255, 0.16);
+    --glass-shadow: 0 24px 60px rgba(0, 0, 0, 0.48);
+
+    --card-bg: rgba(8, 14, 11, 0.85);
+    --card-border: rgba(255, 255, 255, 0.14);
+    --card-text: #f1f6f3;
+    --card-muted: #a5b8aa;
+
+    --background-overlay: rgba(0, 0, 0, 0.34);
 }
 
+/* ==================================================
+   1. GLOBAL STYLES
+================================================== */
+
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    background: linear-gradient(rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.18)), var(--auth-photo) center / cover no-repeat fixed;
-    color: var(--text-main);
-    font-family: var(--font-body);
-    line-height: 1.5;
-    min-height: 100vh;
-    min-height: 100dvh;
-    display: flex;
-    flex-direction: column;
+html {
+    scroll-behavior: smooth;
 }
 
-html[data-theme="dark"] body {
-    background: linear-gradient(rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.32)), var(--auth-photo) center / cover no-repeat fixed;
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+
+    color: var(--text-main);
+    background: var(--bg);
+    font-family: var(--font-body);
+    line-height: 1.5;
 }
 
 a {
-    color: var(--text-main);
+    color: inherit;
     text-decoration: none;
-    transition: color 0.2s;
 }
+
+button {
+    font: inherit;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+/* ==================================================
+   2. HEADER - MATCHING BROWSE PAGE
+================================================== */
 
 .site-header {
     position: sticky;
     top: 0;
     z-index: 100;
-    background-color: var(--bg-solid);
-    padding: 1rem 2rem;
-    border-bottom: 1px solid var(--glass-border);
+
+    width: 100%;
+    background: var(--header-bg);
+    border-bottom: 1px solid var(--border);
+
+    transition:
+        background-color 0.42s ease,
+        border-color 0.42s ease;
 }
 
 .header-inner {
-    max-width: 1200px;
+    width: 100%;
+    max-width: 1340px;
+    min-height: 78px;
+
     margin: 0 auto;
+    padding: 14px 24px;
+
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    gap: 22px;
 }
 
-.brand {
-    display: flex;
+/* ---------- LOGO ---------- */
+
+.site-header .brand,
+.site-footer .brand {
+    display: inline-flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 10px;
+    flex-shrink: 0;
+
+    color: var(--text-main);
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: bold;
+    white-space: nowrap;
 }
 
 .brand-mark {
-    background-color: var(--accent-green);
-    color: var(--bg-solid);
-    font-weight: bold;
-    width: 32px;
-    height: 32px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 6px;
-    font-size: 1.2rem;
-    font-family: var(--font-display);
-}
+    width: 33px;
+    height: 33px;
 
-.brand-text {
+    display: grid;
+    place-items: center;
+
+    color: #ffffff;
+    background: var(--green);
+    border-radius: 7px;
+
     font-family: var(--font-display);
-    font-size: 1.25rem;
+    font-size: 23px;
     font-weight: bold;
 }
 
 .brand-text em {
-    color: var(--accent-green);
-    font-style: normal; 
+    color: var(--green);
+    font-style: normal;
 }
+
+/* ---------- NAVIGATION ---------- */
 
 .main-nav {
     display: flex;
-    gap: 2rem;
+    align-items: center;
+    gap: 24px;
+    margin-left: auto;
 }
 
 .main-nav a {
-    font-size: 0.9rem;
     color: var(--text-muted);
+    font-size: 15px;
+    font-weight: 400;
+    white-space: nowrap;
+
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+
+    transition:
+        color 0.2s ease,
+        border-color 0.2s ease;
 }
 
-.main-nav a:hover {
-    color: var(--text-main);
-}
-
+.main-nav a:hover,
 .main-nav a.active {
     color: var(--text-main);
-    border-bottom: 2px solid var(--accent-green);
-    padding-bottom: 0.2rem;
+    border-bottom-color: var(--green);
 }
+
+/* ---------- HEADER ACTIONS ---------- */
 
 .header-actions {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 18px;
+    flex-shrink: 0;
 }
 
+/* ---------- DAY/NIGHT SWITCH ---------- */
+
 .theme-toggle {
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 9px;
+
+    padding: 0;
+    background: transparent;
+    border: none;
+
+    color: var(--text-muted);
     cursor: pointer;
+    font-size: 14px;
 }
 
 .toggle-track {
-    width: 36px;
-    height: 20px;
-    background-color: var(--accent-green);
-    border-radius: 20px;
     position: relative;
     display: inline-block;
+
+    width: 42px;
+    height: 23px;
+
+    background: var(--green);
+    border-radius: 30px;
+
+    transition: background-color 0.42s ease;
 }
 
 .toggle-thumb {
-    width: 16px;
-    height: 16px;
-    background-color: var(--bg-solid);
-    border-radius: 50%;
     position: absolute;
-    top: 2px;
-    left: 2px;
-    transition: transform 0.3s ease;
+    top: 3px;
+    left: 3px;
+
+    width: 17px;
+    height: 17px;
+
+    background: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+
+    transition: transform 0.42s ease;
 }
 
 html[data-theme="dark"] .toggle-thumb {
-    transform: translateX(16px);
+    transform: translateX(19px);
 }
 
-.btn-ghost {
-    border: 1px solid var(--text-muted);
-    padding: 0.4rem 1rem;
-    border-radius: 6px;
-    font-size: 0.9rem;
+.toggle-label {
+    color: var(--text-muted);
 }
 
-.btn-ghost:hover {
-    border-color: var(--text-main);
+/* ---------- LOG OUT BUTTON ---------- */
+
+.site-header .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px 21px;
+
+    color: var(--text-main);
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    font-size: 15px;
+    white-space: nowrap;
+
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease;
 }
 
-/*needed when collapsing the webpage*/
+.site-header .btn-ghost:hover {
+    border-color: var(--green);
+    background: rgba(47, 141, 88, 0.07);
+}
+
+/* ---------- MOBILE MENU BUTTON ---------- */
+
 .nav-burger {
     display: none;
-    flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-    width: 40px;
-    height: 40px;
-    padding: 0 9px;
-    background: none;
-    border: 1px solid var(--text-muted);
-    border-radius: 6px;
+    padding: 8px;
+
+    background: transparent;
+    border: none;
     cursor: pointer;
 }
 
 .nav-burger span {
     display: block;
+    width: 22px;
     height: 2px;
+    margin: 5px 0;
+
     background: var(--text-main);
     border-radius: 2px;
-    transition: transform 0.25s ease, opacity 0.2s ease;
 }
 
-.nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.nav-burger.open span:nth-child(2) { opacity: 0; }
-.nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+/* ==================================================
+   3. DASHBOARD BACKGROUND
+================================================== */
 
-a:focus-visible,
-button:focus-visible {
-    outline: 2px solid var(--accent-green);
-    outline-offset: 3px;
+body {
+    background-color: var(--bg);
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
+    position: relative;
+    isolation: isolate;
+
     width: 100%;
+    max-width: none;
+    flex: 1;
+
+    margin: 0;
+    padding: 1px 24px;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 }
+
+.container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    background-image:
+        linear-gradient(
+            var(--background-overlay),
+            var(--background-overlay)
+        ),
+        url("bg.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    transition: opacity 0.42s ease;
+}
+
+/* ==================================================
+   4. GLASS DASHBOARD MAIN PANEL
+================================================== */
 
 .dashboard-main {
-    padding: 3rem;
-    margin-top: 4rem;
-    margin-bottom: 4rem;
-    border-radius: 36px; 
-    
+    width: 100%;
+    max-width: 1025px;
+
+    margin: 70px auto;
+    padding: 50px;
+
+    color: var(--text-main);
     background: var(--glass-bg);
+
+    border: 1px solid var(--glass-border);
+    border-radius: 36px;
+
     -webkit-backdrop-filter: blur(18px) saturate(130%);
     backdrop-filter: blur(18px) saturate(130%);
-    border: 1px solid var(--glass-border);
+
     box-shadow: var(--glass-shadow);
-    color: var(--text-main);
+
+    transition:
+        background-color 0.42s ease,
+        border-color 0.42s ease,
+        color 0.42s ease,
+        box-shadow 0.42s ease;
 }
 
-html[data-theme="dark"] .dashboard-main {
-    -webkit-backdrop-filter: blur(16px) saturate(120%);
-    backdrop-filter: blur(16px) saturate(120%);
-}
+/* ==================================================
+   5. DASHBOARD WELCOME SECTION
+================================================== */
 
 .dashboard-greeting {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: center; 
-    margin-bottom: 2.5rem;
+    gap: 20px;
+
+    margin-bottom: 40px;
 }
 
 .greeting-text h1 {
-    margin-bottom: 0.25rem;
+    margin: 0 0 8px;
+
+    font-family: var(--font-body);
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.2;
 }
 
-/* Style the edit profile button */
-.dashboard-greeting .btn-ghost {
-    border: 1px solid var(--text-muted);
-    padding: 0.6rem 1.25rem;
-    border-radius: 8px;
-    font-size: 0.9rem;
+.greeting-text p {
+    margin: 0;
     color: var(--text-main);
+    font-size: 16px;
+}
+
+/* EDIT PROFILE BUTTON */
+
+.dashboard-greeting .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    padding: 11px 21px;
+
+    color: var(--text-main);
+    border: 1px solid var(--text-muted);
+    border-radius: 8px;
+    background: transparent;
+
+    font-size: 15px;
     white-space: nowrap;
+
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease;
 }
 
 .dashboard-greeting .btn-ghost:hover {
-    border-color: var(--text-main);
-    background-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--green);
+    background: rgba(255, 255, 255, 0.12);
 }
+
+/* ==================================================
+   6. DASHBOARD STATISTICS
+================================================== */
 
 .stats-row {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 25px;
 }
 
 .stat-card {
-    background: var(--card-inner);
-    border: 1px solid var(--card-inner-border);
-    padding: 1.5rem;
-    border-radius: 14px;
+    min-width: 0;
+    padding: 25px;
+
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 14px;
+
+    background: var(--card-bg);
+    color: var(--card-text);
+
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+
+    transition:
+        background-color 0.42s ease,
+        border-color 0.42s ease,
+        transform 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
 }
 
 .stat-card h3 {
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    font-weight: 500;
+    margin: 0;
+
+    color: var(--card-muted);
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.5;
 }
 
+.stat-number,
 .stat-card .stat-number {
+    margin: 0;
+
+    color: var(--card-text);
     font-family: var(--font-display);
-    font-size: 2rem;
-    color: var(--text-main);
+    font-size: 30px;
+    font-weight: normal;
 }
+
+/* ==================================================
+   7. DASHBOARD LOWER SECTIONS
+================================================== */
 
 .dashboard-submissions,
 .dashboard-comments,
 .dashboard-actions-section {
-    margin-top: 3.5rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--card-inner-border);
+    margin-top: 60px;
+    padding-top: 35px;
+
+    border-top: 1px solid var(--border);
 }
 
-.dashboard-submissions h3,
-.dashboard-comments h3,
-.dashboard-actions-section h3 {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    margin-bottom: 1.25rem;
+.dashboard-submissions h2,
+.dashboard-comments h2,
+.dashboard-actions-section h2 {
+    margin: 0 0 25px;
+
     color: var(--text-main);
+    font-family: var(--font-display);
+    font-size: 27px;
+    font-weight: 700;
+    line-height: 1.2;
 }
+
+/* ==================================================
+   8. SUBMISSIONS
+================================================== */
 
 .submissions-grid,
 .comments-grid {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 16px;
 }
 
 .submission-card,
 .comment-card {
-    background: var(--card-inner);
-    border: 1px solid var(--card-inner-border);
-    padding: 1.25rem 1.5rem;
-    border-radius: 14px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding: 25px;
+
+    background: var(--card-bg);
+    color: var(--card-text);
+
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+
+    transition:
+        background-color 0.42s ease,
+        border-color 0.42s ease;
 }
+
 .submission-card h4,
 .comment-card h4 {
-    color: var(--text-main);
-    margin-bottom: 0.25rem;
-    font-size: 1.1rem;
+    margin: 0 0 8px;
+
+    color: var(--card-text);
+    font-family: var(--font-body);
+    font-size: 18px;
+    font-weight: 700;
 }
 
 .submission-card .status,
 .comment-card .comment-text {
-    font-size: 0.9rem;
-    color: var(--text-muted);
+    margin: 0;
+
+    color: var(--card-muted);
+    font-size: 14px;
 }
 
 .comment-card .comment-text {
     font-style: italic;
 }
-.submission-card,
-.comment-card { gap: 1rem; }
 
 .submission-card .date,
 .comment-card .date {
-    color: var(--text-muted);
-    font-size: 0.9rem;
+    color: var(--card-muted);
+    font-size: 14px;
     white-space: nowrap;
-    margin-left: 1rem;
 }
+
+/* ==================================================
+   9. QUICK ACTIONS
+================================================== */
+
 .actions-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
 }
+
 .action-tile {
-    background: var(--card-inner);
-    border: 1px solid var(--card-inner-border);
-    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 95px;
+    padding: 22px;
+
+    color: var(--card-text);
+    background: var(--card-bg);
+
+    border: 1px solid var(--card-border);
     border-radius: 14px;
-    color: var(--text-main);
+
+    font-size: 15px;
+    font-weight: 600;
     text-align: center;
-    font-weight: 500;
-    transition: border-color 0.2s, background-color 0.2s;
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        background-color 0.42s ease;
 }
 
 .action-tile:hover {
-    border-color: var(--accent-green);
-    background-color: rgba(255, 255, 255, 0.05);
+    transform: translateY(-5px);
+    border-color: var(--green);
 }
 
+/* ==================================================
+   10. FOOTER - MATCHING BROWSE PAGE
+================================================== */
+
 .site-footer {
-    background-color: var(--bg-solid);
-    padding: 4rem 2rem 2rem;
-    margin-top: auto;
-    border-top: 1px solid var(--glass-border);
+    width: 100%;
+    margin-top: 0;
+    padding: 68px 24px 30px;
+
+    color: var(--text-main);
+    background: var(--footer-bg);
+
+    border-top: 1px solid var(--border);
+
+    transition:
+        background-color 0.42s ease,
+        border-color 0.42s ease,
+        color 0.42s ease;
 }
 
 .footer-inner {
-    max-width: 1200px;
+    max-width: 1288px;
     margin: 0 auto;
+
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 2rem;
-    margin-bottom: 3rem;
+    grid-template-columns: 1.8fr 0.8fr 0.8fr 1fr;
+    gap: 50px;
+
+    padding-bottom: 60px;
+}
+
+/* ---------- FOOTER BRAND ---------- */
+
+.footer-brand .brand {
+    display: inline-flex;
+    margin-bottom: 18px;
 }
 
 .footer-brand p {
+    max-width: 280px;
+    margin: 0;
+
     color: var(--text-muted);
-    margin-top: 1rem;
-    font-size: 0.9rem;
-    max-width: 250px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+/* ---------- FOOTER COLUMNS ---------- */
+
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
 }
 
 .footer-col h3 {
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
+    margin: 0 0 12px;
+
+    color: var(--text-main);
+    font-family: var(--font-body);
+    font-size: 18px;
+    font-weight: 700;
 }
 
-.footer-col a, .footer-col span {
+.footer-col a,
+.footer-col span {
     display: block;
+
     color: var(--text-muted);
-    margin-bottom: 0.75rem;
-    font-size: 0.9rem;
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.4;
+
+    transition: color 0.2s ease;
 }
 
 .footer-col a:hover {
-    color: var(--accent-green);
+    color: var(--green);
 }
+
+/* ---------- COPYRIGHT ---------- */
 
 .footer-bottom {
-    max-width: 1200px;
+    max-width: 1288px;
     margin: 0 auto;
-    border-top: 1px solid var(--glass-border); 
-    padding-top: 1.5rem;
-    padding-bottom: 1rem;
-    text-align: center;                         
+    padding: 24px 20px 0;
+
+    border-top: 1px solid var(--border);
+
     color: var(--text-muted);
-    font-size: 0.85rem;
+    font-family: var(--font-body);
+    font-size: 14px;
+    text-align: center;
 }
 
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-    .dashboard-main { background: rgba(247, 250, 248, 0.95); }
-    html[data-theme="dark"] .dashboard-main { background: rgba(14, 22, 18, 0.94); }
+/* ==================================================
+   11. RESPONSIVE DESIGN
+================================================== */
+
+/* SMALL LAPTOPS */
+
+@media (max-width: 1250px) {
+    .header-inner {
+        gap: 14px;
+        padding: 14px 20px;
+    }
+
+    .main-nav {
+        gap: 13px;
+    }
+
+    .main-nav a {
+        font-size: 13px;
+    }
+
+    .site-header .brand {
+        font-size: 19px;
+    }
+
+    .header-actions {
+        gap: 10px;
+    }
 }
 
-@media (prefers-reduced-transparency: reduce) {
-    .dashboard-main { background: #f7faf8; -webkit-backdrop-filter: none; backdrop-filter: none; }
-    html[data-theme="dark"] .dashboard-main { background: #0e1612; }
-}
+/* TABLETS */
 
-@media (max-width: 1000px) {
-    .stats-row { grid-template-columns: repeat(2, 1fr); }
-    .footer-inner { grid-template-columns: 1fr 1fr; }
-}
-
-@media (max-width: 900px) {
-    .site-header { padding: 0.75rem 1rem; }
-    .header-inner { flex-wrap: wrap; gap: 0.75rem; }
-    .brand { margin-right: auto; }
-    .nav-burger { display: flex; }
+@media (max-width: 1050px) {
+    .nav-burger {
+        display: block;
+    }
 
     .main-nav {
         display: none;
-        order: 3;
-        flex-basis: 100%;
+
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+
+        padding: 18px 24px;
+
+        background: var(--header-bg);
+        border-bottom: 1px solid var(--border);
+
         flex-direction: column;
-        gap: 0.9rem;
-        padding: 0.75rem 0 0.25rem;
-        border-top: 1px solid var(--glass-border);
+        align-items: stretch;
+        gap: 8px;
     }
-    .main-nav.open { display: flex; }
-    .main-nav a.active { align-self: flex-start; }
+
+    .main-nav.open {
+        display: flex;
+    }
+
+    .main-nav a {
+        padding: 10px 0;
+        font-size: 15px;
+    }
+
+    .header-actions {
+        margin-left: auto;
+    }
+
+    .stats-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .dashboard-main {
+        padding: 35px;
+        margin: 45px auto;
+    }
+
+    .footer-inner {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 35px;
+    }
 }
+
+/* SMALL TABLETS */
 
 @media (max-width: 700px) {
-    .container { padding: 0 1rem; }
-    .dashboard-main {
-        padding: 1.5rem;
-        margin-top: 1.5rem;
-        margin-bottom: 1.5rem;
-        border-radius: 24px;
+    .actions-grid {
+        grid-template-columns: 1fr;
     }
-    .dashboard-greeting { flex-direction: column; align-items: flex-start; gap: 1rem; }
-    .actions-grid { grid-template-columns: 1fr; }
+
+    .dashboard-greeting {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
     .submission-card,
-    .comment-card { flex-direction: column; align-items: flex-start; }
-    .submission-card .date,
-    .comment-card .date { margin-left: 0; }
-    .footer-inner { grid-template-columns: 1fr; }
-    .site-footer { padding: 2.5rem 1rem 1.5rem; }
+    .comment-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .footer-inner {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
 
-@media (max-width: 480px) {
-    .stats-row { grid-template-columns: 1fr; }
+/* MOBILE PHONES */
+
+@media (max-width: 600px) {
+    .header-inner {
+        min-height: 70px;
+        padding: 12px 15px;
+        gap: 10px;
+    }
+
+    .site-header .brand {
+        font-size: 16px;
+    }
+
+    .brand-mark {
+        width: 30px;
+        height: 30px;
+        font-size: 20px;
+    }
+
+    .header-actions {
+        gap: 8px;
+    }
+
+    .header-actions .btn-ghost {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .toggle-label {
+        font-size: 12px;
+    }
+
+    .container {
+        padding: 1px 14px;
+    }
+
+    .dashboard-main {
+        margin: 30px auto;
+        padding: 24px;
+        border-radius: 25px;
+    }
+
+    .greeting-text h1 {
+        font-size: 28px;
+    }
+
+    .stats-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .stat-card {
+        padding: 20px;
+    }
+
+    .dashboard-submissions,
+    .dashboard-comments,
+    .dashboard-actions-section {
+        margin-top: 40px;
+        padding-top: 25px;
+    }
+
+    .submission-card,
+    .comment-card {
+        padding: 20px;
+    }
+
+    .site-footer {
+        padding: 45px 24px 25px;
+    }
+
+    .footer-inner {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding-bottom: 35px;
+    }
+}
+
+/* ==================================================
+   12. ACCESSIBILITY
+================================================== */
+
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid var(--green);
+    outline-offset: 4px;
 }
 
 @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { transition: none !important; animation: none !important; }
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
-
