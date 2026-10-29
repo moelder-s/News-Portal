@@ -244,7 +244,7 @@ body.light-mode .toggle-thumb {
     background-color: #0e3b24;
     background-image:
         linear-gradient(rgba(0,0,0,0.18), rgba(0,0,0,0.18)),
-        url("background.jpg");
+        url("bg.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -575,5 +575,197 @@ body.light-mode .sub-card {
     .footer-brand .brand {
         justify-content: center;
         margin-right: 0;
+    }
+}
+
+/* ==============================
+   SUBSCRIBED-CATEGORY NOTIFICATIONS
+   Uses the existing Saaku green glass style.
+============================== */
+
+.main-nav a[aria-current="page"] {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.notification-badge,
+.unread-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    border-radius: 999px;
+    background: var(--green);
+    color: #062011;
+    font-size: 11px;
+    font-weight: 800;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.notification-badge[hidden],
+.unread-count[hidden],
+.notification-toast[hidden] {
+    display: none !important;
+}
+
+.sub-notifications {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+}
+
+.notification-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.notification-heading h2 {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 0.4rem;
+    color: var(--heading);
+    font-family: Georgia, serif;
+    font-size: 1.45rem;
+}
+
+.notification-heading p {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    max-width: 560px;
+}
+
+.notification-heading .btn-ghost {
+    font-size: 0.82rem;
+    padding: 9px 13px;
+}
+
+.notification-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.notification-item {
+    display: grid;
+    grid-template-columns: 10px minmax(0, 1fr);
+    align-items: start;
+    gap: 0.8rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 13px;
+    background: var(--card-glass);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: border-color 0.2s, transform 0.2s, background 0.2s;
+}
+
+.notification-item:hover {
+    border-color: var(--green);
+    transform: translateY(-1px);
+}
+
+.notification-item.is-unread {
+    border-color: rgba(53,185,107,0.7);
+    background: linear-gradient(135deg, rgba(53,185,107,0.15), rgba(255,255,255,0.06));
+}
+
+.notification-dot {
+    width: 9px;
+    height: 9px;
+    margin-top: 0.35rem;
+    border-radius: 50%;
+    background: transparent;
+}
+
+.notification-item.is-unread .notification-dot {
+    background: var(--green);
+    box-shadow: 0 0 0 4px rgba(53,185,107,0.13);
+}
+
+.notification-link {
+    display: block;
+    min-width: 0;
+    color: inherit;
+    text-decoration: none;
+}
+
+.notification-link h3 {
+    color: var(--heading);
+    font-size: 0.98rem;
+    margin-bottom: 0.3rem;
+}
+
+.notification-link p {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.notification-link time {
+    display: block;
+    margin-top: 0.55rem;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+}
+
+.notifications-empty {
+    padding: 1.2rem;
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.notification-toast {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 100;
+    width: min(380px, calc(100vw - 32px));
+    padding: 16px 18px;
+    border: 1px solid rgba(53,185,107,0.65);
+    border-radius: 14px;
+    color: var(--text);
+    background: var(--glass);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 18px 45px rgba(0,0,0,0.25);
+}
+
+.notification-toast strong {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--heading);
+    font-size: 0.95rem;
+}
+
+.notification-toast span {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    line-height: 1.45;
+}
+
+@media (max-width: 600px) {
+    .notification-heading {
+        align-items: flex-start;
+    }
+
+    .notification-toast {
+        right: 16px;
+        bottom: 16px;
     }
 }
