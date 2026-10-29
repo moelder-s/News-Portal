@@ -3,6 +3,7 @@
 ============================== */
 
 :root {
+    --auth-photo: url("browse.jpg"); 
     --bg: #07100c;
     --header-bg: #07100c;
     --text: #eeeeee;
@@ -11,6 +12,7 @@
     --border: rgba(255, 255, 255, 0.15);
     --green: #35b96b;
     --green-hover: #279c55;
+
     /* photo stays real: only a very light dark tint */
     --overlay: rgba(0, 0, 0, 0.18);
 
@@ -29,6 +31,7 @@
     --input-text: #ffffff;
     --chip-bg: rgba(255, 255, 255, 0.06);
     --chip-green-text: #54ce83;
+
     --color-scheme: dark;
 }
 
@@ -264,7 +267,7 @@ body.light-mode .toggle-thumb {
 
     background-image:
         linear-gradient(var(--overlay), var(--overlay)),
-        url("nsbm.jpeg");
+        url("browse.jpeg");
 
     background-size: cover;
     background-position: center;
@@ -462,6 +465,9 @@ body.light-mode .toggle-thumb {
 .article-card {
     padding: 25px;
     min-height: 190px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
     border: 1px solid var(--card-border);
     border-radius: 15px;
 
@@ -474,6 +480,37 @@ body.light-mode .toggle-thumb {
 .article-card:hover {
     transform: translateY(-4px);
     border-color: var(--green);
+}
+
+.article-card-link {
+    display: block;
+    flex: 1 1 auto;
+    height: auto;
+    color: inherit;
+    text-decoration: none;
+}
+
+.article-card-image {
+    display: block;
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 14px;
+    background: var(--input-bg);
+}
+
+.read-article-link {
+    display: inline-block;
+    margin-top: 14px;
+    color: var(--chip-green-text);
+    font-weight: 700;
+}
+
+.article-card-link:focus-visible {
+    outline: 2px solid var(--green);
+    outline-offset: 5px;
+    border-radius: 8px;
 }
 
 .article-category {
@@ -740,112 +777,52 @@ body.light-mode .toggle-thumb {
         margin-right: auto;
     }
 }
-/* ==============================
-   FULL-SCREEN ARTICLE READER
-============================== */
 
-.article-card[role="button"] {
-    cursor: pointer;
-}
-
-.article-card[role="button"]:focus-visible {
-    outline: 3px solid var(--green);
-    outline-offset: 4px;
-}
-body.article-reader-open {
-    overflow: hidden;
+/* Clear separation between the article link and its bookmark action. */
+.bookmark-break {
+    display: block;
+    flex: 0 0 14px;
+    width: 100%;
+    height: 14px;
+    line-height: 14px;
 }
 
-.article-reader[hidden] {
-    display: none !important;
-}
-
-.article-reader {
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-    overflow-y: auto;
-    background: var(--bg);
-    color: var(--text);
-    padding: 24px clamp(18px, 5vw, 72px) 64px;
-}
-.reader-topbar {
-    max-width: 1000px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
+/* Save-to-bookmarks control on each Browse card. */
+.bookmark-card-button {
+    display: inline-flex;
     align-items: center;
-    gap: 20px;
-    padding-bottom: 22px;
-    border-bottom: 1px solid var(--border);
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 100%;
+    min-height: 42px;
+    margin-top: 0;
+    padding: 10px 14px;
+    border: 1px solid var(--green);
+    border-radius: 9px;
+    background: rgba(53, 185, 107, 0.10);
+    color: var(--chip-green-text);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
 }
 
-.reader-back {
-    color: var(--text-muted);
-    font-size: 14px;
-    padding: 10px 0;
-}
-
-.reader-back:hover {
-    color: var(--green);
-}
-
-.reader-close {
-    width: 44px;
-    height: 44px;
-    border: 1px solid var(--border);
-    border-radius: 50%;
-    background: var(--input-bg);
-    color: var(--text);
-    font-size: 30px;
-    line-height: 1;
-}
-
-.reader-close:hover {
+.bookmark-card-button:hover,
+.bookmark-card-button.is-saved {
+    background: var(--green);
     border-color: var(--green);
-}
-.reader-content {
-    max-width: 850px;
-    margin: clamp(36px, 8vh, 90px) auto 0;
+    color: #06100b;
 }
 
-.reader-content .article-category {
-    margin-bottom: 22px;
+.bookmark-card-button:disabled {
+    opacity: 0.65;
+    cursor: wait;
 }
 
-.reader-content h1 {
-    color: var(--heading);
-    font-family: Georgia, serif;
-    font-size: clamp(2rem, 5vw, 3.8rem);
-    line-height: 1.15;
-    overflow-wrap: anywhere;
-    margin-bottom: 20px;
-}
-
-.reader-date {
-    color: var(--text-muted);
-    font-size: 14px;
-}
-
-.reader-divider {
-    height: 1px;
-    background: var(--border);
-    margin: 28px 0;
-}
-
-.reader-body {
-    color: var(--text);
-    font-size: clamp(1rem, 1.5vw, 1.15rem);
-    line-height: 1.9;
-    white-space: pre-wrap;
-    overflow-wrap: anywhere;
-}
-@media (max-width: 600px) {
-    .article-reader {
-        padding: 14px 20px 40px;
-    }
-
-    .reader-content {
-        margin-top: 38px;
-    }
+/* Keep every bookmark button comfortably below the Read full article link.
+   The extra bottom spacing also lets cards with longer titles/descriptions
+   grow naturally instead of letting the bookmark button crowd the link. */
+.article-card-link .read-article-link {
+    margin-bottom: 28px;
 }
