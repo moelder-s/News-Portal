@@ -1,86 +1,56 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Categories — News In Green Admin</title>
-
-  <!-- Apply saved theme before paint (no flash) -->
-  <script>
-    try {
-      var t = localStorage.getItem('nig-theme');
-      if (t) document.documentElement.setAttribute('data-theme', t);
-    } catch (e) {}
-  </script>
-
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="categories.css" />
 </head>
 <body>
 
-  <!-- Animated background -->
-  <canvas id="bg-fx" aria-hidden="true"></canvas>
+  <canvas id="sky"></canvas>
 
-  <!-- Top bar -->
   <header class="topbar">
     <div class="brand">
       <span class="logo">N</span>
-      <span class="brand-name">News <span class="accent">In Green</span></span>
-      <span class="page-title"><span class="dot"></span>Categories</span>
+      <span class="brand-name">News <em>In Green</em></span>
+      <span class="page-title"><i class="dot"></i>Categories</span>
     </div>
 
     <div class="actions">
-      <button class="pill" id="logoutBtn" type="button">Log out</button>
+      <button class="chip" id="logoutBtn">Log out</button>
 
-      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle day / night theme">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle day / night">
         <span class="knob"></span>
-        <span class="label" id="themeLabel">Night</span>
+        <span class="label" id="themeLabel">Day</span>
       </button>
 
-      <a class="pill" href="index.html">Home</a>
+      <a class="chip home" href="#">Home</a>
 
-      <div class="admin-chip">
+      <div class="profile">
         <span class="avatar">A</span>
         <span>Admin</span>
       </div>
     </div>
   </header>
 
-  <!-- Main card -->
   <main class="wrap">
-    <section class="card">
+    <section class="glass-card">
       <div class="card-head">
         <h2>News categories</h2>
-        <button class="btn-primary" id="newCategoryBtn" type="button">+ New category</button>
+        <button class="btn-new" id="addBtn">+ New category</button>
       </div>
 
-      <table class="cat-table">
+      <table>
         <thead>
-          <tr>
-            <th>Name</th>
-            <th>Articles</th>
-            <th class="col-actions"></th>
-          </tr>
+          <tr><th>Name</th><th>Articles</th><th></th></tr>
         </thead>
         <tbody id="catBody"></tbody>
       </table>
-
-      <p class="empty" id="emptyMsg" hidden>No categories yet. Click “+ New category”.</p>
     </section>
   </main>
 
-  <!-- Add / Rename dialog -->
-  <dialog id="catDialog">
-    <form method="dialog" id="catForm">
-      <h3 id="dialogTitle">New category</h3>
-      <input type="text" id="catInput" maxlength="40" placeholder="Category name" required autocomplete="off" />
-      <p class="error" id="catError" hidden></p>
-      <div class="dialog-actions">
-        <button type="button" class="btn-ghost" id="cancelBtn">Cancel</button>
-        <button type="submit" class="btn-primary" id="saveBtn">Save</button>
-      </div>
-    </form>
-  </dialog>
-
-  <script src="categories.js"></script>
+  <script src="categories.js" defer></script>
 </body>
 </html>
