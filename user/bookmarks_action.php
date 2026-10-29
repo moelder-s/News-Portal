@@ -1,0 +1,1 @@
+<?php require_once __DIR__.'/bootstrap.php';require_login();if($_SERVER['REQUEST_METHOD']==='POST'){verify_csrf();$conn->prepare('DELETE FROM bookmarks WHERE user_id=? AND article_id=?')->execute([user_id(),(int)($_POST['article_id']??0)]);}header('Location:bookmarks.php');exit;
