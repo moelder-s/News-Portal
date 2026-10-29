@@ -101,6 +101,7 @@ body.dark-mode .site-footer {
     margin-right: 1.5rem;
 }
 
+/* Navigation Links with Clean Glowing Line Effect */
 .main-nav a {
     font-size: 0.9rem;
     color: var(--text-muted);
@@ -114,7 +115,6 @@ body.dark-mode .site-footer {
 .main-nav a.active {
     color: var(--text-main);
     border-bottom-color: var(--accent-green);
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
 }
 
 .header-actions {
@@ -137,6 +137,7 @@ body.dark-mode .site-footer {
     color: var(--text-muted);
 }
 
+/* Toggle track: Grey in day mode, Green in night mode */
 .toggle-track {
     width: 36px;
     height: 20px;
@@ -147,7 +148,7 @@ body.dark-mode .site-footer {
 }
 
 body.light-mode .toggle-track {
-    background-color: #b9c8be; 
+    background-color: #b9c8be;
 }
 
 body.dark-mode .toggle-track {
@@ -169,6 +170,7 @@ body.dark-mode .toggle-thumb {
     transform: translateX(16px);
 }
 
+/* Logout button with glowing hover effect */
 .btn-logout {
     border: 2px solid var(--glass-border);
     color: var(--text-main);
@@ -286,7 +288,7 @@ body.dark-mode .toggle-thumb {
     background-color: #121e14;
     border: 1px solid #1a2a1d;
     border-radius: 30px;
-    padding: 8px 12px 8px 20px;
+    padding: 12px 20px;
     max-width: 550px;
     margin: 0 auto 25px;
 }
@@ -302,38 +304,13 @@ body.light-mode .search-box {
     opacity: 0.6;
 }
 
-/* FIX: Input flex-grow allows the send button to stay beside it */
 .search-box input {
     border: none;
     outline: none;
     background: transparent;
-    flex: 1;
-    width: auto;
+    width: 100%;
     font-size: 14px;
     color: inherit;
-}
-
-/* Send Button Styles */
-.btn-send {
-    background-color: #35b96b;
-    color: #ffffff;
-    border: none;
-    border-radius: 20px;
-    padding: 8px 18px;
-    font-size: 13px;
-    font-weight: bold;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-    margin-left: 10px;
-}
-
-.btn-send:hover {
-    background-color: #2da15d;
-}
-
-.btn-send:active {
-    transform: scale(0.95);
 }
 
 .quick-tags {
@@ -413,7 +390,9 @@ body.light-mode .topic-card {
     line-height: 1.5;
 }
 
-/* GLASS EFFECT ADD-ON */
+/* ============================================================
+   GLASS EFFECT ADD-ON
+   ============================================================ */
 
 body {
     background-image:
@@ -487,4 +466,66 @@ body.dark-mode .topic-card p {
     body.dark-mode .help-main {
         background: rgba(14, 22, 18, 0.94);
     }
+}
+
+/* ===== Help FAQ interaction: preserves the original Saaku card design ===== */
+.topic-card {
+    cursor: pointer;
+    outline: none;
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.topic-card:focus-visible {
+    outline: 3px solid #35b96b;
+    outline-offset: 3px;
+}
+.topic-card h3 {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+}
+.topic-card h3::after {
+    content: "+";
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: rgba(53,185,107,.13);
+    color: #16804b;
+    font-size: 21px;
+    line-height: 1;
+    margin-top: -3px;
+}
+.topic-card.is-open h3::after { content: "−"; }
+.topic-card p { display: none; }
+.topic-card.is-open p { display: block; margin-top: 12px; }
+.topic-card[hidden] { display: none !important; }
+.search-status { margin-top: 8px; font-size: .9rem; }
+.search-status:empty { display: none; }
+.ai-support-form { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+.ai-support-form label { flex: 0 0 100%; font-weight: 600; }
+.ai-support-form input[type="text"],
+.ai-support-form input:not([type]) {
+    flex: 1 1 250px; min-width: 0; width: 100%; padding: 14px;
+    border-radius: 10px; border: 1px solid rgba(30,100,65,.35);
+    background: rgba(255,255,255,.88); color: #17251c; font: inherit;
+}
+.ai-support-form input[type="hidden"] { display: none; }
+.ai-support-form button {
+    border: 0; border-radius: 10px; padding: 12px 22px;
+    background: #22865d; color: #fff; font: inherit; font-weight: 700; cursor: pointer;
+}
+.ai-support-form button:disabled { opacity: .65; cursor: wait; }
+.support-response { margin-top: 14px; padding: 14px 16px; border-radius: 12px; white-space: pre-wrap; line-height: 1.6; }
+.support-response:empty { display: none; }
+body.light-mode .support-response { background: rgba(255,255,255,.75); border: 1px solid rgba(34,134,93,.2); }
+body.dark-mode .support-response { background: rgba(12,25,18,.7); border: 1px solid rgba(80,190,125,.25); }
+.support-response.is-loading { opacity: .8; }
+.support-mode { margin-top: 8px; font-size: .82rem; opacity: .78; }
+@media (max-width: 600px) {
+    .ai-support-form button { width: 100%; }
+    .topic-card h3 { font-size: 1rem; }
 }

@@ -1,70 +1,57 @@
 function toggleTheme() {
     const body = document.body;
     const label = document.getElementById("toggle-label");
-
     if (body.classList.contains("light-mode")) {
-        body.classList.remove("light-mode");
-        body.classList.add("dark-mode");
-        label.textContent = "Night";
+        body.classList.remove("light-mode"); body.classList.add("dark-mode");
+        if (label) label.textContent = "Night";
     } else {
-        body.classList.remove("dark-mode");
-        body.classList.add("light-mode");
-        label.textContent = "Day";
+        body.classList.remove("dark-mode"); body.classList.add("light-mode");
+        if (label) label.textContent = "Day";
     }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    // 1. Help Form Submission
-    const helpForm = document.getElementById('helpForm');
-    if (helpForm) {
-        helpForm.addEventListener('submit', async function (event) {
-            event.preventDefault();
-
-            const questionInput = document.getElementById('questionInput');
-            const questionText = questionInput.value.trim();
-            const submitBtn = helpForm.querySelector('.btn-send');
-
-            if (!questionText) return;
-
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Sending...';
-
-            try {
-                const response = await fetch('submit-question.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ question: questionText })
-                });
-
-                const result = await response.json();
-
-                if (response.ok && result.status === 'success') {
-                    alert("Your question has been saved to the database!");
-                    questionInput.value = '';
-                } else {
-                    alert("Error: " + (result.message || "Failed to submit."));
-                }
-            } catch (error) {
-                console.error("Error submitting question:", error);
-                alert("Network error: Check if Apache and MySQL are running in XAMPP.");
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Send';
+document.addEventListener('DOMContentLoaded', () => {
+    const cards = Array.from(document.querySelectorAll('.topic-card'));
+    cards.forEach((card, index) => {
+        const question = card.querySelector('h3');
+        const answer = card.querySelector('p');
+        if (!question || !answer) return;
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('aria-expanded', 'false');
+        card.setAttribute('aria-label', question.textContent.trim());
+        answer.id = answer.id || `help-answer-${index + 1}`;
+        card.setAttribute('aria-controls', answer.id);
+        const toggle = () => {
+            const willOpen = !card.classList.contains('is-open');
+            card.classList.toggle('is-open', willOpen);
+            card.setAttribute('aria-expanded', String(willOpen));
+        };
+        card.addEventListener('click', toggle);
+        card.addEventListener('keydown', event => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault(); toggle();
             }
         });
-    }
+    });
 
-    // 2. Mobile Navigation Toggle
-    const button = document.getElementById('nav-burger');
-    const menu = document.getElementById('main-nav');
-
-    if (button && menu) {
-        button.addEventListener('click', function () {
-            const isOpen = menu.classList.toggle('open');
-            button.setAttribute('aria-expanded', String(isOpen));
-            button.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+    const search = document.getElementById('help-search');
+    const status = document.getElementById('help-search-status');
+    if (search) {
+        search.addEventListener('input', () => {
+            const query = search.value.trim().toLocaleLowerCase();
+            let visible = 0;
+            document.querySelectorAll('.help-topics').forEach(section => {
+                const sectionCards = Array.from(section.querySelectorAll('.topic-card'));
+                let sectionVisible = 0;
+                sectionCards.forEach(card => {
+                    const match = !query || card.textContent.toLocaleLowerCase().includes(query);
+                    card.hidden = !match;
+                    if (match) { visible++; sectionVisible++; }
+                });
+                section.hidden = sectionVisible === 0;
+            });
+            if (status) status.textContent = query ? `${visible} matching question${visible === 1 ? '' : 's'} found.` : '';
         });
     }
 });

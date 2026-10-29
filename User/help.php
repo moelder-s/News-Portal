@@ -1,77 +1,8 @@
-<?php
-// ==============================================================================
-// FILE: help.php
-// DESCRIPTION: Unified Help & Support System for News In Green
-// INCLUDES: Database Connection, Form API Handling, and HTML Presentation
-// ==============================================================================
-
-// ------------------------------------------------------------------------------
-// SECTION 1: DATABASE CONFIGURATION & CONNECTION
-// ------------------------------------------------------------------------------
-$host     = "localhost";
-$username = "root";
-$password = ""; 
-$dbname   = "news_in_green";
-
-$conn = new mysqli($host, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        header('Content-Type: application/json');
-        http_response_code(500);
-        echo json_encode(["status" => "error", "message" => "Database Connection Failed: " . $conn->connect_error]);
-        exit;
-    } else {
-        die("Database Connection Failed: " . $conn->connect_error);
-    }
-}
-
-// ------------------------------------------------------------------------------
-// SECTION 2: FORM SUBMISSION / API HANDLER (POST REQUESTS)
-// ------------------------------------------------------------------------------
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Read JSON input (from JS fetch API) or standard POST form input
-    $jsonInput = file_get_contents('php://input');
-    $data = json_decode($jsonInput, true);
-
-    $question = '';
-    if (isset($data['question'])) {
-        $question = trim($data['question']);
-    } elseif (isset($_POST['question'])) {
-        $question = trim($_POST['question']);
-    }
-
-    if (!empty($question)) {
-        $stmt = $conn->prepare("INSERT INTO help_questions (question) VALUES (?)");
-        $stmt->bind_param("s", $question);
-
-        if ($stmt->execute()) {
-            http_response_code(200);
-            echo json_encode(["status" => "success", "message" => "Question submitted successfully."]);
-        } else {
-            http_response_code(500);
-            echo json_encode(["status" => "error", "message" => "Database insert error: " . $stmt->error]);
-        }
-        $stmt->close();
-    } else {
-        http_response_code(400);
-        echo json_encode(["status" => "error", "message" => "Question cannot be empty."]);
-    }
-
-    $conn->close();
-    exit; // Stop execution so HTML is not rendered during API response
-}
-?>
-
-<!-- ============================================================================
-     SECTION 3: FRONTEND HTML DISPLAY
-     ============================================================================ -->
+<?php require_once __DIR__.'/bootstrap.php'; require_login(); ?>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Help & Support — News In Green</title>
     <link rel="stylesheet" href="help.css">
 </head>
@@ -79,18 +10,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body class="light-mode">
     <header class="site-header">
         <div class="header-inner">
-            <a href="news.html" class="brand">
+            <a href="home.php" class="brand">
                 <span class="brand-mark">N</span>
                 <span class="brand-text">News <em>In Green</em></span>
             </a>
 
             <nav class="main-nav" aria-label="Primary">
-                <a href="news.html">Home</a>
-                <a href="user-dashboard.html">Dashboard</a>
-                <a href="browse.html">Browse</a>
-                <a href="bookmarks.html">Bookmarks</a>
-                <a href="submit.html">Submit an article</a>
-                <a href="subscription.html">Subscriptions</a>
+                <a href="home.php">Home</a>
+                <a href="dashboard.php">Dashboard</a>
+                <a href="browse.php">Browse</a>
+                <a href="bookmarks.php">Bookmarks</a>
+                <a href="submit.php">Submit an article</a>
+                <a href="subscriptions.php">Subscriptions</a>
                 <a href="help.php" class="active">Help & Support</a>
             </nav>
 
@@ -110,7 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </div>
     </header>
-
     <main class="help-main">
         <!-- Hero Section with Search and Quick Tags -->
         <section class="help-hero">
@@ -118,11 +48,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <h1>How can we help?</h1>
             <p class="hero-desc">Search our guides or ask a question.</p>
 
-            <form id="helpForm" class="search-box" action="help.php" method="POST">
+            <div class="search-box">
                 <span class="search-icon">🔍</span>
-                <input type="text" id="questionInput" name="question" placeholder="Ask or search anything..." required>
-                <button type="submit" class="btn-send">Send</button>
-            </form>
+                <input id="help-search" type="text" placeholder="Search questions or answers..." aria-label="Search help questions">
+            </div>
+            <p id="help-search-status" class="search-status" aria-live="polite"></p>
 
             <div class="quick-tags">
                 <span class="tag-label">Common questions:</span>
@@ -218,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             </div>
         </section>
-    </main>
+    <section style="max-width:900px;margin:25px auto;padding:25px;background:rgba(255,255,255,.77);backdrop-filter:blur(15px);border-radius:20px"><h2>Ask News In Green Help</h2><p>Ask questions about News In Green or any other topic. Green Assistant uses AI when a provider key is configured.</p><form id="ai-support" class="ai-support-form"><input type="hidden" id="support-csrf" value="<?=esc(csrf())?>"><label for="support-q">Your question</label><input id="support-q" maxlength="500" required placeholder="Ask anything — study, coding, writing, or News In Green…"><button type="submit">Ask</button></form><div id="support-response" class="support-response" role="status" aria-live="polite"></div><p id="support-mode" class="support-mode" aria-live="polite">For general AI answers, configure a Gemini or OpenAI key on the server. Portal FAQs work without one.</p></section><script src="help_ai.js" defer></script></main>
 
     <footer class="site-footer">
         <div class="footer-inner">
@@ -229,18 +159,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <div class="footer-col">
                 <h3>Sections</h3>
-                <a href="browse.html#academic">Academic</a>
-                <a href="browse.html#events">Events</a>
-                <a href="browse.html#sports">Sports</a>
-                <a href="browse.html#general">General</a>
+                <a href="browse.php#academic">Academic</a>
+                <a href="browse.php#events">Events</a>
+                <a href="browse.php#sports">Sports</a>
+                <a href="browse.php#general">General</a>
             </div>
             <div class="footer-col">
                 <h3>Account</h3>
                 <a href="login.html">Log in</a>
                 <a href="register.html">Register</a>
-                <a href="bookmarks.html">Bookmarks</a>
-                <a href="subscriptions.html">Subscriptions</a>
-                <a href="submit.html">Submit an article</a>
+                <a href="bookmarks.php">Bookmarks</a>
+                <a href="subscriptions.php">Subscriptions</a>
+                <a href="submit.php">Submit an article</a>
             </div>
             <div class="footer-col">
                 <h3>Contact</h3>
