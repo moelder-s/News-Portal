@@ -3,12 +3,15 @@
 <html lang="en">
 
 <head>
+    <script src="site-shared.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subscriptions — News In Green</title>
     <meta name="description" content="Manage your category subscriptions on News In Green, the student-run news portal.">
     <link rel="stylesheet" href="subscriptions.css">
     <script src="subscriptions.js" defer></script>
+<link rel="stylesheet" href="site-shared.css">
+
 </head>
 
 <body class="light-mode">
@@ -29,7 +32,7 @@
                 <a href="bookmarks.php">Bookmarks</a>
                 <a href="submit.php">Submit an article</a>
                 <a href="subscriptions.php" class="active" aria-current="page"><span>Subscriptions</span><span id="sub-notification-badge" class="notification-badge" hidden>0</span></a>
-                <a href="help.php">Help/Contact</a>
+                
             </nav>
 
             <div class="header-actions">
@@ -39,7 +42,7 @@
                     <span class="toggle-label">Day</span>
                 </button>
 
-                <a href="login.html" class="btn-ghost">Log out</a>
+                <a href="logout.php" class="btn-ghost">Log out</a>
             </div>
 
             <button class="nav-burger" id="nav-burger" type="button"
@@ -144,10 +147,10 @@
 
             <div class="footer-col">
                 <h3>Sections</h3>
-                <a href="browse.php#academic">Academic</a>
-                <a href="browse.php#events">Events</a>
-                <a href="browse.php#sports">Sports</a>
-                <a href="browse.php#general">General</a>
+                <a href="browse.php?category=Academic">Academic</a>
+                <a href="browse.php?category=Events">Events</a>
+                <a href="browse.php?category=Sports">Sports</a>
+                <a href="browse.php?category=General">General</a>
             </div>
 
             <div class="footer-col">
@@ -157,13 +160,7 @@
                 <a href="bookmarks.php">Bookmarks</a>
                 <a href="subscriptions.php">Subscriptions</a>
                 <a href="submit.php">Submit an article</a>
-                <a href="help.php">Help/Contact</a>
-            </div>
-
-            <div class="footer-col">
-                <h3>Contact</h3>
-                <a href="mailto:newsroom@newsingreen.edu">newsroom@newsingreen.edu</a>
-                <span>123 University Avenue, Colombo</span>
+                
             </div>
 
         </div>
