@@ -1,116 +1,177 @@
+<?php require_once __DIR__.'/bootstrap.php'; require_login(); ?>
 
-<?php
-header('Content-Type: application/json; charset=utf-8');
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
 
-// Never print PHP errors as HTML; make mysqli return false instead of throwing
-ini_set('display_errors', 0);
-mysqli_report(MYSQLI_REPORT_OFF);
+<head>
+    <script src="site-shared.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit an article — News In Green</title>
+    <meta name="description" content="Submit an article to News In Green, the student-run news portal.">
+    <link rel="stylesheet" href="submit.css">
+<link rel="stylesheet" href="site-shared.css">
 
-// Allow POST requests only
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    echo json_encode([
-        'success' => false,
-        'message' => 'Invalid request method.'
-    ]);
-    exit;
-}
+</head>
 
-// Database connection (database name updated to news_portal)
-$conn = new mysqli('localhost', 'root', '', 'news_portal');
+<body>
 
-if ($conn->connect_error) {
-    http_response_code(500);
-    echo json_encode([
-        'success' => false,
-        'message' => 'Database connection failed.'
-    ]);
-    exit;
-}
+    
+    <header class="site-header">
+        <div class="header-inner">
 
-$conn->set_charset('utf8mb4');
+            <a href="home.php" class="brand">
+                <span class="brand-mark">N</span>
+                <span class="brand-text">News <em>In Green</em></span>
+            </a>
 
-// Get form values
-$title = trim($_POST['title'] ?? '');
-$category = trim($_POST['category'] ?? '');
-$author = trim($_POST['author'] ?? '');
-$image = trim($_POST['image'] ?? '');
-$content = trim($_POST['content'] ?? '');
+            <nav class="main-nav" id="main-nav" aria-label="Primary">
+                <a href="home.php">Home</a>
+                <a href="dashboard.php">Dashboard</a>
+                <a href="browse.php">Browse</a>
+                <a href="bookmarks.php">Bookmarks</a>
+                <a href="submit.php" class="active" aria-current="page">Submit an article</a>
+                 <a href="subscriptions.php">Subscriptions</a>
+                
 
-// Validate fields
-$allowedCategories = ['Academic', 'Events', 'Sports', 'General'];
+            </nav>
 
-if (
-    $title === '' ||
-    mb_strlen($title) > 120 ||
-    $author === '' ||
-    mb_strlen($author) > 60 ||
-    !in_array($category, $allowedCategories, true) ||
-    mb_strlen($content) < 100
-) {
-    http_response_code(400);
-    echo json_encode([
-        'success' => false,
-        'message' => 'Please check the form fields. Article content must contain at least 100 characters.'
-    ]);
-    $conn->close();
-    exit;
-}
+            <div class="header-actions">
+                <button id="theme-toggle" class="theme-toggle" type="button"
+                    aria-label="Switch to dark mode" aria-pressed="false">
+                    <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                    <span class="toggle-label">Day</span>
+                </button>
 
-// Validate optional image URL
-if ($image !== '') {
-    $validUrl = filter_var($image, FILTER_VALIDATE_URL);
-    $scheme = strtolower(parse_url($image, PHP_URL_SCHEME) ?? '');
+                <a href="logout.php" class="btn btn-ghost">Log out</a>
+            </div>
 
-    if (!$validUrl || !in_array($scheme, ['http', 'https'], true)) {
-        http_response_code(400);
-        echo json_encode([
-            'success' => false,
-            'message' => 'Please enter a valid image URL.'
-        ]);
-        $conn->close();
-        exit;
-    }
-}
+            <button class="nav-burger" id="nav-burger" aria-label="Open menu"
+                aria-expanded="false" type="button">
+                <span></span><span></span><span></span>
+            </button>
 
-// Save article to database
-$sql = "INSERT INTO article_submissions
-        (title, category, author, image_url, content)
-        VALUES (?, ?, ?, ?, ?)";
+        </div>
+    </header>
 
-$stmt = $conn->prepare($sql);
+     <main>
+        <div class="container">
+            <section class="form-wrap">
 
-if (!$stmt) {
-    http_response_code(500);
-    echo json_encode([
-        'success' => false,
-        'message' => 'Unable to prepare article submission.'
-    ]);
-    $conn->close();
-    exit;
-}
+                <h1>Submit an article</h1>
 
-$stmt->bind_param(
-    'sssss',
-    $title,
-    $category,
-    $author,
-    $image,
-    $content
-);
+                <p class="lead">
+                    Any registered student or club can submit a piece
+                    for review. An editor will approve or reject it
+                    before it appears on the site.
+                </p>
 
-if ($stmt->execute()) {
-    echo json_encode([
-        'success' => true,
-        'message' => 'Article submitted successfully for review.'
-    ]);
-} else {
-    http_response_code(500);
-    echo json_encode([
-        'success' => false,
-        'message' => 'Unable to save the article. Please try again.'
-    ]);
-}
+                <div class="alert" id="successAlert" role="status" aria-live="polite">
+                    ✓ Your article was submitted for review.
+                    You'll see the status update once it's decided.
+                </div>
 
-$stmt->close();
-$conn->close();
+                <form id="articleForm" novalidate>
+
+                    <div class="field">
+                        <label for="title">Title</label>
+                        <input type="text" id="title" name="title" maxlength="120"
+                            placeholder="A clear, specific headline" required>
+                        <div class="error" id="titleError"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="field">
+                            <label for="category">Category</label>
+                            <select id="category" name="category" required>
+                                <option value="" selected disabled>Choose a category</option>
+                                <option value="Academic">Academic</option>
+                                <option value="Events">Events</option>
+                                <option value="Sports">Sports</option>
+                                <option value="General">General</option>
+                            </select>
+                            <div class="error" id="categoryError"></div>
+                        </div>
+
+                        <div class="field">
+                            <label for="author">Your name</label>
+                            <input type="text" id="author" name="author" maxlength="60"
+                                placeholder="How it'll be credited" required>
+                            <div class="error" id="authorError"></div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="image">Image URL <span class="opt">(optional)</span></label>
+                        <input type="url" id="image" name="image" placeholder="https://...">
+                        <div class="error" id="imageError"></div>
+
+                        <div class="preview" id="preview">
+                            <img id="previewImg" alt="Image preview">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="content">Article content</label>
+                        <textarea id="content" name="content"
+                            placeholder="Write your article here..." required></textarea>
+
+                        <div class="meta">
+                            <span id="contentHint">Minimum 100 characters</span>
+                            <span id="counter">0 characters</span>
+                        </div>
+
+                        <div class="error" id="contentError"></div>
+                    </div>
+
+                    <p class="note">
+                        Submissions are reviewed by an editor before
+                        publishing. You'll see the status update once
+                        it's decided.
+                    </p>
+
+                    <button type="submit" class="btn btn-primary" id="submitBtn">
+                        Submit for review
+                    </button>
+
+                </form>
+            </section>
+        </div>
+    </main>
+
+    
+    <footer class="site-footer">
+        <div class="footer-inner">
+
+            <div class="footer-brand">
+                <span class="brand-mark">N</span>
+                <span class="brand-text">News <em>In Green</em></span>
+                <p>The student-run news portal covering academics, events, sport, and campus life.</p>
+            </div>
+
+            <div class="footer-col">
+                <h3>Sections</h3>
+                <a href="browse.php?category=Academic">Academic</a>
+                <a href="browse.php?category=Events">Events</a>
+                <a href="browse.php?category=Sports">Sports</a>
+                <a href="browse.php?category=General">General</a>
+            </div>
+
+            <div class="footer-col">
+                <h3>Account</h3>
+                <a href="login.html">Log out</a>
+                <a href="bookmarks.php">Bookmarks</a>
+                <a href="subscriptions.php">Subscriptions</a>
+                <a href="submit.php">Submit an article</a>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <span>&copy; 2026 News In Green</span>
+        </div>
+   </footer>
+    <script src="submit.js"></script>
+
+</body>
+</html>
