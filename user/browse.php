@@ -1,23 +1,38 @@
-<?php require_once __DIR__.'/bootstrap.php'; require_login(); ?>
+<?php
+include "db.php";
+
+$sql = "SELECT * FROM news_articles ORDER BY created_at DESC";
+$result = $conn->query($sql);
+
+if (!$result) {
+    die("SQL Error: " . $conn->error);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <script src="site-shared.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="<?= esc(csrf()) ?>">
     <title>Browse Articles - News In Green</title>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Work+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="register.css">
     <link rel="stylesheet" href="browse.css">
     <script src="browse.js" defer></script>
-<link rel="stylesheet" href="site-shared.css">
-
 </head>
 
 <body>
 
     <!-- Apply saved theme immediately (prevents flash of wrong theme) -->
-    
+    <script>
+        try {
+            if (localStorage.getItem("theme") === "light") {
+                document.body.classList.add("light-mode");
+            }
+        } catch (e) {}
+    </script>
 
     <!-- HEADER -->
     <header class="site-header">
@@ -32,12 +47,12 @@
 
             <nav class="main-nav" id="main-nav">
                 <a href="home.php">Home</a>
-                <a href="dashboard.php">Dashboard</a>
+                <a href="user-dashboard.html">Dashboard</a>
                 <a href="browse.php" class="active">Browse</a>
-                <a href="bookmarks.php">Bookmarks</a>
-                <a href="submit.php">Submit an article</a>
-                <a href="subscriptions.php">Subscription</a>
-                
+                <a href="bookmarks.html">Bookmarks</a>
+                <a href="submit.html">Submit an article</a>
+                <a href="subscription.html">Subscription</a>
+                <a href="help.html">Help &amp; Support</a>
             </nav>
 
             <div class="header-actions">
@@ -49,7 +64,7 @@
                     <span class="toggle-label">Night</span>
                 </button>
 
-                <a href="logout.php" id="logout-link" class="btn-ghost">
+                <a href="#" id="logout-link" class="btn-ghost">
                     Log out
                 </a>
             </div>
@@ -98,31 +113,76 @@
             </div>
 
             <!-- SEARCH AND DATE -->
-            <form class="filter-area" id="browse-filters">
-                <label class="browse-field search-box" for="search-input">
-                    <span>Search articles</span>
-                    <input type="search" id="search-input" placeholder="Search articles..." aria-label="Search articles">
-                </label>
+            <div class="filter-area">
+
+                <div class="search-box">
+                    <input type="search" id="search-input"
+                        placeholder="Search articles..."
+                        aria-label="Search articles">
+                </div>
+
                 <div class="date-filter">
-                    <label class="browse-field" for="from-date"><span>From</span><input type="date" id="from-date"></label>
-                    <label class="browse-field" for="to-date"><span>To</span><input type="date" id="to-date"></label>
+                    <label for="from-date">From</label>
+                    <input type="date" id="from-date">
+
+                    <label for="to-date">To</label>
+                    <input type="date" id="to-date">
+
+                    <button id="filter-btn" type="button">
+                        Filter
+                    </button>
+
+                    <button id="clear-btn" type="button">
+                        Clear
+                    </button>
                 </div>
-                <div class="filter-actions">
-                    <button id="filter-btn" type="submit">Filter</button>
-                    <button id="clear-btn" type="button">Clear</button>
-                </div>
-            </form>
-            <p id="filter-status" class="browse-filter-status" role="alert" hidden></p>
+            </div>
 
             <!-- RESULTS -->
             <section class="results-section">
                 <h2>Results</h2>
-                <p id="results-count" class="browse-result-count" role="status" aria-live="polite"></p>
 
-                <div id="articles-container"
-                    class="articles-container" aria-busy="true">
-                    <!-- Articles are added by browse.js -->
-                </div>
+<div id="articles-container" class="articles-container">
+
+  <?php if ($result->num_rows > 0): ?>
+
+    <?php while ($article = $result->fetch_assoc()): ?>
+
+        <article
+            class="article-card"
+            data-category="<?php echo htmlspecialchars($article['category']); ?>"
+            data-date="<?php echo htmlspecialchars($article['created_at']); ?>"
+        >
+
+            <span class="article-category">
+                <?php echo htmlspecialchars($article['category']); ?>
+            </span>
+
+            <h3>
+                <?php echo htmlspecialchars($article['title']); ?>
+            </h3>
+
+            <p>
+                <?php echo htmlspecialchars($article['description']); ?>
+            </p>
+
+            <div class="article-meta">
+                <span>
+                    <?php echo htmlspecialchars($article['created_at']); ?>
+                </span>
+            </div>
+
+        </article>
+
+    <?php endwhile; ?>
+
+<?php else: ?>
+
+    <p>No articles found.</p>
+
+<?php endif; ?>
+
+</div>
 
                 <div id="empty-message"
                     class="empty-message" hidden>
@@ -130,6 +190,33 @@
                 </div>
             </section>
 
+            <!-- FULL-SCREEN ARTICLE READER -->
+<section id="article-reader"
+    class="article-reader"
+    hidden
+    aria-hidden="true"
+    aria-labelledby="reader-title">
+
+    <div class="reader-topbar">
+        <a href="#articles-container" id="reader-back"
+           class="reader-back" role="button">
+            ← Back to articles
+        </a>
+
+        <button type="button" id="reader-close"
+            class="reader-close" aria-label="Close article">
+            ×
+        </button>
+    </div>
+
+    <article class="reader-content">
+        <span id="reader-category" class="article-category"></span>
+        <h1 id="reader-title"></h1>
+        <p id="reader-date" class="reader-date"></p>
+        <div class="reader-divider"></div>
+        <div id="reader-body" class="reader-body"></div>
+    </article>
+</section>
             <!-- PAGINATION -->
             <div class="pagination">
                 <button id="previous-btn" type="button" disabled>
@@ -167,19 +254,27 @@
 
             <div class="footer-col">
                 <h3>Sections</h3>
-                <a href="browse.php?category=Academic">Academic</a>
-                <a href="browse.php?category=Events">Events</a>
-                <a href="browse.php?category=Sports">Sports</a>
-                <a href="browse.php?category=General">General</a>
+                <a href="browse.php#academic">Academic</a>
+                <a href="browse.php#events">Events</a>
+                <a href="browse.php#sports">Sports</a>
+                <a href="browse.php#general">General</a>
             </div>
 
             <div class="footer-col">
                 <h3>Account</h3>
                 <a href="login.html">Log in</a>
                 <a href="register.html">Register</a>
-                <a href="bookmarks.php">Bookmarks</a>
-                <a href="subscriptions.php">Subscription</a>
-                <a href="submit.php">Submit an article</a>
+                <a href="bookmarks.html">Bookmarks</a>
+                <a href="sub.html">Subscription</a>
+                <a href="submit.html">Submit an article</a>
+            </div>
+
+            <div class="footer-col">
+                <h3>Contact</h3>
+                <a href="mailto:newsroom@newsingreen.edu">
+                    newsroom@newsingreen.edu
+                </a>
+                <span>123 University Avenue, Colombo</span>
             </div>
 
         </div>

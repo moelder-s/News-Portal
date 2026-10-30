@@ -3,7 +3,7 @@
 ============================== */
 
 :root {
-    --auth-photo: none; 
+    --auth-photo: url("browse.jpg"); 
     --bg: #07100c;
     --header-bg: #07100c;
     --text: #eeeeee;
@@ -267,7 +267,7 @@ body.light-mode .toggle-thumb {
 
     background-image:
         linear-gradient(var(--overlay), var(--overlay)),
-        none;
+        url("browse.jpeg");
 
     background-size: cover;
     background-position: center;
