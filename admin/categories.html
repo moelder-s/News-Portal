@@ -1,56 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Categories — News In Green Admin</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="categories.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Categories — News In Green Admin</title>
+    <link rel="stylesheet" href="categories.css">
+    <script src="categories.js" defer></script>
 </head>
-<body>
 
-  <canvas id="sky"></canvas>
+<!-- Day mode is the default -->
+<body class="day">
+    <header class="topbar">
+        <div class="brand"><span class="logo">N</span><span>News <em>In Green</em></span><span
+                class="dot"></span><strong>Categories</strong></div>
+        <nav><a class="logout" href="#" data-placeholder="logout">Log out</a><button id="themeToggle" class="theme"
+                type="button" aria-label="Toggle day and night theme" aria-pressed="false"><span
+                    class="switch"></span><span id="themeLabel">Day</span></button><a class="home" href="#"
+                data-placeholder="home">Home</a><span class="profile"><b>A</b> Admin</span></nav>
+    </header>
 
-  <header class="topbar">
-    <div class="brand">
-      <span class="logo">N</span>
-      <span class="brand-name">News <em>In Green</em></span>
-      <span class="page-title"><i class="dot"></i>Categories</span>
+    <main class="cat-main">
+        <section class="glass cat-card">
+            <div class="cat-head">
+                <h2>News categories</h2>
+                <button id="newBtn" class="primary-btn" type="button">+ New category</button>
+            </div>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Articles</th>
+                            <th class="actions-col"><span class="sr-only">Actions</span></th>
+                        </tr>
+                    </thead>
+                    <tbody id="catRows"></tbody>
+                </table>
+            </div>
+            <p id="emptyMessage" class="empty" hidden>No categories yet. Click “+ New category”.</p>
+        </section>
+
+        <footer class="site-footer"><span><strong>News <em>In Green</em></strong> · Admin Categories</span><span>©
+                <span id="year"></span> News In Green</span></footer>
+    </main>
+
+    <!-- Add / Rename / Delete dialog -->
+    <div id="modal" class="modal" hidden>
+        <div class="modal-box glass" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <h3 id="modalTitle">New category</h3>
+            <p id="modalText" class="modal-text" hidden></p>
+            <input id="modalInput" type="text" maxlength="40" placeholder="Category name" autocomplete="off">
+            <p id="modalError" class="modal-error" hidden></p>
+            <div class="modal-actions">
+                <button id="modalCancel" class="secondary-btn" type="button">Cancel</button>
+                <button id="modalOk" class="primary-btn" type="button">Save</button>
+            </div>
+        </div>
     </div>
-
-    <div class="actions">
-      <button class="chip" id="logoutBtn">Log out</button>
-
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle day / night">
-        <span class="knob"></span>
-        <span class="label" id="themeLabel">Day</span>
-      </button>
-
-      <a class="chip home" href="#">Home</a>
-
-      <div class="profile">
-        <span class="avatar">A</span>
-        <span>Admin</span>
-      </div>
-    </div>
-  </header>
-
-  <main class="wrap">
-    <section class="glass-card">
-      <div class="card-head">
-        <h2>News categories</h2>
-        <button class="btn-new" id="addBtn">+ New category</button>
-      </div>
-
-      <table>
-        <thead>
-          <tr><th>Name</th><th>Articles</th><th></th></tr>
-        </thead>
-        <tbody id="catBody"></tbody>
-      </table>
-    </section>
-  </main>
-
-  <script src="categories.js" defer></script>
 </body>
+
 </html>

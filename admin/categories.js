@@ -1,142 +1,118 @@
-/* ================= STARS ANIMATION ================= */
-var canvas = document.getElementById("sky");
-var ctx = canvas.getContext("2d");
-var stars = [];
-var shooting = null;
+'use strict';
+// Frontend-only categories page.
+// To connect your DB later: set window.newsCategoriesData = [{id, name, articles}] before this script,
+// or call window.updateNewsCategories(list) after fetching.
+const STORE_KEY = 'nigCategories';
+const defaults = ['Academic', 'Events', 'Sports', 'General'].map((name, i) => ({ id: i + 1, name, articles: 0 }));
+const $ = id => document.getElementById(id);
 
-function resize() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  var count = Math.floor(canvas.width * canvas.height / 9000);
-  stars = [];
-  for (var i = 0; i < count; i++) {
-    stars.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      r: Math.random() * 1.5 + 0.4,
-      phase: Math.random() * Math.PI * 2,
-      speed: Math.random() * 0.02 + 0.006,
-      drift: Math.random() * 0.07 + 0.01
-    });
-  }
+let categories = load();
+
+function load() {
+    if (Array.isArray(window.newsCategoriesData)) return window.newsCategoriesData;
+    try {
+        const saved = JSON.parse(localStorage.getItem(STORE_KEY));
+        if (Array.isArray(saved) && saved.length) return saved;
+    } catch (e) { /* storage unavailable */ }
+    return defaults.map(c => ({ ...c }));
+}
+function save() {
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(categories)); } catch (e) { /* ignore */ }
 }
 
-setInterval(function () {
-  if (!shooting) {
-    shooting = {
-      x: Math.random() * canvas.width * 0.7,
-      y: Math.random() * canvas.height * 0.3,
-      vx: 7, vy: 3.5, life: 1
-    };
-  }
-}, 6000);
-
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  for (var i = 0; i < stars.length; i++) {
-    var s = stars[i];
-    s.phase += s.speed;
-    s.y -= s.drift;
-    if (s.y < -2) { s.y = canvas.height + 2; s.x = Math.random() * canvas.width; }
-    var a = 0.3 + 0.7 * Math.abs(Math.sin(s.phase));
-    ctx.beginPath();
-    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-    ctx.fillStyle = "rgba(255,255,255," + a + ")";
-    ctx.shadowBlur = 6;
-    ctx.shadowColor = "rgba(255,255,255,0.8)";
-    ctx.fill();
-  }
-  ctx.shadowBlur = 0;
-
-  if (shooting) {
-    var tx = shooting.x - shooting.vx * 12;
-    var ty = shooting.y - shooting.vy * 12;
-    var g = ctx.createLinearGradient(shooting.x, shooting.y, tx, ty);
-    g.addColorStop(0, "rgba(255,255,255," + shooting.life + ")");
-    g.addColorStop(1, "rgba(255,255,255,0)");
-    ctx.strokeStyle = g;
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.moveTo(shooting.x, shooting.y);
-    ctx.lineTo(tx, ty);
-    ctx.stroke();
-    shooting.x += shooting.vx;
-    shooting.y += shooting.vy;
-    shooting.life -= 0.012;
-    if (shooting.life <= 0) shooting = null;
-  }
-  requestAnimationFrame(draw);
-}
-
-window.addEventListener("resize", resize);
-resize();
-draw();
-
-/* ================= DAY / NIGHT ================= */
-var toggle = document.getElementById("themeToggle");
-var label = document.getElementById("themeLabel");
-
-function applyTheme(mode) {
-  document.body.classList.toggle("night", mode === "night");
-  label.textContent = (mode === "night") ? "Night" : "Day";
-  try { localStorage.setItem("nig-theme", mode); } catch (e) {}
-}
-
-toggle.addEventListener("click", function () {
-  applyTheme(document.body.classList.contains("night") ? "day" : "night");
-});
-
-var saved = "day";
-try { saved = localStorage.getItem("nig-theme") || "day"; } catch (e) {}
-applyTheme(saved);
-
-/* ================= CATEGORIES TABLE ================= */
-var categories = [
-  { name: "Academic", articles: 0 },
-  { name: "Events",   articles: 0 },
-  { name: "Sports",   articles: 0 },
-  { name: "General",  articles: 0 }
-];
-
-var tbody = document.getElementById("catBody");
-
+/* ---------- Render ---------- */
 function render() {
-  tbody.innerHTML = "";
-  categories.forEach(function (c, i) {
-    var tr = document.createElement("tr");
-    tr.style.animationDelay = (i * 0.08) + "s";
-    tr.innerHTML =
-      "<td>" + c.name + "</td>" +
-      "<td class='count'>" + c.articles + "</td>" +
-      "<td class='btns'>" +
-        "<button class='btn-sm rename' data-i='" + i + "'>Rename</button>" +
-        "<button class='btn-sm delete' data-i='" + i + "'>Delete</button>" +
-      "</td>";
-    tbody.appendChild(tr);
-  });
+    const body = $('catRows');
+    body.replaceChildren();
+    $('emptyMessage').hidden = categories.length > 0;
+    categories.forEach(c => {
+        const tr = document.createElement('tr');
+        const name = document.createElement('td'); name.textContent = c.name;
+        const count = document.createElement('td'); count.className = 'count'; count.textContent = Number(c.articles || 0).toLocaleString();
+        const actions = document.createElement('td');
+        const rename = document.createElement('button');
+        rename.type = 'button'; rename.className = 'action rename'; rename.textContent = 'Rename';
+        rename.addEventListener('click', () => openRename(c));
+        const del = document.createElement('button');
+        del.type = 'button'; del.className = 'action delete'; del.textContent = 'Delete';
+        del.addEventListener('click', () => openDelete(c));
+        actions.append(rename, del);
+        tr.append(name, count, actions);
+        body.append(tr);
+    });
 }
 
-tbody.addEventListener("click", function (e) {
-  var i = e.target.getAttribute("data-i");
-  if (i === null) return;
-  if (e.target.classList.contains("rename")) {
-    var n = prompt("New name:", categories[i].name);
-    if (n && n.trim()) { categories[i].name = n.trim(); render(); }
-  } else if (e.target.classList.contains("delete")) {
-    if (confirm('Delete "' + categories[i].name + '"?')) {
-      categories.splice(i, 1);
-      render();
-    }
-  }
+/* ---------- Modal ---------- */
+let onConfirm = null;
+function openModal({ title, text, input, value, okLabel, danger, confirm }) {
+    $('modalTitle').textContent = title;
+    $('modalText').hidden = !text; $('modalText').textContent = text || '';
+    $('modalInput').hidden = !input; $('modalInput').value = value || '';
+    $('modalError').hidden = true;
+    $('modalOk').textContent = okLabel;
+    $('modalOk').classList.toggle('danger', !!danger);
+    onConfirm = confirm;
+    $('modal').hidden = false;
+    (input ? $('modalInput') : $('modalOk')).focus();
+}
+function closeModal() { $('modal').hidden = true; onConfirm = null; }
+function showError(msg) { $('modalError').textContent = msg; $('modalError').hidden = false; }
+function nameTaken(n, exceptId) { return categories.some(c => c.id !== exceptId && c.name.toLowerCase() === n.toLowerCase()); }
+
+function openNew() {
+    openModal({
+        title: 'New category', input: true, okLabel: 'Add',
+        confirm: () => {
+            const n = $('modalInput').value.trim();
+            if (!n) return showError('Please enter a name.');
+            if (nameTaken(n)) return showError('That category already exists.');
+            categories.push({ id: Date.now(), name: n, articles: 0 });
+            save(); render(); closeModal();
+        }
+    });
+}
+function openRename(c) {
+    openModal({
+        title: 'Rename category', input: true, value: c.name, okLabel: 'Save',
+        confirm: () => {
+            const n = $('modalInput').value.trim();
+            if (!n) return showError('Please enter a name.');
+            if (nameTaken(n, c.id)) return showError('That category already exists.');
+            c.name = n; save(); render(); closeModal();
+        }
+    });
+}
+function openDelete(c) {
+    openModal({
+        title: 'Delete category', okLabel: 'Delete', danger: true,
+        text: `Delete “${c.name}”?` + (Number(c.articles) ? ` It has ${c.articles} article(s).` : ''),
+        confirm: () => { categories = categories.filter(x => x.id !== c.id); save(); render(); closeModal(); }
+    });
+}
+
+$('newBtn').addEventListener('click', openNew);
+$('modalCancel').addEventListener('click', closeModal);
+$('modalOk').addEventListener('click', () => onConfirm && onConfirm());
+$('modalInput').addEventListener('keydown', e => { if (e.key === 'Enter') onConfirm && onConfirm(); });
+$('modal').addEventListener('click', e => { if (e.target === $('modal')) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('modal').hidden) closeModal(); });
+
+/* ---------- Theme: Day is always the default ---------- */
+document.body.classList.remove('night');
+document.body.classList.add('day');
+$('themeToggle').addEventListener('click', () => {
+    const night = document.body.classList.toggle('night');
+    document.body.classList.toggle('day', !night);
+    $('themeLabel').textContent = night ? 'Night' : 'Day';
+    $('themeToggle').setAttribute('aria-pressed', String(night));
 });
 
-document.getElementById("addBtn").addEventListener("click", function () {
-  var n = prompt("Category name:");
-  if (n && n.trim()) {
-    categories.push({ name: n.trim(), articles: 0 });
-    render();
-  }
-});
+document.querySelectorAll('[data-placeholder]').forEach(a => a.addEventListener('click', e => {
+    e.preventDefault();
+    alert('Connect this link to your project route later.');
+}));
 
+$('year').textContent = new Date().getFullYear();
+
+window.updateNewsCategories = list => { categories = Array.isArray(list) ? list : categories; render(); };
 render();
