@@ -4,6 +4,7 @@
 <html lang="en" data-theme="light">
 
 <head>
+    <script src="site-shared.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -11,6 +12,8 @@
 
     <link rel="stylesheet" href="dashboard.css">
     <script src="dashboard.js" defer></script>
+<link rel="stylesheet" href="site-shared.css">
+
 </head>
 
 <body>
@@ -46,7 +49,7 @@
 
                 <a href="subscriptions.php">Subscriptions</a>
 
-                <a href="help.php">Help & Support</a>
+                
 
             </nav>
 
@@ -95,7 +98,7 @@
 
     <!-- ================= DASHBOARD MAIN ================= -->
 
-    <main class="container">
+    <main class="container dashboard-shell">
 
         <div class="dashboard-main">
 
@@ -113,7 +116,7 @@
 
                 </div>
 
-                <a href="edit-profile.html"
+                <a href="profile.php"
                    class="btn-ghost">
                     Edit profile
                 </a>
@@ -293,19 +296,6 @@
 
 
             <!-- CONTACT -->
-            <div class="footer-col">
-
-                <h3>Contact</h3>
-
-                <a href="mailto:newsroom@newsingreen.edu">
-                    newsroom@newsingreen.edu
-                </a>
-
-                <span>
-                    123 University Avenue, Colombo
-                </span>
-
-            </div>
 
         </div>
 

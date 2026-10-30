@@ -11,61 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // 1. DAY MODE & NIGHT MODE
     // ==========================================
 
-    const root = document.documentElement;
-    const themeButton = document.getElementById("theme-toggle");
-    const themeLabel = document.querySelector(".toggle-label");
-
-    function changeTheme(theme) {
-
-        const isDark = theme === "dark";
-
-        // Apply the theme to the page
-        root.setAttribute(
-            "data-theme",
-            isDark ? "dark" : "light"
-        );
-
-        // Update theme name
-        if (themeLabel) {
-            themeLabel.textContent = isDark ? "Night" : "Day";
-        }
-
-        // Update switch position
-        if (themeButton) {
-            themeButton.setAttribute(
-                "aria-pressed",
-                String(isDark)
-            );
-
-            themeButton.setAttribute(
-                "aria-label",
-                isDark
-                    ? "Switch to day mode"
-                    : "Switch to night mode"
-            );
-        }
-    }
-
-    // DEFAULT - DAY MODE
-    changeTheme("light");
-
-    // Change theme on click
-    if (themeButton) {
-
-        themeButton.addEventListener("click", function () {
-
-            const currentTheme =
-                root.getAttribute("data-theme");
-
-            if (currentTheme === "light") {
-                changeTheme("dark");
-            } else {
-                changeTheme("light");
-            }
-
-        });
-    }
-
+    // Day/night preference is owned by site-shared.js.
 
     // ==========================================
     // 2. MOBILE NAVIGATION

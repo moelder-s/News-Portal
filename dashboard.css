@@ -326,25 +326,7 @@ body {
     align-items: flex-start;
 }
 
-.container::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-
-    background-image:
-        linear-gradient(
-            var(--background-overlay),
-            var(--background-overlay)
-        ),
-        url("bg.jpg");
-
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-
-    transition: opacity 0.42s ease;
-}
+/* Decorative overlay removed: it formed a grey rectangle behind the panel. */
 
 /* ==================================================
    4. GLASS DASHBOARD MAIN PANEL
