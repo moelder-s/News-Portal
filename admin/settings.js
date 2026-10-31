@@ -1,32 +1,33 @@
 document.addEventListener("DOMContentLoaded", function () {
-    var themeToggle = document.getElementById("theme-toggle");
-    var themeLabel = document.querySelector(".toggle-label");
+    var themeToggle = document.getElementById("themeToggle");
+    var themeLabel = document.getElementById("themeLabel");
     var form = document.getElementById("pw-form");
     var message = document.getElementById("msg");
 
     // ==============================
     // DAY / NIGHT THEME
     // Always opens in Day mode. The toggle switches to Night.
+    // Only the header and glass cards change, the background stays the same.
     // ==============================
-    function setTheme(theme) {
-        var isDay = theme === "light";
+    function setTheme(night) {
+        document.body.classList.toggle("night", night);
+        document.body.classList.toggle("day", !night);
 
-        document.body.classList.toggle("light-mode", isDay);
-
-        themeLabel.textContent = isDay ? "Day" : "Night";
-        themeToggle.setAttribute("aria-pressed", String(!isDay));
-        themeToggle.setAttribute(
-            "aria-label",
-            isDay ? "Switch to dark mode" : "Switch to light mode"
-        );
+        themeLabel.textContent = night ? "Night" : "Day";
+        themeToggle.setAttribute("aria-pressed", String(night));
     }
 
-    setTheme("light");
+    setTheme(false);
 
     themeToggle.addEventListener("click", function () {
-        var isDay = document.body.classList.contains("light-mode");
-        setTheme(isDay ? "dark" : "light");
+        var isNight = document.body.classList.contains("night");
+        setTheme(!isNight);
     });
+
+    // ==============================
+    // FOOTER YEAR
+    // ==============================
+    document.getElementById("year").textContent = new Date().getFullYear();
 
     // ==============================
     // PASSWORD FORM CHECK (HTML + JS only, nothing is saved)
