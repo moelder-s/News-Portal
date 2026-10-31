@@ -897,7 +897,7 @@ html[data-theme="dark"] .submit-cta {
    ========================================================== */
 
 :root {
-    --auth-photo: url("Login.jpg");
+    --auth-photo: none;
 }
 
 

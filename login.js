@@ -5,54 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // 1. DAY MODE & NIGHT MODE
     // ==========================================
 
-    const themeButton = document.getElementById("theme-toggle");
-    const themeLabel = document.querySelector(".toggle-label");
-    const root = document.documentElement;
-
-    function changeTheme(theme) {
-
-        // Apply theme to the entire page
-        root.setAttribute("data-theme", theme);
-
-        // FIX: Show the correct current theme name
-        if (themeLabel) {
-            themeLabel.textContent =
-                theme === "dark" ? "Night" : "Day";
-        }
-
-        // Update switch position and accessibility
-        if (themeButton) {
-            themeButton.setAttribute(
-                "aria-pressed",
-                String(theme === "dark")
-            );
-
-            themeButton.setAttribute(
-                "aria-label",
-                theme === "dark"
-                    ? "Switch to Day Mode"
-                    : "Switch to Night Mode"
-            );
-        }
-    }
-
-    // DEFAULT: Always start in Day Mode
-    changeTheme("light");
-
-    // Theme toggle
-    if (themeButton) {
-        themeButton.addEventListener("click", function () {
-
-            const currentTheme = root.getAttribute("data-theme");
-
-            if (currentTheme === "light") {
-                changeTheme("dark");
-            } else {
-                changeTheme("light");
-            }
-        });
-    }
-
+    // Theme is initialized centrally before styles load.
 
     // ==========================================
     // 2. MOBILE NAVIGATION
