@@ -1,28 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     "use strict";
 
-    // DAY IS ALWAYS DEFAULT, including after refreshing.
-    const root = document.documentElement;
-    const themeButton = document.getElementById("theme-toggle");
-    const themeLabel = document.querySelector(".toggle-label");
-
-    function changeTheme(theme) {
-        const dark = theme === "dark";
-        root.setAttribute("data-theme", dark ? "dark" : "light");
-        if (themeLabel) themeLabel.textContent = dark ? "Night" : "Day";
-        if (themeButton) {
-            themeButton.setAttribute("aria-pressed", String(dark));
-            themeButton.setAttribute("aria-label", dark ? "Switch to Day Mode" : "Switch to Night Mode");
-        }
-    }
-
-    changeTheme("light");
-    if (themeButton) {
-        themeButton.addEventListener("click", function () {
-            changeTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark");
-        });
-    }
-
     // Mobile menu
     const burger = document.getElementById("nav-burger");
     const nav = document.getElementById("main-nav");
