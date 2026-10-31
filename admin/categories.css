@@ -1,6 +1,6 @@
 * { box-sizing: border-box }
 
-/* ===== Page + background (same as reports page) ===== */
+/* ===== Page + background (same in Day and Night) ===== */
 body {
     margin: 0;
     min-height: 100vh;
@@ -15,17 +15,6 @@ body {
     overflow-x: hidden;
 }
 
-/* Night = clearly darker background */
-body.night {
-    background:
-        radial-gradient(ellipse at 77% 24%, #0f2a2c 0%, transparent 48%),
-        radial-gradient(ellipse at 15% 78%, #0a1523 0%, transparent 55%),
-        linear-gradient(125deg, #02060b, #04120f);
-}
-body.night::after { opacity: .25 }
-body.night::before { filter: brightness(1.3) }
-body.night .glass { background: rgba(6, 18, 26, .72); border-color: rgba(160, 210, 200, .18) }
-body.night .topbar { background: linear-gradient(90deg, #0d1d26, #0f2724); color: #f0f8f6 }
 /* Moving stars */
 body::before {
     content: "";
@@ -47,7 +36,7 @@ body::before {
 body::after {
     content: "";
     position: fixed;
-    inset: 0;
+    inset: -15%;
     z-index: 0;
     pointer-events: none;
     background:
@@ -55,7 +44,6 @@ body::after {
         radial-gradient(circle at 75% 65%, rgba(0, 140, 255, .25), transparent 45%);
     animation: moveGlow 10s ease-in-out infinite alternate;
 }
-body.night::after { opacity: .6 }
 
 .topbar, main { position: relative; z-index: 1 }
 
@@ -68,21 +56,21 @@ body.night::after { opacity: .6 }
     100% { transform: translate(5%, 4%) scale(1.15) }
 }
 
-/* ===== Header ===== */
+/* ===== Header (Day) ===== */
 .topbar {
     height: 83px;
-    background: linear-gradient(90deg, #b4c7cf, #b0d0ca);
+    background: linear-gradient(90deg, #8fb59a, #86b090);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 4%;
     gap: 20px;
-    color: #213330;
+    color: #1d3a2f;
     transition: background .3s, color .3s;
 }
 .brand, nav { display: flex; align-items: center; gap: 13px }
 .brand { font-family: Georgia, serif; font-size: 19px; font-weight: bold; white-space: nowrap }
-.brand em { font-style: normal; color: #20935d }
+.brand em { font-style: normal; color: #17804f }
 .brand strong { font-size: 22px }
 .logo { background: #219663; color: #fff; padding: 8px 11px; border-radius: 9px; font-size: 22px }
 .dot { height: 18px; width: 18px; border-radius: 50%; background: #1e9a68; border: 5px solid #f3f6ed; margin-left: 10px }
@@ -108,15 +96,25 @@ nav .logout { color: #23332e }
     box-shadow: inset 0 1px 2px #ffffffb0;
     font-size: 14px;
 }
+
+/* Day / Night toggle (knob stays on the LEFT in both modes, only the label changes) */
 .topbar nav .theme {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 14px; height: 45px; min-width: 103px; padding: 0 12px;
-    border-radius: 26px; cursor: pointer; color: #658477;
-    background: rgba(237, 245, 241, .72);
-    border: 1px solid #fff;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    width: 103px; height: 45px; padding: 0 12px 0 40px;
+    border-radius: 26px; cursor: pointer; color: #5d7d6e;
+    background: rgba(240, 245, 236, .78);
+    border: 1px solid rgba(255, 255, 255, .9);
     box-shadow: inset 0 1px 2px #ffffffa8;
+    transition: background .3s, color .3s, border-color .3s;
 }
-.switch { height: 19px; width: 19px; flex: none; background: #fff; border-radius: 50%; box-shadow: 0 1px 5px #9fb5af }
+.switch {
+    position: absolute; top: 50%; left: 11px;
+    height: 21px; width: 21px; border-radius: 50%;
+    background: #fff; box-shadow: 0 1px 5px #9fb5af;
+    transform: translateY(-50%);
+}
+
 .topbar nav .profile {
     display: flex; align-items: center; gap: 9px; height: 46px;
     border-radius: 26px; padding: 5px 13px 5px 6px;
@@ -128,18 +126,43 @@ nav .logout { color: #23332e }
 .topbar nav .profile b {
     display: flex; align-items: center; justify-content: center;
     width: 36px; height: 36px; border-radius: 50%;
-    background: #198e60; color: #fff; font-size: 14px;
+    background: #1d4a3b; color: #fff; font-size: 14px;
 }
 
-/* Night header */
-body.night .topbar { background: linear-gradient(90deg, #203f4b, #244a48); color: #f0f8f6 }
+/* ===== NIGHT MODE (header transparent, dark glass; page background stays same) ===== */
+body.night .topbar {
+    background: rgba(22, 27, 32, .28);
+    color: #f1f6f4;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+body.night .brand em { color: #62e6ab }
+body.night .logo { background: rgba(255, 255, 255, .06); color: #cfeee0; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .12) }
+body.night .dot { background: #62e6ab; border-color: #3d4a48 }
 body.night .topbar nav .logout, body.night .topbar nav .home,
 body.night .topbar nav .theme, body.night .topbar nav .profile {
-    background: rgba(48, 83, 83, .95); border-color: #71918c; color: #f0f8f6; box-shadow: none;
+    background: rgba(36, 42, 46, .55);
+    border: 1px solid rgba(255, 255, 255, .28);
+    color: #f6faf8;
+    box-shadow: none;
 }
-body.night .topbar nav .theme { flex-direction: row-reverse }
-body.night .brand em { color: #4fe1a6 }
-body.night .dot { border-color: #cfe9df }
+body.night .topbar nav .profile b { background: #245b45 }
+
+body.night .glass {
+    background: linear-gradient(160deg, rgba(42, 52, 58, .78), rgba(18, 62, 66, .72));
+    border: 1px solid rgba(150, 225, 210, .28);
+    box-shadow: 0 16px 40px rgba(2, 25, 22, .35);
+}
+body.night thead { background: rgba(150, 235, 210, .09); border-color: rgba(150, 235, 210, .22) }
+body.night td { border-color: rgba(150, 235, 210, .13) }
+body.night th { color: #b6e3d6 }
+body.night tbody tr:hover { background: rgba(150, 235, 210, .07) }
+body.night .count { color: #86efc3 }
+body.night .rename { background: rgba(36, 104, 90, .85); color: #e9fbf5; border: 1px solid rgba(150, 235, 210, .3) }
+body.night .delete { background: rgba(130, 48, 62, .5); color: #ffc0c8; border: 1px solid rgba(255, 140, 160, .3) }
+body.night .secondary-btn { background: rgba(150, 235, 210, .08); border-color: rgba(150, 235, 210, .25) }
+body.night .modal-box { background: rgba(24, 38, 42, .95) }
+body.night .site-footer { color: #a5d3c7 }
 
 /* ===== Glass panel ===== */
 main { padding: 44px 2.75% }
@@ -154,7 +177,6 @@ main { padding: 44px 2.75% }
     animation: fadeUp .6s ease both;
     transition: background .3s;
 }
-body.night .glass { background: rgba(18, 38, 49, .62) }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(14px) } to { opacity: 1; transform: translateY(0) } }
 
 .cat-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 22px 26px }
