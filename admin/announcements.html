@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Announcements — News In Green Admin</title>
+    <link rel="stylesheet" href="announcements.css">
+    <script src="announcements.js" defer></script>
+</head>
+
+<body class="day">
+    <header class="topbar">
+        <div class="brand"><span class="logo">N</span><span>News <em>In Green</em></span><span
+                class="dot"></span><strong>Announcements</strong></div>
+        <nav><a class="logout" href="#" data-placeholder="logout">Log out</a><button id="themeToggle" class="theme"
+                type="button" aria-label="Toggle day and night theme" aria-pressed="false"><span
+                    class="switch"></span><span id="themeLabel">Day</span></button><a class="home" href="#"
+                data-placeholder="home">Home</a><span class="profile"><b>A</b> Admin</span></nav>
+    </header>
+
+    <main class="reports-main">
+        <div class="report-heading">
+            <div>
+                <p class="eyebrow">ADMIN CONTENT</p>
+                <h1>Announcements</h1>
+                <p class="subheading">Manage featured and breaking news for your portal</p>
+            </div>
+            <div class="heading-actions"><label class="demo-control"><input type="checkbox" id="demoToggle"> Preview
+                    sample data</label></div>
+        </div>
+        <p id="demoNotice" class="demo-notice" hidden>Sample preview — these items are fictional and are not connected
+            to your database.</p>
+
+        <section class="glass report-section articles-section">
+            <div class="section-heading articles-heading">
+                <div class="section-title"><span class="section-icon">★</span>
+                    <div>
+                        <h2>Featured &amp; breaking news</h2>
+                        <p id="countNote">No items yet</p>
+                    </div>
+                </div>
+                <div class="table-filters">
+                    <label class="sr-only" for="annSearch">Search announcements</label>
+                    <input id="annSearch" type="search" placeholder="⌕  Search announcements...">
+                    <label class="sr-only" for="typeFilter">Filter type</label>
+                    <select id="typeFilter">
+                        <option value="all">All types</option>
+                        <option>Featured</option>
+                        <option>Breaking</option>
+                    </select>
+                    <button id="newBtn" class="primary-btn" type="button">+ New announcement</button>
+                </div>
+            </div>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Type</th>
+                            <th>Category</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="annRows"></tbody>
+                </table>
+            </div>
+            <p id="emptyMessage" class="empty">No featured or breaking items right now.</p>
+        </section>
+
+        <footer class="site-footer"><span><strong>News <em>In Green</em></strong> · Admin Announcements</span><span>©
+                <span id="year"></span> News In Green</span></footer>
+    </main>
+
+    <div id="modal" class="modal" hidden>
+        <form id="annForm" class="modal-card glass" autocomplete="off">
+            <h2>New announcement</h2>
+            <label>Title<input id="fTitle" required maxlength="140" placeholder="Enter headline"></label>
+            <label>Type<select id="fType">
+                    <option>Featured</option>
+                    <option>Breaking</option>
+                </select></label>
+            <label>Category<select id="fCategory">
+                    <option>Academic</option>
+                    <option>Events</option>
+                    <option>Sports</option>
+                    <option>General</option>
+                </select></label>
+            <div class="modal-actions">
+                <button type="button" id="cancelBtn" class="secondary-btn">Cancel</button>
+                <button type="submit" class="primary-btn">Publish</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
