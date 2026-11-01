@@ -1,23 +1,32 @@
 'use strict';
-// Frontend-only categories page.
-// To connect your DB later: set window.newsCategoriesData = [{id, name, articles}] before this script,
-// or call window.updateNewsCategories(list) after fetching.
-const STORE_KEY = 'nigCategories';
-const defaults = ['Academic', 'Events', 'Sports', 'General'].map((name, i) => ({ id: i + 1, name, articles: 0 }));
+// Categories page connected to PHP + MySQL (admin/api/categories.php)
+const API = 'api/categories.php';
 const $ = id => document.getElementById(id);
 
-let categories = load();
+let categories = [];
 
-function load() {
-    if (Array.isArray(window.newsCategoriesData)) return window.newsCategoriesData;
-    try {
-        const saved = JSON.parse(localStorage.getItem(STORE_KEY));
-        if (Array.isArray(saved) && saved.length) return saved;
-    } catch (e) { /* storage unavailable */ }
-    return defaults.map(c => ({ ...c }));
+/* ---------- API helper ---------- */
+async function api(method, url, body) {
+    const res = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: body ? JSON.stringify(body) : undefined
+    });
+    let data = {};
+    try { data = await res.json(); } catch (e) { /* empty response */ }
+    if (!res.ok) throw new Error(data.error || 'Something went wrong');
+    return data;
 }
-function save() {
-    try { localStorage.setItem(STORE_KEY, JSON.stringify(categories)); } catch (e) { /* ignore */ }
+
+async function loadCategories() {
+    try {
+        const list = await api('GET', API);
+        categories = list.map(c => ({ id: Number(c.id), name: c.name, articles: Number(c.articles || 0) }));
+    } catch (e) {
+        categories = [];
+        alert('Could not load categories. Is Apache + MySQL running?');
+    }
+    render();
 }
 
 /* ---------- Render ---------- */
@@ -62,23 +71,30 @@ function nameTaken(n, exceptId) { return categories.some(c => c.id !== exceptId 
 function openNew() {
     openModal({
         title: 'New category', input: true, okLabel: 'Add',
-        confirm: () => {
+        confirm: async () => {
             const n = $('modalInput').value.trim();
             if (!n) return showError('Please enter a name.');
             if (nameTaken(n)) return showError('That category already exists.');
-            categories.push({ id: Date.now(), name: n, articles: 0 });
-            save(); render(); closeModal();
+            try {
+                await api('POST', API, { name: n });
+                await loadCategories();
+                closeModal();
+            } catch (e) { showError(e.message); }
         }
     });
 }
 function openRename(c) {
     openModal({
         title: 'Rename category', input: true, value: c.name, okLabel: 'Save',
-        confirm: () => {
+        confirm: async () => {
             const n = $('modalInput').value.trim();
             if (!n) return showError('Please enter a name.');
             if (nameTaken(n, c.id)) return showError('That category already exists.');
-            c.name = n; save(); render(); closeModal();
+            try {
+                await api('PUT', API + '?id=' + c.id, { name: n });
+                await loadCategories();
+                closeModal();
+            } catch (e) { showError(e.message); }
         }
     });
 }
@@ -86,7 +102,13 @@ function openDelete(c) {
     openModal({
         title: 'Delete category', okLabel: 'Delete', danger: true,
         text: `Delete “${c.name}”?` + (Number(c.articles) ? ` It has ${c.articles} article(s).` : ''),
-        confirm: () => { categories = categories.filter(x => x.id !== c.id); save(); render(); closeModal(); }
+        confirm: async () => {
+            try {
+                await api('DELETE', API + '?id=' + c.id);
+                await loadCategories();
+                closeModal();
+            } catch (e) { showError(e.message); }
+        }
     });
 }
 
@@ -114,5 +136,4 @@ document.querySelectorAll('[data-placeholder]').forEach(a => a.addEventListener(
 
 $('year').textContent = new Date().getFullYear();
 
-window.updateNewsCategories = list => { categories = Array.isArray(list) ? list : categories; render(); };
-render();
+loadCategories();
