@@ -1,6 +1,6 @@
 * { box-sizing: border-box }
 
-/* ===== Page + background (same in Day and Night) ===== */
+/* ===== Page + background (same as Reports) ===== */
 body {
     margin: 0;
     min-height: 100vh;
@@ -36,7 +36,7 @@ body::before {
 body::after {
     content: "";
     position: fixed;
-    inset: -15%;
+    inset: 0;
     z-index: 0;
     pointer-events: none;
     background:
@@ -47,6 +47,22 @@ body::after {
 
 .topbar, main { position: relative; z-index: 1 }
 
+/* Drifting light particles (from Reports) */
+main::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background-image:
+        radial-gradient(circle, #c4ffed 1px, transparent 2px),
+        radial-gradient(circle, #7de9ff 1px, transparent 2px);
+    background-size: 155px 183px, 237px 213px;
+    background-position: 18px 50px, 80px 110px;
+    opacity: .23;
+    animation: reportParticles 28s linear infinite;
+}
+
 @keyframes moveStars {
     0%   { background-position: 0 0; opacity: .3 }
     100% { background-position: 150px 200px; opacity: .9 }
@@ -55,22 +71,29 @@ body::after {
     0%   { transform: translate(-5%, -3%) scale(1) }
     100% { transform: translate(5%, 4%) scale(1.15) }
 }
+@keyframes reportParticles {
+    to { background-position: 173px -133px, 317px -103px }
+}
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px) }
+    to   { opacity: 1; transform: translateY(0) }
+}
 
-/* ===== Header (Day) ===== */
+/* ===== Header (Day) - same as Reports ===== */
 .topbar {
     height: 83px;
-    background: linear-gradient(90deg, #8fb59a, #86b090);
+    background: linear-gradient(90deg, #b4c7cf, #b0d0ca);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 4%;
     gap: 20px;
-    color: #1d3a2f;
+    color: #213330;
     transition: background .3s, color .3s;
 }
 .brand, nav { display: flex; align-items: center; gap: 13px }
 .brand { font-family: Georgia, serif; font-size: 19px; font-weight: bold; white-space: nowrap }
-.brand em { font-style: normal; color: #17804f }
+.brand em { font-style: normal; color: #20935d }
 .brand strong { font-size: 22px }
 .logo { background: #219663; color: #fff; padding: 8px 11px; border-radius: 9px; font-size: 22px }
 .dot { height: 18px; width: 18px; border-radius: 50%; background: #1e9a68; border: 5px solid #f3f6ed; margin-left: 10px }
@@ -97,14 +120,14 @@ nav .logout { color: #23332e }
     font-size: 14px;
 }
 
-/* Day / Night toggle (knob stays on the LEFT in both modes, only the label changes) */
+/* Day / Night toggle (knob stays on the LEFT in both modes) */
 .topbar nav .theme {
     position: relative;
     display: flex; align-items: center; justify-content: center;
     width: 103px; height: 45px; padding: 0 12px 0 40px;
-    border-radius: 26px; cursor: pointer; color: #5d7d6e;
-    background: rgba(240, 245, 236, .78);
-    border: 1px solid rgba(255, 255, 255, .9);
+    border-radius: 26px; cursor: pointer; color: #658477;
+    background: rgba(237, 245, 241, .72);
+    border: 1px solid #fff;
     box-shadow: inset 0 1px 2px #ffffffa8;
     transition: background .3s, color .3s, border-color .3s;
 }
@@ -126,10 +149,10 @@ nav .logout { color: #23332e }
 .topbar nav .profile b {
     display: flex; align-items: center; justify-content: center;
     width: 36px; height: 36px; border-radius: 50%;
-    background: #1d4a3b; color: #fff; font-size: 14px;
+    background: #198e60; color: #fff; font-size: 14px;
 }
 
-/* ===== NIGHT MODE (header transparent, dark glass; page background stays same) ===== */
+/* ===== NIGHT MODE (header dark glass; page background stays same) ===== */
 body.night .topbar {
     background: rgba(22, 27, 32, .28);
     color: #f1f6f4;
@@ -164,7 +187,7 @@ body.night .secondary-btn { background: rgba(150, 235, 210, .08); border-color: 
 body.night .modal-box { background: rgba(24, 38, 42, .95) }
 body.night .site-footer { color: #a5d3c7 }
 
-/* ===== Glass panel ===== */
+/* ===== Glass panel - same as Reports ===== */
 main { padding: 44px 2.75% }
 .glass {
     border-radius: 22px;
@@ -175,9 +198,9 @@ main { padding: 44px 2.75% }
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     animation: fadeUp .6s ease both;
-    transition: background .3s;
+    transition: background .3s, box-shadow .3s;
 }
-@keyframes fadeUp { from { opacity: 0; transform: translateY(14px) } to { opacity: 1; transform: translateY(0) } }
+.glass:hover { box-shadow: 0 20px 45px #071b2444 }
 
 .cat-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 22px 26px }
 h2 { font: bold 21px Georgia, serif; margin: 0 }
@@ -225,7 +248,7 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid 
 .modal-actions .secondary-btn { margin: 0 }
 .primary-btn.danger { background: #c4384a }
 
-/* ===== Footer ===== */
+/* ===== Footer - same as Reports ===== */
 .site-footer { display: flex; justify-content: space-between; gap: 15px; flex-wrap: wrap; margin-top: 22px; color: #b3d4cf; font-size: 12px }
 .site-footer em { color: #4fe1a6; font-style: normal }
 
@@ -245,5 +268,276 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid 
     .action { padding: 9px 12px }
 }
 @media (prefers-reduced-motion: reduce) {
-    body::before, body::after, .glass { animation: none }
+    body::before, body::after, main::before, .glass { animation: none }
+}* { box-sizing: border-box }
+
+/* ===== Page + background (same as Reports) ===== */
+body {
+    margin: 0;
+    min-height: 100vh;
+    color: #eaf3f0;
+    font-family: Arial, sans-serif;
+    background:
+        radial-gradient(ellipse at 77% 24%, #3e6667 0%, transparent 48%),
+        radial-gradient(ellipse at 15% 78%, #31485d 0%, transparent 55%),
+        linear-gradient(125deg, #142538, #173e3b);
+    position: relative;
+    isolation: isolate;
+    overflow-x: hidden;
+}
+
+/* Moving stars */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: .48;
+    background-image:
+        radial-gradient(1px 1px at 8% 19%, white 98%, transparent),
+        radial-gradient(2px 2px at 29% 43%, white 98%, transparent),
+        radial-gradient(1px 1px at 69% 67%, white 98%, transparent),
+        radial-gradient(2px 2px at 89% 21%, white 98%, transparent);
+    background-size: 177px 193px, 263px 239px, 317px 277px, 391px 347px;
+    animation: moveStars 15s linear infinite;
+}
+
+/* Floating green + blue glow */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 25% 40%, rgba(0, 255, 170, .25), transparent 40%),
+        radial-gradient(circle at 75% 65%, rgba(0, 140, 255, .25), transparent 45%);
+    animation: moveGlow 10s ease-in-out infinite alternate;
+}
+
+.topbar, main { position: relative; z-index: 1 }
+
+/* Drifting light particles (from Reports) */
+main::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background-image:
+        radial-gradient(circle, #c4ffed 1px, transparent 2px),
+        radial-gradient(circle, #7de9ff 1px, transparent 2px);
+    background-size: 155px 183px, 237px 213px;
+    background-position: 18px 50px, 80px 110px;
+    opacity: .23;
+    animation: reportParticles 28s linear infinite;
+}
+
+@keyframes moveStars {
+    0%   { background-position: 0 0; opacity: .3 }
+    100% { background-position: 150px 200px; opacity: .9 }
+}
+@keyframes moveGlow {
+    0%   { transform: translate(-5%, -3%) scale(1) }
+    100% { transform: translate(5%, 4%) scale(1.15) }
+}
+@keyframes reportParticles {
+    to { background-position: 173px -133px, 317px -103px }
+}
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px) }
+    to   { opacity: 1; transform: translateY(0) }
+}
+
+/* ===== Header (Day) - same as Reports ===== */
+.topbar {
+    height: 83px;
+    background: linear-gradient(90deg, #b4c7cf, #b0d0ca);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 4%;
+    gap: 20px;
+    color: #213330;
+    transition: background .3s, color .3s;
+}
+.brand, nav { display: flex; align-items: center; gap: 13px }
+.brand { font-family: Georgia, serif; font-size: 19px; font-weight: bold; white-space: nowrap }
+.brand em { font-style: normal; color: #20935d }
+.brand strong { font-size: 22px }
+.logo { background: #219663; color: #fff; padding: 8px 11px; border-radius: 9px; font-size: 22px }
+.dot { height: 18px; width: 18px; border-radius: 50%; background: #1e9a68; border: 5px solid #f3f6ed; margin-left: 10px }
+
+nav { font-size: 14px; gap: 20px; justify-content: flex-end }
+nav a, nav button, .profile {
+    border: 1px solid #f0f4ef;
+    border-radius: 14px;
+    padding: 11px 18px;
+    background: #e6eeeb;
+    color: #1b5f43;
+    text-decoration: none;
+    font-weight: bold;
+    white-space: nowrap;
+}
+nav .logout { color: #23332e }
+
+.topbar nav .logout, .topbar nav .home {
+    display: inline-flex; align-items: center; justify-content: center;
+    height: 38px; padding: 0 16px; border-radius: 11px;
+    background: rgba(242, 247, 245, .9);
+    border: 1px solid rgba(255, 255, 255, .9);
+    box-shadow: inset 0 1px 2px #ffffffb0;
+    font-size: 14px;
+}
+
+/* Day / Night toggle (knob stays on the LEFT in both modes) */
+.topbar nav .theme {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    width: 103px; height: 45px; padding: 0 12px 0 40px;
+    border-radius: 26px; cursor: pointer; color: #658477;
+    background: rgba(237, 245, 241, .72);
+    border: 1px solid #fff;
+    box-shadow: inset 0 1px 2px #ffffffa8;
+    transition: background .3s, color .3s, border-color .3s;
+}
+.switch {
+    position: absolute; top: 50%; left: 11px;
+    height: 21px; width: 21px; border-radius: 50%;
+    background: #fff; box-shadow: 0 1px 5px #9fb5af;
+    transform: translateY(-50%);
+}
+
+.topbar nav .profile {
+    display: flex; align-items: center; gap: 9px; height: 46px;
+    border-radius: 26px; padding: 5px 13px 5px 6px;
+    font-size: 16px; font-weight: normal;
+    background: rgba(236, 245, 241, .83);
+    border: 1px solid #fff;
+    box-shadow: inset 0 1px 2px #ffffffa8;
+}
+.topbar nav .profile b {
+    display: flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: #198e60; color: #fff; font-size: 14px;
+}
+
+/* ===== NIGHT MODE (header dark glass; page background stays same) ===== */
+body.night .topbar {
+    background: rgba(22, 27, 32, .28);
+    color: #f1f6f4;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+body.night .brand em { color: #62e6ab }
+body.night .logo { background: rgba(255, 255, 255, .06); color: #cfeee0; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .12) }
+body.night .dot { background: #62e6ab; border-color: #3d4a48 }
+body.night .topbar nav .logout, body.night .topbar nav .home,
+body.night .topbar nav .theme, body.night .topbar nav .profile {
+    background: rgba(36, 42, 46, .55);
+    border: 1px solid rgba(255, 255, 255, .28);
+    color: #f6faf8;
+    box-shadow: none;
+}
+body.night .topbar nav .profile b { background: #245b45 }
+
+body.night .glass {
+    background: linear-gradient(160deg, rgba(42, 52, 58, .78), rgba(18, 62, 66, .72));
+    border: 1px solid rgba(150, 225, 210, .28);
+    box-shadow: 0 16px 40px rgba(2, 25, 22, .35);
+}
+body.night thead { background: rgba(150, 235, 210, .09); border-color: rgba(150, 235, 210, .22) }
+body.night td { border-color: rgba(150, 235, 210, .13) }
+body.night th { color: #b6e3d6 }
+body.night tbody tr:hover { background: rgba(150, 235, 210, .07) }
+body.night .count { color: #86efc3 }
+body.night .rename { background: rgba(36, 104, 90, .85); color: #e9fbf5; border: 1px solid rgba(150, 235, 210, .3) }
+body.night .delete { background: rgba(130, 48, 62, .5); color: #ffc0c8; border: 1px solid rgba(255, 140, 160, .3) }
+body.night .secondary-btn { background: rgba(150, 235, 210, .08); border-color: rgba(150, 235, 210, .25) }
+body.night .modal-box { background: rgba(24, 38, 42, .95) }
+body.night .site-footer { color: #a5d3c7 }
+
+/* ===== Glass panel - same as Reports ===== */
+main { padding: 44px 2.75% }
+.glass {
+    border-radius: 22px;
+    overflow: hidden;
+    background: rgba(188, 221, 224, .23);
+    border: 1px solid rgba(238, 255, 255, .35);
+    box-shadow: 0 16px 40px #071b242b;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    animation: fadeUp .6s ease both;
+    transition: background .3s, box-shadow .3s;
+}
+.glass:hover { box-shadow: 0 20px 45px #071b2444 }
+
+.cat-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 22px 26px }
+h2 { font: bold 21px Georgia, serif; margin: 0 }
+
+/* ===== Table ===== */
+.table-scroll { overflow-x: auto }
+table { width: 100%; border-collapse: collapse; text-align: left }
+thead { background: rgba(231, 247, 247, .13); border-top: 1px solid #d4e4e5a3; border-bottom: 1px solid #d4e4e5a3 }
+th { padding: 16px 24px; color: #d7e6e4; font-size: 12px; letter-spacing: 2px; text-transform: uppercase }
+td { padding: 18px 24px; border-bottom: 1px solid #d4e4e52e; font-size: 14px }
+tbody tr:last-child td { border-bottom: 0 }
+tbody tr { transition: background .2s }
+tbody tr:hover { background: rgba(255, 255, 255, .06) }
+th:nth-child(1), td:nth-child(1) { width: 34% }
+th:nth-child(2), td:nth-child(2) { width: 20% }
+.count { color: #b9d9d0; font-weight: bold }
+.actions-col { width: auto }
+.empty { text-align: center; padding: 28px; margin: 0; color: #c8d7d7 }
+
+/* ===== Buttons ===== */
+.action, .primary-btn, .secondary-btn {
+    border: 0; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 13px;
+    padding: 10px 16px; margin-right: 6px; transition: transform .15s, filter .2s;
+}
+.action:hover, .primary-btn:hover, .secondary-btn:hover { transform: translateY(-1px); filter: brightness(1.06) }
+.rename { background: #b7c9cc; color: #1f3a3d; border: 1px solid #d5e4e4 }
+.delete { background: #fde3e3; color: #b3283a }
+.primary-btn { background: #1f8f5f; color: #fff; padding: 12px 18px; font-size: 14px; margin: 0 }
+.secondary-btn { border: 1px solid #a9d7d15c; background: #b3ded31a; color: #eaf9f5; padding: 12px 18px; font-size: 14px }
+button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid #4fe1a6; outline-offset: 2px }
+
+/* ===== Modal ===== */
+.modal { position: fixed; inset: 0; z-index: 10; display: grid; place-items: center; padding: 16px; background: rgba(5, 15, 22, .55) }
+.modal[hidden] { display: none }
+.modal-box { width: min(420px, 100%); padding: 26px; background: rgba(24, 52, 62, .88) }
+.modal-box h3 { font: bold 20px Georgia, serif; margin: 0 0 14px }
+.modal-text { margin: 0 0 16px; color: #d6e6e3; font-size: 14px; line-height: 1.5 }
+.modal-box input {
+    width: 100%; padding: 12px; border-radius: 10px; font-size: 14px;
+    background: #133f4b9c; border: 1px solid #b1d5d36b; color: #e7f6f2;
+}
+.modal-box input[hidden] { display: none }
+.modal-error { color: #ffb3b3; font-size: 13px; margin: 8px 0 0 }
+.modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px }
+.modal-actions .secondary-btn { margin: 0 }
+.primary-btn.danger { background: #c4384a }
+
+/* ===== Footer - same as Reports ===== */
+.site-footer { display: flex; justify-content: space-between; gap: 15px; flex-wrap: wrap; margin-top: 22px; color: #b3d4cf; font-size: 12px }
+.site-footer em { color: #4fe1a6; font-style: normal }
+
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0 }
+
+/* ===== Responsive ===== */
+@media (max-width: 850px) {
+    .topbar { height: auto; padding: 15px; flex-wrap: wrap }
+    .brand strong { font-size: 19px }
+    nav { flex-wrap: wrap; gap: 9px; justify-content: flex-start }
+    main { padding: 22px 12px }
+    th, td { padding: 12px 14px }
+    th:nth-child(1), td:nth-child(1), th:nth-child(2), td:nth-child(2) { width: auto }
+}
+@media (max-width: 650px) {
+    .cat-head { padding: 16px }
+    .action { padding: 9px 12px }
+}
+@media (prefers-reduced-motion: reduce) {
+    body::before, body::after, main::before, .glass { animation: none }
 }
