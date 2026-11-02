@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dashboard — News In Green Admin</title>
+<link rel="stylesheet" href="admin-dashboard.css">
+<script src="admin-dashboard.js" defer></script>
+</head>
+<body class="day">
+<header class="topbar">
+  <div class="brand"><span class="logo">N</span><span>News <em>In Green</em></span><span class="dot"></span><strong>Dashboard</strong></div>
+  <nav aria-label="Admin navigation"><a class="logout" href="admin-login.html" id="logoutLink">Log out</a><button id="themeToggle" class="theme" type="button" aria-label="Toggle day and night theme" aria-pressed="false"><span class="switch"></span><span id="themeLabel">Day</span></button><a class="home" href="home.php">Home</a><span class="profile"><b>A</b> Admin</span></nav>
+</header>
+<main class="reports-main dashboard-main">
+  <section class="stats dashboard-stats" aria-label="Dashboard summary">
+    <article class="stat glass"><div class="stat-content"><h3>Total articles</h3><p id="totalArticles" class="stat-value">0</p></div><span class="metric-arrow" aria-hidden="true">↗</span></article>
+    <article class="stat glass"><div class="stat-content"><h3>Pending approval</h3><p id="pendingApproval" class="stat-value">0</p></div><span class="metric-arrow" aria-hidden="true">↗</span></article>
+    <article class="stat glass"><div class="stat-content"><h3>Comments to moderate</h3><p id="commentsToModerate" class="stat-value">0</p></div><span class="metric-arrow" aria-hidden="true">↗</span></article>
+    <article class="stat glass"><div class="stat-content"><h3>Featured / breaking</h3><p id="featuredBreaking" class="stat-value">0</p></div><span class="metric-arrow" aria-hidden="true">↗</span></article>
+  </section>
+  <section class="glass dashboard-panel quick-actions" aria-labelledby="quickActionsHeading"><h2 id="quickActionsHeading">Quick actions</h2><div class="quick-action-buttons"><a class="action primary-action" href="admin-new-article.html">+ New article</a><a class="action secondary-action" href="admin-submissions.html">Review pending submissions</a><a class="action secondary-action" href="admin-announcements.html">Manage announcements</a><a class="action secondary-action" href="admin-comments.html">Moderate comments</a></div></section>
+  <section class="glass dashboard-panel recent-activity" aria-labelledby="activityHeading"><h2 id="activityHeading">Recent activity</h2><div class="table-scroll"><table><thead><tr><th scope="col">Event</th><th scope="col">Item</th><th scope="col">When</th></tr></thead><tbody id="activityRows"><tr><td colspan="3" class="activity-empty">No recent activity yet.</td></tr></tbody></table></div></section>
+</main>
+</body>
+</html>
