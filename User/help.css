@@ -397,7 +397,7 @@ body.light-mode .topic-card {
 body {
     background-image:
         linear-gradient(rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.18)),
-        url("bg.jpg");
+        none;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -407,7 +407,7 @@ body {
 body.dark-mode {
     background-image:
         linear-gradient(rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.32)),
-        url("bg.jpg");
+        none;
 }
 
 .help-main {

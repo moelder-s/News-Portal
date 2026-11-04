@@ -1,15 +1,3 @@
-function toggleTheme() {
-    const body = document.body;
-    const label = document.getElementById("toggle-label");
-    if (body.classList.contains("light-mode")) {
-        body.classList.remove("light-mode"); body.classList.add("dark-mode");
-        if (label) label.textContent = "Night";
-    } else {
-        body.classList.remove("dark-mode"); body.classList.add("light-mode");
-        if (label) label.textContent = "Day";
-    }
-}
-
 document.addEventListener('DOMContentLoaded', () => {
     const cards = Array.from(document.querySelectorAll('.topic-card'));
     cards.forEach((card, index) => {

@@ -1,10 +1,15 @@
 <?php require_once __DIR__.'/bootstrap.php'; require_login(); ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="site-shared.js"></script>
     <title>Help & Support — News In Green</title>
     <link rel="stylesheet" href="help.css">
+<link rel="stylesheet" href="site-shared.css?v=22">
+
 </head>
 
 <body class="light-mode">
@@ -22,7 +27,7 @@
                 <a href="bookmarks.php">Bookmarks</a>
                 <a href="submit.php">Submit an article</a>
                 <a href="subscriptions.php">Subscriptions</a>
-                <a href="help.php" class="active">Help & Support</a>
+                
             </nav>
 
             <div class="header-actions">
@@ -148,7 +153,7 @@
                 </div>
             </div>
         </section>
-    <section style="max-width:900px;margin:25px auto;padding:25px;background:rgba(255,255,255,.77);backdrop-filter:blur(15px);border-radius:20px"><h2>Ask News In Green Help</h2><p>Ask questions about News In Green or any other topic. Green Assistant uses AI when a provider key is configured.</p><form id="ai-support" class="ai-support-form"><input type="hidden" id="support-csrf" value="<?=esc(csrf())?>"><label for="support-q">Your question</label><input id="support-q" maxlength="500" required placeholder="Ask anything — study, coding, writing, or News In Green…"><button type="submit">Ask</button></form><div id="support-response" class="support-response" role="status" aria-live="polite"></div><p id="support-mode" class="support-mode" aria-live="polite">For general AI answers, configure a Gemini or OpenAI key on the server. Portal FAQs work without one.</p></section><script src="help_ai.js" defer></script></main>
+    </main>
 
     <footer class="site-footer">
         <div class="footer-inner">
@@ -159,10 +164,10 @@
             </div>
             <div class="footer-col">
                 <h3>Sections</h3>
-                <a href="browse.php#academic">Academic</a>
-                <a href="browse.php#events">Events</a>
-                <a href="browse.php#sports">Sports</a>
-                <a href="browse.php#general">General</a>
+                <a href="browse.php?category=Academic">Academic</a>
+                <a href="browse.php?category=Events">Events</a>
+                <a href="browse.php?category=Sports">Sports</a>
+                <a href="browse.php?category=General">General</a>
             </div>
             <div class="footer-col">
                 <h3>Account</h3>
@@ -171,11 +176,6 @@
                 <a href="bookmarks.php">Bookmarks</a>
                 <a href="subscriptions.php">Subscriptions</a>
                 <a href="submit.php">Submit an article</a>
-            </div>
-            <div class="footer-col">
-                <h3>Contact</h3>
-                <a href="mailto:newsroom@newsingreen.edu">newsroom@newsingreen.edu</a>
-                <span>123 University Avenue, Colombo</span>
             </div>
         </div>
         <div class="footer-bottom">
