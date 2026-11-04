@@ -1,3 +1,8 @@
+// ============================================================
+// News In Green — Admin shared behaviour
+// Theme toggle, mobile sidebar, generic modal open/close, logout.
+// ============================================================
+
 (function () {
     "use strict";
 
@@ -22,7 +27,9 @@
         });
     }
 
-    /* ---------- Generic modal helpers ----------*/
+    /* ---------- Generic modal helpers ----------
+       Any element with [data-open-modal="id"] opens #id.
+       Any element with [data-close-modal] closes its containing overlay. */
 
     function initModals() {
         document.querySelectorAll("[data-open-modal]").forEach(function (btn) {

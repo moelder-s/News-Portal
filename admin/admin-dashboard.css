@@ -1,3 +1,6 @@
+/* DASHBOARD - STANDALONE CSS: shared theme + admin layout + section styling */
+/* NEWS IN GREEN - ONE SHARED ADMIN COLOR SYSTEM */
+/* Change the palette here to update every admin page. */
 :root {
     --bg: #f6f8f4;
     --surface: #ffffff;
@@ -70,6 +73,14 @@ body, .sidebar, .topbar, .panel, .stat-card, .modal-body,
     .data-table, input, select, textarea, .btn, .admin-user,
     .sidebar-nav a, .theme-toggle, .badge { transition: none; }
 }
+
+
+/* ============================================================
+   News In Green — Admin shared layout
+   Sidebar + topbar shell, cards, tables, forms, badges, modals.
+   Same black/green design language as the public site.
+   ============================================================ */
+
 /* Color variables are centralized in admin-theme.css */
 
 * { box-sizing: border-box; }
