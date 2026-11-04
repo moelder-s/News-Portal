@@ -1,0 +1,823 @@
+/* Shared, unified admin presentation; loaded after each page stylesheet. */
+#admin-space-canvas{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:none}
+body{background:transparent!important;min-height:100vh;position:relative}
+body>.admin-shell,body>.admin-home-content,body>.topbar{position:relative;z-index:1}
+.admin-shell,.main-col{background:transparent!important;min-height:100vh}
+.topbar{z-index:40!important}
+/* Preserve solid header and readable original cards against the moving space. */
+.content,.admin-home-content{position:relative;z-index:1}
+.admin-user{cursor:pointer;font:inherit;border:1px solid var(--border);transition:transform .2s,box-shadow .2s}
+.admin-user:hover{transform:translateY(-2px);box-shadow:0 5px 17px #0002}
+.admin-user:focus-visible,.admin-logout:focus-visible{outline:2px solid var(--green-500);outline-offset:4px}
+.admin-logout{padding:8px 14px;border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:.88rem;font-weight:600;white-space:nowrap;text-decoration:none;background:var(--surface);transition:border-color .2s,transform .2s}
+.admin-logout:hover{border-color:var(--green-500);transform:translateY(-1px)}
+/* Admin home photo tiles: local images with dark overlays for legible text. */
+.admin-home-tiles .home-tile{background-position:center!important;background-size:cover!important}
+.admin-home-tiles .home-tile::before{background:linear-gradient(180deg,rgba(0,0,0,.14) 0%,rgba(0,0,0,.16) 32%,rgba(0,0,0,.83) 100%)!important}
+.admin-home-tiles .home-tile::after{display:none!important}
+.admin-home-tiles .tile-overview{background-image:url('tile-photos/dashboard.jpg')!important}
+.admin-home-tiles .tile-articles{background-image:url('tile-photos/articles.jpg')!important}
+.admin-home-tiles .tile-categories{background-image:url('tile-photos/categories.jpg')!important}
+.admin-home-tiles .tile-approvals{background-image:url('tile-photos/approvals.jpg')!important}
+.admin-home-tiles .tile-announcements{background-image:url('tile-photos/announcements.jpg')!important}
+.admin-home-tiles .tile-comments{background-image:url('tile-photos/comments.jpg')!important}
+.admin-home-tiles .tile-reports{background-image:url('tile-photos/reports.jpg')!important}
+.admin-home-tiles .tile-settings{background-image:url('tile-photos/settings.jpg')!important}
+.home-welcome{background:var(--surface);padding:24px!important;border:1px solid var(--border);border-radius:20px;box-shadow:0 15px 45px #0002}
+.home-note{display:inline-block;background:var(--surface);padding:12px 16px;border-radius:12px}
+.admin-profile-overlay[hidden]{display:none!important}.admin-profile-overlay{position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.72);display:grid;place-items:center;padding:18px;backdrop-filter:blur(8px)}
+.admin-profile-panel{background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:23px;max-height:min(92vh,800px);overflow:auto;width:min(510px,100%);padding:25px;box-shadow:0 35px 100px rgba(0,0,0,.35)}
+.admin-profile-head{display:flex;justify-content:space-between;align-items:start;gap:16px}.admin-profile-head h2{font:600 1.85rem var(--font-display);margin:5px 0 18px}.profile-eyebrow{font-size:.68rem;letter-spacing:.16em;color:var(--green-600);font-weight:700}.profile-close{background:var(--surface-2);border:1px solid var(--border);color:var(--text);border-radius:10px;cursor:pointer;padding:7px 13px;font-size:20px}
+.profile-photo-row{display:flex;align-items:center;gap:16px;margin-bottom:22px}.profile-photo-view{display:grid;place-items:center;width:82px;height:82px;border-radius:50%;background:var(--green-500);color:white;font-size:2rem;font-weight:700;flex:none}.profile-upload{display:inline-flex;cursor:pointer;border:1px solid var(--border);border-radius:10px;padding:9px 13px;font-weight:600}
+#admin-profile-form>label{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;font-weight:600;font-size:.88rem}#admin-profile-form>label input{font:inherit;width:100%;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:9px;padding:12px}#admin-profile-form>label input:focus{outline:2px solid var(--green-500)}.profile-actions{display:flex;justify-content:flex-end;gap:9px}.profile-actions button{padding:11px 16px;font:inherit;font-weight:700;border-radius:9px;cursor:pointer}.btn-save-profile{background:var(--green-500);border:0;color:#06140c}.btn-cancel{font-size:.9rem;border:1px solid var(--border)}.profile-feedback{min-height:1.5em;color:var(--green-600);font-size:.85rem}.profile-help{font-size:.77rem;line-height:1.5;color:var(--text-muted);margin:18px 0 0}.profile-open{overflow:hidden}
+@media(max-width:700px){.topbar-actions{gap:8px!important;flex-wrap:wrap;justify-content:flex-end}.admin-display-name{display:none}.admin-logout{padding:7px 9px}.admin-home-content{padding:18px!important}}
+@media(prefers-reduced-motion:reduce){.admin-home-tiles .home-tile{animation:none!important}}
+
+
+/* ==========================================================
+   Liquid Glass Edition — translucent iOS 26-inspired surfaces
+   Shared across Admin Home + all eight workspace pages.
+   Existing markup, actions, themes and animated sky preserved.
+   ========================================================== */
+:root {
+  --liquid-fill: rgba(245, 251, 250, .57);
+  --liquid-fill-strong: rgba(251, 255, 253, .73);
+  --liquid-fill-subtle: rgba(247, 252, 249, .49);
+  --liquid-outline: rgba(255, 255, 255, .76);
+  --liquid-inner-glow: rgba(255, 255, 255, .82);
+  --liquid-shadow: 0 22px 65px rgba(2, 15, 25, .22), 0 4px 16px rgba(2, 20, 30, .10);
+  --liquid-blur: blur(24px) saturate(165%);
+}
+html[data-theme="dark"] {
+  --liquid-fill: rgba(17, 28, 34, .54);
+  --liquid-fill-strong: rgba(18, 30, 37, .69);
+  --liquid-fill-subtle: rgba(17, 28, 35, .49);
+  --liquid-outline: rgba(225, 246, 255, .20);
+  --liquid-inner-glow: rgba(255, 255, 255, .15);
+  --liquid-shadow: 0 24px 65px rgba(0, 0, 0, .35), 0 4px 18px rgba(0,0,0,.2);
+}
+/* Floating, refractive header: all navigation and buttons remain clickable. */
+.topbar {
+  background: var(--liquid-fill) !important;
+  border-bottom: 1px solid var(--liquid-outline) !important;
+  -webkit-backdrop-filter: var(--liquid-blur);
+  backdrop-filter: var(--liquid-blur);
+  box-shadow: 0 1px 0 var(--liquid-inner-glow) inset, 0 9px 32px rgba(0, 0, 0, .10);
+  transition: background-color .42s ease, border-color .42s ease, box-shadow .42s ease;
+}
+/* Main glass shell: allow the moving stars to show through. */
+.admin-home-content, .content {
+  position:relative;
+  z-index:1;
+}
+.admin-home-content .home-welcome,
+.admin-home-content .home-note,
+.content .panel,
+.content .stat-card,
+.content .section-card,
+.content .content-card,
+.content .card,
+.admin-profile-panel {
+  background: var(--liquid-fill-strong) !important;
+  border: 1px solid var(--liquid-outline) !important;
+  -webkit-backdrop-filter: var(--liquid-blur);
+  backdrop-filter: var(--liquid-blur);
+  box-shadow: inset 0 1px 0 var(--liquid-inner-glow), var(--liquid-shadow);
+  transition: background-color .42s ease, border-color .42s ease, box-shadow .42s ease, transform .28s ease;
+}
+.admin-home-content .home-welcome {border-radius: 26px !important; padding: 30px !important;}
+.admin-home-content .home-note {border-radius: 16px; background: var(--liquid-fill) !important;}
+.content .panel, .content .stat-card {border-radius: 22px;}
+/* Do not put any frosted background behind the entire page.
+   Glass belongs only to cards, panels, table sections, and modals. */
+.content {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+  margin: 0 auto !important;
+  padding: clamp(20px, 3vw, 42px) !important;
+}
+/* Individual glass surfaces (all eight tabs). */
+.content .panel,
+.content .stat-card,
+.content .section-card,
+.content .content-card,
+.content .card,
+.content .modal,
+.content .data-table,
+.modal,
+.admin-profile-panel {
+  background: var(--liquid-fill-strong) !important;
+  border: 1px solid var(--liquid-outline) !important;
+  -webkit-backdrop-filter: var(--liquid-blur);
+  backdrop-filter: var(--liquid-blur);
+  box-shadow: inset 0 1px 0 var(--liquid-inner-glow), var(--liquid-shadow);
+}
+/* Keep table text and controls legible without turning their outer layout into glass. */
+.content .panel-head,
+.content .panel-body,
+.content .data-table th,
+.content .data-table td {
+  background-color: transparent !important;
+}
+/* Rounded translucent controls, while preserving original green accent. */
+.topbar .admin-home-link,
+.topbar .admin-user,
+.topbar .admin-logout,
+.topbar .theme-toggle,
+.content .btn-ghost {
+  background-color: var(--liquid-fill-subtle) !important;
+  border-color: var(--liquid-outline) !important;
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  box-shadow: inset 0 1px 0 var(--liquid-inner-glow);
+}
+.topbar .theme-toggle {padding:8px 10px;border:1px solid;border-radius:999px}
+.topbar .admin-home-link:hover,.topbar .admin-logout:hover,.topbar .admin-user:hover {
+  box-shadow: inset 0 1px 0 var(--liquid-inner-glow), 0 5px 20px rgba(0,0,0,.15);
+}
+/* Home photo tiles retain their original images; overlay never obscures them. */
+.admin-home-tiles .home-tile {
+  border:1px solid rgba(255,255,255,.32) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 14px 40px rgba(0,0,0,.22);
+}
+/* Preserve usability if the browser cannot blur translucent surfaces. */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) {
+  .topbar,.admin-home-content .home-welcome,.admin-home-content .home-note,
+  .content .panel,.content .stat-card,.admin-profile-panel {background:var(--surface) !important;}
+}
+@media (max-width:700px) {
+  .content {margin:0 auto !important;padding:15px !important;}
+  .admin-home-content .home-welcome {padding:20px !important;}
+  .topbar .theme-toggle {padding:6px 8px;}
+}
+@media (prefers-reduced-transparency:reduce) {
+  .topbar,.admin-home-content .home-welcome,.admin-home-content .home-note,
+  .content .panel,.content .stat-card,.admin-profile-panel {
+    background:var(--surface) !important;
+    -webkit-backdrop-filter:none !important;
+    backdrop-filter:none !important;
+  }
+}
+
+
+/* ==========================================================
+   CLEAR LIQUID GLASS — visible stars behind individual panels
+   Applies to ALL admin pages; no giant surrounding glass layer.
+   ========================================================== */
+:root {
+  --clear-glass: rgba(226, 244, 241, 0.18);
+  --clear-glass-soft: rgba(232, 249, 245, 0.12);
+  --clear-glass-edge: rgba(255, 255, 255, 0.36);
+  --clear-glass-inner: rgba(255, 255, 255, 0.23);
+  --clear-glass-text: #10251d;
+}
+html[data-theme="dark"] {
+  --clear-glass: rgba(58, 75, 82, 0.25);
+  --clear-glass-soft: rgba(38, 58, 67, 0.15);
+  --clear-glass-edge: rgba(221, 245, 255, 0.22);
+  --clear-glass-inner: rgba(255, 255, 255, 0.14);
+  --clear-glass-text: #eff8f3;
+}
+/* Transparent shell — only the separate content blocks are glass. */
+.content, .admin-shell, .main-col {
+  background: transparent !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+/* True see-through glass: keep sky visible behind cards and panels. */
+.content .stat-card,
+.content .panel,
+.content .section-card,
+.content .content-card,
+.content .card,
+.content .data-table,
+.content .modal,
+.admin-home-content .home-welcome,
+.admin-home-content .home-note,
+.admin-profile-panel {
+  background: var(--clear-glass) !important;
+  background-image: none !important;
+  border: 1px solid var(--clear-glass-edge) !important;
+  -webkit-backdrop-filter: blur(13px) saturate(125%) !important;
+  backdrop-filter: blur(13px) saturate(125%) !important;
+  box-shadow: inset 0 1px 0 var(--clear-glass-inner), 0 12px 35px rgba(2, 9, 18, .16) !important;
+  transition: background-color .42s ease, border-color .42s ease, box-shadow .42s ease, transform .25s ease;
+}
+/* The table's header/body/rows must not introduce a white fill. */
+.content .panel-head,
+.content .panel-body,
+.content .panel-footer,
+.content .data-table thead,
+.content .data-table tbody,
+.content .data-table tr,
+.content .data-table th,
+.content .data-table td,
+.content table thead,
+.content table tbody,
+.content table tr,
+.content table th,
+.content table td {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+}
+/* Keep the data readable over moving stars. */
+.content .stat-card, .content .panel, .content .data-table {
+  color: var(--text) !important;
+}
+.content .data-table tbody tr:hover,
+.content table tbody tr:hover {
+  background: var(--clear-glass-soft) !important;
+}
+/* Inputs remain legible, but take on a subtle translucent finish. */
+.content input, .content select, .content textarea {
+  background: var(--clear-glass-soft) !important;
+  border-color: var(--clear-glass-edge) !important;
+  color: var(--text) !important;
+}
+@media (prefers-reduced-transparency: reduce) {
+  .content .stat-card, .content .panel, .content .data-table,
+  .admin-home-content .home-welcome, .admin-profile-panel {
+    background: var(--surface) !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+}
+
+/* ============================================================
+   GLASS CLARITY v2 — ONLY the eight admin management pages.
+   Admin Home photos, welcome/header/layout remain untouched.
+   ============================================================ */
+.admin-home-tiles .tile-register {
+    background-image: url('tile-photos/register.jpg') !important;
+    background-position: center !important;
+    background-size: cover !important;
+}
+/* No backdrop fill on the page-wide content region. */
+body:has(.content) .content,
+body:has(.content) .admin-shell,
+body:has(.content) .main-col {
+    background: transparent !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    border: 0 !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+}
+/* Transparent frosted tiles, tables, action areas, cards and modals. */
+body:has(.content) .content .stat-card,
+body:has(.content) .content .panel,
+body:has(.content) .content .section-card,
+body:has(.content) .content .content-card,
+body:has(.content) .content .card,
+body:has(.content) .content .data-table,
+body:has(.content) .content .modal,
+body:has(.content) .content .modal-body {
+    background: rgba(220, 244, 245, .10) !important;
+    background-image: none !important;
+    border: 1px solid rgba(243, 255, 255, .32) !important;
+    -webkit-backdrop-filter: blur(8px) saturate(118%) !important;
+    backdrop-filter: blur(8px) saturate(118%) !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.26), 0 14px 40px rgba(0,0,0,.12) !important;
+}
+html[data-theme="dark"] body:has(.content) .content .stat-card,
+html[data-theme="dark"] body:has(.content) .content .panel,
+html[data-theme="dark"] body:has(.content) .content .section-card,
+html[data-theme="dark"] body:has(.content) .content .content-card,
+html[data-theme="dark"] body:has(.content) .content .card,
+html[data-theme="dark"] body:has(.content) .content .data-table,
+html[data-theme="dark"] body:has(.content) .content .modal,
+html[data-theme="dark"] body:has(.content) .content .modal-body {
+    background: rgba(27, 45, 50, .19) !important;
+    border-color: rgba(228,247,248,.23) !important;
+}
+/* Keep rows and nested content just as transparent as their parent. */
+body:has(.content) .content .panel-head,
+body:has(.content) .content .panel-body,
+body:has(.content) .content .panel-footer,
+body:has(.content) .content .data-table thead,
+body:has(.content) .content .data-table tbody,
+body:has(.content) .content .data-table tr,
+body:has(.content) .content .data-table th,
+body:has(.content) .content .data-table td,
+body:has(.content) .content table thead,
+body:has(.content) .content table tbody,
+body:has(.content) .content table tr,
+body:has(.content) .content table th,
+body:has(.content) .content table td {
+    background: transparent !important;
+    background-image: none !important;
+}
+body:has(.content) .content .data-table tr:hover,
+body:has(.content) .content table tr:hover {
+    background: rgba(220,250,240,.08) !important;
+}
+/* Maintain contrast in dark and light modes without solid fills. */
+body:has(.content) .content .panel,
+body:has(.content) .content .stat-card,
+body:has(.content) .content .data-table,
+body:has(.content) .content .panel h2 {
+    color: #f3faf6 !important;
+}
+body:has(.content) .content .stat-card .stat-value,
+body:has(.content) .content .stat-card strong {
+    color: #f3faf6 !important;
+}
+body:has(.content) .content .stat-card .stat-label,
+body:has(.content) .content .panel .muted,
+body:has(.content) .content .data-table th {
+    color: #c5d6d0 !important;
+}
+/* Transparent inputs/selects instead of hard-filled rectangles. */
+body:has(.content) .content input,
+body:has(.content) .content textarea,
+body:has(.content) .content select {
+    background: rgba(230,248,243,.13) !important;
+    border-color: rgba(238,255,250,.31) !important;
+    color: #f7fcfa !important;
+}
+body:has(.content) .content input::placeholder,
+body:has(.content) .content textarea::placeholder { color: rgba(241,250,245,.63) !important; }
+body:has(.content) .content select option { background:#172b2a; color:#f7fcfa; }
+@media (prefers-reduced-transparency:reduce) {
+  body:has(.content) .content .panel,
+  body:has(.content) .content .stat-card,
+  body:has(.content) .content .data-table { background:rgba(22,39,43,.95) !important; backdrop-filter:none !important; }
+}
+
+
+/* Admin header only: matches the User Dashboard header layout and navigation.
+   Admin workspace/content styles are intentionally untouched. */
+.admin-site-header.site-header {
+  position:sticky;top:0;z-index:100;width:100%;
+  background:var(--liquid-fill,rgba(245,251,250,.76));
+  border-bottom:1px solid var(--liquid-outline,rgba(255,255,255,.6));
+  -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+  box-shadow:0 5px 24px rgba(0,0,0,.09);
+  color:var(--text,#19332c);
+}
+html[data-theme="dark"] .admin-site-header.site-header {
+  background:rgba(12,25,27,.72);
+  border-bottom-color:rgba(205,241,220,.20);
+  color:#f2f8f5;
+}
+.admin-site-header .header-inner {
+  width:100%;max-width:1340px;min-height:78px;
+  margin:0 auto;padding:12px 24px;display:flex;align-items:center;
+  justify-content:space-between;gap:16px;
+}
+.admin-site-header .admin-site-brand {
+  display:inline-flex;align-items:center;gap:10px;flex-shrink:0;
+  text-decoration:none;color:inherit;font-family:'Fraunces',Georgia,serif;
+  font-size:21px;font-weight:700;white-space:nowrap;
+}
+.admin-site-header .brand-mark {
+  display:grid;place-items:center;width:33px;height:33px;border-radius:7px;
+  color:#fff;background:var(--green-500,#27975d);font:700 22px 'Fraunces',Georgia,serif;
+}
+.admin-site-header .brand-text em {color:var(--green-500,#48bd7a);font-style:normal}
+.admin-site-header .admin-main-nav {
+  display:flex;align-items:center;justify-content:center;flex:1;min-width:0;
+  gap:clamp(7px,1.1vw,17px);margin-left:auto;
+}
+.admin-site-header .admin-main-nav a {
+  display:inline-block;padding:9px 0 6px;border-bottom:2px solid transparent;
+  color:inherit;opacity:.75;font-size:clamp(11px,.92vw,14px);
+  font-weight:500;text-decoration:none;white-space:nowrap;
+  transition:color .2s,opacity .2s,border-color .2s;
+}
+.admin-site-header .admin-main-nav a:hover,
+.admin-site-header .admin-main-nav a.active {opacity:1;border-bottom-color:#44b779;}
+.admin-site-header .admin-header-actions {
+  display:flex;align-items:center;gap:10px;flex-shrink:0;
+}
+.admin-site-header .theme-toggle {
+  display:inline-flex;align-items:center;gap:7px;padding:0;
+  border:0;background:transparent!important;box-shadow:none!important;
+  color:inherit;font-size:13px;white-space:nowrap;
+}
+.admin-site-header .admin-logout {
+  display:inline-flex;align-items:center;justify-content:center;padding:9px 13px;
+  border-radius:10px;border:1px solid currentColor;
+  color:inherit;text-decoration:none;font-size:13px;font-weight:600;
+  background:transparent!important;box-shadow:none!important;
+}
+.admin-site-header .admin-user {
+  display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(115,157,133,.3);
+  background:transparent!important;color:inherit;
+}
+.admin-site-header .admin-nav-burger {display:none;cursor:pointer;padding:7px;border:0;background:transparent;color:inherit}
+.admin-site-header .admin-nav-burger span {display:block;width:23px;height:2px;margin:5px;background:currentColor;border-radius:2px}
+@media (max-width:1250px) {
+ .admin-site-header .admin-nav-burger{display:block}
+ .admin-site-header .admin-main-nav {
+   position:absolute;top:100%;left:0;right:0;display:none;
+   padding:12px max(24px,calc((100vw - 1340px)/2));
+   background:rgba(242,250,246,.96);border-bottom:1px solid rgba(130,170,150,.3);
+   -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+   flex-wrap:wrap;justify-content:flex-start;gap:6px 22px;
+ }
+ html[data-theme="dark"] .admin-site-header .admin-main-nav{background:rgba(12,25,27,.96)}
+ .admin-site-header .admin-main-nav.open{display:flex}
+ .admin-site-header .admin-main-nav a{font-size:14px;padding:10px 2px}
+}
+@media (max-width:600px) {
+ .admin-site-header .header-inner {padding:11px 14px;min-height:68px;gap:8px}
+ .admin-site-header .admin-site-brand{font-size:16px;gap:6px}
+ .admin-site-header .brand-mark{width:29px;height:29px;font-size:19px}
+ .admin-site-header .admin-header-actions{gap:6px}
+ .admin-site-header .admin-user{padding:5px}
+ .admin-site-header .admin-display-name{display:none}
+ .admin-site-header .admin-logout{padding:6px;font-size:12px}
+ .admin-site-header .toggle-label{display:none}
+}
+
+
+/* Screenshot-matched admin header — ONLY header appearance; other page styles intact. */
+html[data-theme] .admin-site-header.site-header {
+ position:relative!important;top:auto!important;z-index:110!important;
+ width:calc(100% - 30px)!important;max-width:none!important;
+ margin:22px auto 26px!important;padding:0!important;
+ border:1px solid rgba(255,255,255,.85)!important;border-radius:30px!important;
+ background:rgba(239,247,252,.76)!important;
+ box-shadow:0 14px 42px rgba(9,29,43,.16)!important;
+ backdrop-filter:blur(22px)!important;-webkit-backdrop-filter:blur(22px)!important;
+ color:#17392b!important;overflow:visible!important;
+}
+html[data-theme="dark"] .admin-site-header.site-header {background:rgba(18,31,40,.79)!important;border-color:rgba(195,224,224,.27)!important;color:#f3faf5!important}
+html[data-theme] .admin-site-header .header-inner{
+ width:100%!important;max-width:none!important;min-height:88px!important;
+ padding:12px 24px!important;margin:0!important;display:flex!important;
+ align-items:center!important;justify-content:space-between!important;gap:20px!important;
+}
+html[data-theme] .admin-site-header .admin-site-brand {display:flex!important;align-items:center!important;gap:10px!important;text-decoration:none!important;color:inherit!important;flex-shrink:0!important;white-space:nowrap!important;}
+html[data-theme] .admin-site-header .admin-ng-logo {display:block!important;width:80px!important;height:53px!important;object-fit:contain!important;}
+html[data-theme] .admin-site-header .admin-brand-lines {display:flex!important;flex-direction:column!important;gap:5px!important;}
+html[data-theme] .admin-site-header .admin-brand-lines strong {font-family:Georgia,'Times New Roman',serif!important;font-size:30px!important;line-height:1!important;color:inherit!important;font-weight:700!important;letter-spacing:-.65px!important;}
+html[data-theme] .admin-site-header .admin-brand-lines em {font-style:normal!important;color:#168854!important;}
+html[data-theme] .admin-site-header .admin-brand-lines small {font:500 9px 'Work Sans',Arial,sans-serif!important;letter-spacing:1.5px!important;color:#879b9b!important;}
+html[data-theme] .admin-site-header .admin-main-nav {display:flex!important;flex:1 1 auto!important;justify-content:center!important;align-items:center!important;margin:0!important;gap:0!important;min-width:0!important;position:static!important;background:none!important;border:0!important;padding:0!important;}
+html[data-theme] .admin-site-header .admin-main-nav .admin-home-link {display:inline-flex!important;align-items:center!important;gap:7px!important;padding:11px 16px!important;border:1px solid #a7e5b8!important;border-radius:999px!important;text-decoration:none!important;color:inherit!important;opacity:1!important;font:700 15px 'Work Sans',Arial,sans-serif!important;background:rgba(211,247,223,.75)!important;box-shadow:0 0 20px rgba(48,210,99,.24)!important;white-space:nowrap!important;transition:transform .2s,box-shadow .2s!important;}
+html[data-theme="dark"] .admin-site-header .admin-main-nav .admin-home-link {background:rgba(27,101,69,.55)!important;border-color:rgba(90,225,142,.6)!important}
+html[data-theme] .admin-site-header .admin-main-nav .admin-home-link:hover {transform:translateY(-2px)!important;box-shadow:0 0 22px rgba(48,210,99,.5)!important}
+html[data-theme] .admin-site-header svg {width:20px;height:20px;display:block;flex-shrink:0;}
+html[data-theme] .admin-site-header .admin-header-actions {display:flex!important;align-items:center!important;gap:10px!important;flex-shrink:0!important;}
+html[data-theme] .admin-site-header .admin-header-round {width:50px!important;height:50px!important;min-width:50px!important;min-height:50px!important;padding:0!important;display:flex!important;align-items:center!important;justify-content:center!important;background:rgba(176,197,204,.25)!important;border:1px solid rgba(101,134,138,.3)!important;border-radius:50%!important;color:inherit!important;text-decoration:none!important;box-shadow:none!important;cursor:pointer!important;}
+html[data-theme] .admin-site-header .admin-header-round svg {width:24px!important;height:24px!important;}
+html[data-theme] .admin-site-header .admin-user .avatar {display:none!important;}
+html[data-theme] .admin-site-header .admin-user {font-size:0!important;}
+html[data-theme] .admin-site-header #theme-toggle .toggle-label {display:none!important;}
+html[data-theme] .admin-site-header #theme-toggle .toggle-track {display:none!important;}
+html[data-theme] .admin-site-header .admin-header-round:hover {background:rgba(129,207,170,.35)!important;transform:translateY(-2px)!important;}
+.admin-profile-logout {display:inline-flex;align-items:center;justify-content:center;margin:10px 0;padding:10px 18px;border:1px solid #93ae9f;border-radius:12px;text-decoration:none;color:inherit;font-weight:700}
+@media(max-width:750px){
+ html[data-theme] .admin-site-header .header-inner {min-height:72px!important;padding:10px 14px!important;gap:9px!important;flex-wrap:wrap!important;}
+ html[data-theme] .admin-site-header .admin-ng-logo {width:46px!important;height:40px!important;}
+ html[data-theme] .admin-site-header .admin-brand-lines strong {font-size:19px!important;}
+ html[data-theme] .admin-site-header .admin-brand-lines small {font-size:6px!important;letter-spacing:.5px!important;}
+ html[data-theme] .admin-site-header .admin-main-nav {order:3!important;flex:1 0 100%!important;}
+ html[data-theme] .admin-site-header .admin-header-actions {gap:5px!important;}
+ html[data-theme] .admin-site-header .admin-header-round {width:36px!important;min-width:36px!important;height:36px!important;min-height:36px!important;}
+ html[data-theme] .admin-site-header .admin-header-round svg {width:19px!important;height:19px!important;}
+}
+
+
+/* 2026-11-03: Position the only Home tab directly before the notification control. */
+html[data-theme] .admin-site-header .header-inner {
+  flex-wrap:nowrap!important;
+}
+html[data-theme] .admin-site-header .admin-main-nav {
+  flex:0 0 auto!important;
+  width:auto!important;
+  min-width:0!important;
+  margin-left:auto!important;
+  margin-right:0!important;
+  order:0!important;
+  justify-content:flex-end!important;
+}
+html[data-theme] .admin-site-header .admin-header-actions {
+  order:0!important;
+  margin-left:0!important;
+}
+@media (max-width:750px) {
+  html[data-theme] .admin-site-header .header-inner {
+    flex-wrap:nowrap!important;
+    gap:7px!important;
+  }
+  html[data-theme] .admin-site-header .admin-main-nav {
+    order:0!important;
+    flex:0 0 auto!important;
+    margin-left:auto!important;
+  }
+  html[data-theme] .admin-site-header .admin-main-nav .admin-home-link {
+    padding:8px 10px!important;
+    font-size:12px!important;
+  }
+  html[data-theme] .admin-site-header .admin-main-nav .admin-home-link svg {
+    width:16px!important;height:16px!important;
+  }
+}
+@media (max-width:540px) {
+  html[data-theme] .admin-site-header .admin-brand-lines small {display:none!important;}
+  html[data-theme] .admin-site-header .admin-ng-logo {width:38px!important;}
+  html[data-theme] .admin-site-header .admin-brand-lines strong {font-size:15px!important;}
+  html[data-theme] .admin-site-header .header-inner {padding:9px 10px!important;gap:5px!important;}
+  html[data-theme] .admin-site-header .admin-header-actions {gap:4px!important;}
+  html[data-theme] .admin-site-header .admin-header-round {
+    width:31px!important;min-width:31px!important;
+    height:31px!important;min-height:31px!important;
+  }
+  html[data-theme] .admin-site-header .admin-main-nav .admin-home-link {padding:7px 8px!important;font-size:11px!important;gap:4px!important;}
+}
+
+
+/* Glass-only polish, November 2026: Admin header and Home Control center.
+   Deliberately leaves the Admin tiles, content cards, stars and behavior alone. */
+html[data-theme] .admin-site-header.site-header {
+  background: rgba(244, 250, 253, .36) !important;
+  border: 1px solid rgba(255, 255, 255, .78) !important;
+  -webkit-backdrop-filter: blur(26px) saturate(165%) !important;
+  backdrop-filter: blur(26px) saturate(165%) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.84),
+              0 12px 38px rgba(24,46,61,.14) !important;
+}
+html[data-theme="dark"] .admin-site-header.site-header {
+  background: rgba(18, 30, 39, .38) !important;
+  border-color: rgba(226, 245, 251, .25) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.13),
+              0 14px 40px rgba(0,0,0,.32) !important;
+}
+/* Home page greeting: the box headed “Control center”. */
+html[data-theme] .admin-home-content .home-welcome {
+  background: rgba(243, 250, 252, .30) !important;
+  background-image: none !important;
+  border: 1px solid rgba(255,255,255,.70) !important;
+  border-radius: 26px !important;
+  -webkit-backdrop-filter: blur(22px) saturate(155%) !important;
+  backdrop-filter: blur(22px) saturate(155%) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.82),
+              0 16px 44px rgba(23,46,56,.13) !important;
+}
+html[data-theme="dark"] .admin-home-content .home-welcome {
+  background: rgba(19, 32, 41, .34) !important;
+  border-color: rgba(221, 245, 251, .24) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.15),
+              0 18px 44px rgba(0,0,0,.26) !important;
+}
+@media (prefers-reduced-transparency: reduce) {
+  html[data-theme] .admin-site-header.site-header,
+  html[data-theme] .admin-home-content .home-welcome {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    background: var(--surface) !important;
+  }
+}
+
+/* ================================================================
+   Admin visual refinement — November 2026
+   Header: actual transparent glass so the animated stars are visible.
+   Workspace: gentle sage surfaces and high contrast in day mode.
+   Scoped to admin workspace; no user page or functionality changes.
+   ================================================================ */
+html[data-theme="light"] .admin-site-header.site-header {
+  background: rgba(232, 244, 241, .24) !important;
+  border: 1px solid rgba(255,255,255,.68) !important;
+  -webkit-backdrop-filter: blur(11px) saturate(120%) !important;
+  backdrop-filter: blur(11px) saturate(120%) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.68), 0 14px 30px rgba(21,65,49,.11) !important;
+}
+html[data-theme="dark"] .admin-site-header.site-header {
+  background: rgba(18, 38, 35, .28) !important;
+  border-color: rgba(200,238,224,.28) !important;
+  -webkit-backdrop-filter: blur(13px) saturate(125%) !important;
+  backdrop-filter: blur(13px) saturate(125%) !important;
+}
+/* Make the circular header controls translucent as well. */
+html[data-theme="light"] .admin-site-header .admin-header-round {
+  background: rgba(230,244,241,.31) !important;
+  border-color: rgba(89,140,123,.30) !important;
+}
+html[data-theme="dark"] .admin-site-header .admin-header-round {
+  background: rgba(40,70,68,.38) !important;
+  border-color: rgba(193,229,217,.26) !important;
+}
+/* Force correct color-scheme in the management pages; old transparent
+   panel rules had accidentally set almost-white text in light mode. */
+html[data-theme="light"] body:has(.content) .content .panel,
+html[data-theme="light"] body:has(.content) .content .stat-card,
+html[data-theme="light"] body:has(.content) .content .section-card,
+html[data-theme="light"] body:has(.content) .content .content-card,
+html[data-theme="light"] body:has(.content) .content .card,
+html[data-theme="light"] body:has(.content) .content .data-table,
+html[data-theme="light"] body:has(.content) .content .modal,
+html[data-theme="light"] body:has(.content) .content .modal-body {
+  background: rgba(247, 248, 250, .96) !important;
+  background-image: none !important;
+  border: 1px solid rgba(177,187,195,.40) !important;
+  color: #1d2933 !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.94), 0 16px 38px rgba(20,32,44,.17) !important;
+  -webkit-backdrop-filter: blur(15px) saturate(125%) !important;
+  backdrop-filter: blur(15px) saturate(125%) !important;
+}
+html[data-theme="dark"] body:has(.content) .content .panel,
+html[data-theme="dark"] body:has(.content) .content .stat-card,
+html[data-theme="dark"] body:has(.content) .content .section-card,
+html[data-theme="dark"] body:has(.content) .content .content-card,
+html[data-theme="dark"] body:has(.content) .content .card,
+html[data-theme="dark"] body:has(.content) .content .data-table,
+html[data-theme="dark"] body:has(.content) .content .modal,
+html[data-theme="dark"] body:has(.content) .content .modal-body {
+  background: rgba(9, 11, 15, .96) !important;
+  border-color: rgba(118,132,148,.27) !important;
+  color: #f2f5f8 !important;
+  box-shadow: 0 18px 42px rgba(0,0,0,.40) !important;
+}
+html[data-theme="light"] body:has(.content) .content .panel h1,
+html[data-theme="light"] body:has(.content) .content .panel h2,
+html[data-theme="light"] body:has(.content) .content .panel h3,
+html[data-theme="light"] body:has(.content) .content .stat-card .stat-value,
+html[data-theme="light"] body:has(.content) .content .stat-card strong {
+  color:#1b2b37 !important;
+}
+html[data-theme="light"] body:has(.content) .content .stat-card .stat-label,
+html[data-theme="light"] body:has(.content) .content .panel .muted,
+html[data-theme="light"] body:has(.content) .content .cell-muted,
+html[data-theme="light"] body:has(.content) .content .data-table th {
+  color:#586b7a !important;
+}
+html[data-theme="light"] body:has(.content) .content .panel td,
+html[data-theme="light"] body:has(.content) .content .panel label,
+html[data-theme="light"] body:has(.content) .content .panel p,
+html[data-theme="light"] body:has(.content) .content .data-table td {
+  color:#253544 !important;
+}
+/* Subtle striped rows add separation without hiding the stars outside panels. */
+html[data-theme="light"] body:has(.content) .content .data-table tbody tr:nth-child(even) {
+  background:rgba(220,227,235,.33) !important;
+}
+html[data-theme="light"] body:has(.content) .content .data-table tbody tr:hover {
+  background:rgba(207,219,233,.55) !important;
+}
+html[data-theme="dark"] body:has(.content) .content .data-table tbody tr:nth-child(even) {
+  background:rgba(255,255,255,.035) !important;
+}
+/* Recreate visually consistent action buttons even if UA defaults differ. */
+body:has(.content) .content .btn {
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  font:600 .84rem var(--font-body,Arial,sans-serif);
+  line-height:1.25; padding:9px 13px; border-radius:10px;
+  border:1px solid transparent; cursor:pointer;
+  text-decoration:none; white-space:nowrap;
+}
+html[data-theme="light"] body:has(.content) .content .btn-ghost {
+  background:rgba(255,255,255,.57) !important;
+  border-color:rgba(101,159,119,.40) !important;
+  color:#20583a !important;
+}
+html[data-theme="light"] body:has(.content) .content .btn-danger {
+  background:rgba(255,231,231,.83) !important;
+  border-color:rgba(188,82,82,.22) !important;
+  color:#a22f39 !important;
+}
+html[data-theme="dark"] body:has(.content) .content .btn-ghost {
+  background:rgba(60,94,77,.4) !important;
+  border-color:rgba(151,202,168,.3) !important;
+  color:#dcf7e5 !important;
+}
+html[data-theme="dark"] body:has(.content) .content .btn-danger {
+  background:rgba(96,49,57,.6) !important;
+  border-color:rgba(234,124,139,.36) !important;
+  color:#ffd7df !important;
+}
+body:has(.content) .content .btn-sm {padding:7px 11px;font-size:.79rem}
+html[data-theme="light"] body:has(.content) .content input,
+html[data-theme="light"] body:has(.content) .content textarea,
+html[data-theme="light"] body:has(.content) .content select {
+  background:rgba(255,255,255,.79) !important;
+  border-color:rgba(102,157,123,.39) !important;
+  color:#183c29 !important;
+}
+html[data-theme="light"] body:has(.content) .content input::placeholder,
+html[data-theme="light"] body:has(.content) .content textarea::placeholder {color:#677f6e !important}
+html[data-theme="light"] body:has(.content) .content select option {background:#f4faf5;color:#183c29}
+@media (prefers-reduced-transparency: reduce) {
+ html[data-theme="light"] body:has(.content) .content .panel,
+ html[data-theme="light"] body:has(.content) .content .stat-card {background:#f7f8fa !important;backdrop-filter:none !important}
+ html[data-theme="dark"] body:has(.content) .content .panel,
+ html[data-theme="dark"] body:has(.content) .content .stat-card {background:#090b0f !important;backdrop-filter:none !important}
+}
+
+
+/* Admin action buttons: crisp shapes, accessible contrast and green glow. */
+html[data-theme] body .content button[data-dbop],
+html[data-theme] body .content .row-actions .btn {
+  appearance:none!important;-webkit-appearance:none!important;
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  min-height:35px!important;padding:8px 15px!important;
+  font-family:inherit!important;font-size:.82rem!important;line-height:1.15!important;
+  font-weight:700!important;letter-spacing:.01em!important;
+  border:1px solid transparent!important;border-radius:11px!important;
+  cursor:pointer!important;white-space:nowrap!important;
+  transition:background .2s ease,box-shadow .22s ease,transform .18s ease,border-color .2s ease!important;
+}
+html[data-theme="light"] body .content button[data-dbop],
+html[data-theme="light"] body .content .row-actions .btn-ghost {
+  color:#155e39!important;background:#ecfaf1!important;border-color:#93d5ac!important;
+  box-shadow:0 3px 10px rgba(22,163,74,.13),0 0 0 1px rgba(22,163,74,.035)!important;
+}
+html[data-theme="dark"] body .content button[data-dbop],
+html[data-theme="dark"] body .content .row-actions .btn-ghost {
+  color:#baf7d0!important;background:#10271c!important;border-color:#387e54!important;
+  box-shadow:0 3px 12px rgba(10,200,84,.16)!important;
+}
+html[data-theme="light"] body .content button[data-dbop].admin-action-danger,
+html[data-theme="light"] body .content .row-actions .btn-danger {
+  color:#a52e3a!important;background:#fff2f2!important;border-color:#efb7bd!important;
+  box-shadow:0 3px 10px rgba(22,163,74,.12)!important;
+}
+html[data-theme="dark"] body .content button[data-dbop].admin-action-danger,
+html[data-theme="dark"] body .content .row-actions .btn-danger {
+  color:#ffcbd0!important;background:#321a22!important;border-color:#87424e!important;
+  box-shadow:0 3px 12px rgba(10,200,84,.14)!important;
+}
+html[data-theme="light"] body .content button[data-dbop].admin-action-success,
+html[data-theme="dark"] body .content button[data-dbop].admin-action-success {
+  color:#ffffff!important;background:#20864c!important;border-color:#35a969!important;
+}
+html[data-theme] body .content button[data-dbop]:hover,
+html[data-theme] body .content .row-actions .btn:hover {
+  transform:translateY(-2px)!important;
+  box-shadow:0 6px 19px rgba(22,163,74,.27),0 0 14px rgba(34,197,94,.19)!important;
+}
+html[data-theme] body .content button[data-dbop]:active,
+html[data-theme] body .content .row-actions .btn:active {
+  transform:translateY(0) scale(.97)!important;
+}
+html[data-theme] body .content button[data-dbop]:focus-visible,
+html[data-theme] body .content .row-actions .btn:focus-visible {
+  outline:2px solid #16a34a!important;outline-offset:3px!important;
+}
+html[data-theme] body .content button[data-dbop]:disabled,
+html[data-theme] body .content .row-actions .btn:disabled {
+  opacity:.55!important;cursor:not-allowed!important;transform:none!important;
+}
+html[data-theme] body .content td:has(>button[data-dbop]),
+html[data-theme] body .content .row-actions {
+  vertical-align:middle;white-space:nowrap;
+}
+html[data-theme] body .content td>button[data-dbop]+button[data-dbop],
+html[data-theme] body .content .row-actions .btn+.btn {margin-left:7px;}
+@media(prefers-reduced-motion:reduce){
+ html[data-theme] body .content button[data-dbop],
+ html[data-theme] body .content .row-actions .btn {transition:none!important;}
+}
+
+/* Performance: the starfield canvas paints only stars; its background is composited once. */
+#admin-space-canvas {background:linear-gradient(115deg,#fff 0%,#fff 55%,#fafafa 100%);}
+html[data-theme="dark"] #admin-space-canvas {background:linear-gradient(115deg,#020407 0%,#090c16 52%,#07120f 100%);}
+@media (prefers-reduced-motion: reduce) {
+  .admin-home-tiles .home-tile, .admin-header, .admin-header-round { animation:none!important; }
+}
+
+
+/* Admin settings: centered password form; existing form logic is unchanged. */
+.admin-settings-page .content {
+  display:flex; flex-direction:column; align-items:center;
+  width:100%; padding-top:clamp(35px,7vh,85px);
+}
+.admin-settings-page .password-settings-panel {
+  width:min(100%,540px); max-width:540px; margin:0 auto;
+}
+.admin-settings-page .password-settings-panel .panel-head,
+.admin-settings-page .password-settings-panel .panel-body {width:100%}
+
+/* Admin Home: header remains stationary; only the photo tiles pop on hover. */
+body.admin-home-page .admin-site-header.site-header,
+body.admin-home-page .admin-site-header .header-inner {
+  transform:none!important;
+  animation:none!important;
+}
+body.admin-home-page .admin-site-header .admin-main-nav .admin-home-link:hover,
+body.admin-home-page .admin-site-header .admin-main-nav .admin-home-link:focus-visible,
+body.admin-home-page .admin-site-header .admin-header-round:hover,
+body.admin-home-page .admin-site-header .admin-header-round:focus-visible {
+  transform:none!important;
+}
+/* Keep hover animations confined to Admin Home photo cards. */
+body.admin-home-page .admin-home-tiles .home-tile:hover,
+body.admin-home-page .admin-home-tiles .home-tile:focus-visible {
+  transform:translate3d(0,-13px,0) scale(1.035);
+}
+
+/* Keep the glass Admin header visible while the document scrolls.
+   The page and photo cards scroll normally beneath it. */
+html[data-theme] body .admin-site-header.site-header {
+  position: sticky !important;
+  top: 12px !important;
+  z-index: 1100 !important;
+}

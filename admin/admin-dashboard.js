@@ -1,21 +1,72 @@
-'use strict';
-// Display actual data by calling window.updateAdminDashboard(payload) from your backend.
-// payload = {totalArticles, pendingApproval, commentsToModerate, featuredBreaking,
-//            recentActivity:[{event,item,when}]}.
-const $ = id => document.getElementById(id);
-const counts = ['totalArticles','pendingApproval','commentsToModerate','featuredBreaking'];
-const state = {totalArticles:0,pendingApproval:0,commentsToModerate:0,featuredBreaking:0,recentActivity:[]};
-function render(){
-  for(const key of counts) $(key).textContent=Number(state[key]||0).toLocaleString();
-  const body=$('activityRows');body.replaceChildren();
-  const activity=Array.isArray(state.recentActivity)?state.recentActivity:[];
-  if(!activity.length){const tr=document.createElement('tr');const td=document.createElement('td');td.colSpan=3;td.className='activity-empty';td.textContent='No recent activity yet.';tr.append(td);body.append(tr);return;}
-  activity.slice(0,12).forEach(row=>{const tr=document.createElement('tr');for(const [i,key] of ['event','item','when'].entries()){const td=document.createElement('td');td.textContent=String(row[key]??'—');if(i===0)td.className='activity-event';if(i===2)td.className='activity-time';tr.append(td);}body.append(tr);});
-}
-window.updateAdminDashboard=function(payload={}){for(const key of counts)if(Object.hasOwn(payload,key))state[key]=payload[key];if(Array.isArray(payload.recentActivity))state.recentActivity=payload.recentActivity;render();};
-const themeToggle=$('themeToggle');
-function setTheme(night){document.body.classList.toggle('night',night);document.body.classList.toggle('day',!night);$('themeLabel').textContent=night?'Night':'Day';themeToggle.setAttribute('aria-pressed',String(night));try{localStorage.setItem('news-in-green-theme',night?'night':'day');}catch(_){}}
-let initialNight=false;try{initialNight=localStorage.getItem('news-in-green-theme')==='night';}catch(_){}
-setTheme(initialNight);
-themeToggle.addEventListener('click',()=>setTheme(!document.body.classList.contains('night')));
-render();
+(function () {
+    "use strict";
+
+    /* ---------- Mobile sidebar ---------- */
+
+    function initSidebar() {
+        var burger = document.getElementById("sidebar-burger");
+        var sidebar = document.getElementById("sidebar");
+        if (!burger || !sidebar) return;
+
+        burger.addEventListener("click", function (e) {
+            e.stopPropagation();
+            var isOpen = sidebar.classList.toggle("is-open");
+            burger.setAttribute("aria-expanded", String(isOpen));
+        });
+        document.addEventListener("click", function (e) {
+            if (sidebar.classList.contains("is-open") &&
+                !sidebar.contains(e.target) && e.target !== burger) {
+                sidebar.classList.remove("is-open");
+                burger.setAttribute("aria-expanded", "false");
+            }
+        });
+    }
+
+    /* ---------- Generic modal helpers ----------*/
+
+    function initModals() {
+        document.querySelectorAll("[data-open-modal]").forEach(function (btn) {
+            btn.addEventListener("click", function () {
+                var modal = document.getElementById(btn.getAttribute("data-open-modal"));
+                if (modal) modal.classList.add("is-open");
+            });
+        });
+        document.querySelectorAll("[data-close-modal]").forEach(function (btn) {
+            btn.addEventListener("click", function () {
+                var overlay = btn.closest(".modal-overlay");
+                if (overlay) overlay.classList.remove("is-open");
+            });
+        });
+        document.querySelectorAll(".modal-overlay").forEach(function (overlay) {
+            overlay.addEventListener("click", function (e) {
+                if (e.target === overlay) overlay.classList.remove("is-open");
+            });
+        });
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") {
+                document.querySelectorAll(".modal-overlay.is-open").forEach(function (o) {
+                    o.classList.remove("is-open");
+                });
+            }
+        });
+    }
+
+    /* ---------- Logout ---------- */
+
+    function initLogout() {
+        var logout = document.getElementById("logout-link");
+        if (!logout) return;
+        logout.addEventListener("click", function (e) {
+            e.preventDefault();
+            // Demo only: no session to clear yet. Once auth exists, clear
+            // the session/token here before redirecting.
+            window.location.href = "admin-login.html";
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        initSidebar();
+        initModals();
+        initLogout();
+    });
+})();
