@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+
+<html data-theme="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Reports — News In Green Admin</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="admin-common.css" rel="stylesheet"/>
+<link href="admin-reports.css" rel="stylesheet"/>
+<script defer="" src="admin-common.js"></script>
+</head>
+<body>
+<div class="admin-shell">
+<div class="main-col">
+<header class="site-header admin-site-header">
+<div class="header-inner">
+<a aria-label="News In Green Admin Home" class="admin-site-brand" href="admin-home.html">
+<img alt="NG logo" class="admin-ng-logo" src="ng-header-logo.png"/>
+<span class="admin-brand-lines"><strong>News <em>In Green</em></strong><small>NSBM UNIVERSITY NEWS PORTAL</small></span>
+</a>
+<nav aria-label="Admin navigation" class="admin-main-nav">
+<a class="admin-home-link" href="admin-home.html"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="m3 10 9-7 9 7"></path><path d="M5 9v12h14V9M9 21v-7h6v7"></path></svg><span>Home</span></a>
+</nav>
+<div class="admin-header-actions">
+<a aria-label="Admin announcements" class="admin-header-round" href="admin-announcements.html" title="Announcements"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9zM10 21h4"></path></svg></a>
+<button aria-label="Admin profile" class="admin-user admin-header-round" title="Admin profile" type="button"><span aria-hidden="true" class="avatar"></span><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg></button>
+<button aria-label="Switch to Night Mode" aria-pressed="false" class="theme-toggle admin-header-round" id="theme-toggle" title="Switch theme" type="button"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path></svg><span class="toggle-label" hidden="">Day</span></button>
+</div>
+</div>
+</header>
+<main class="content">
+<div class="report-heading">
+<div>
+<p class="eyebrow">ADMIN ANALYTICS</p>
+<h1>Reports overview</h1>
+<p class="subheading">Your news portal's performance at a glance</p>
+</div>
+<div class="heading-actions"><button class="secondary-btn" id="exportBtn" type="button">↓ Export CSV</button>
+</div>
+</div>
+<section aria-label="Report summary" class="stats">
+<article class="stat glass">
+<div aria-hidden="true" class="stat-icon green"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24">
+<circle cx="12" cy="12" r="3"></circle>
+<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"></path>
+</svg>
+</div>
+<div class="stat-content">
+<h3>Total views <span id="viewsPeriod">(30 days)</span></h3>
+<p class="stat-value" id="totalViews">0</p><small id="viewsNote">No views recorded</small>
+</div>
+<svg aria-hidden="true" class="sparkline" viewbox="0 0 110 50">
+<path d="M2 40 Q14 33 23 37 T43 22 T64 27 T86 12 T108 5"></path>
+</svg>
+</article>
+<article class="stat glass">
+<div aria-hidden="true" class="stat-icon blue"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24">
+<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z"></path>
+</svg>
+</div>
+<div class="stat-content">
+<h3>Total comments</h3>
+<p class="stat-value" id="totalComments">0</p><small id="commentsNote">No comments recorded</small>
+</div>
+<svg aria-hidden="true" class="sparkline blue-line" viewbox="0 0 110 50">
+<path d="M2 40 Q14 33 23 37 T43 22 T64 27 T86 12 T108 5"></path>
+</svg>
+</article>
+<article class="stat glass">
+<div aria-hidden="true" class="stat-icon purple"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24">
+<path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+</svg>
+</div>
+<div class="stat-content">
+<h3>Total bookmarks</h3>
+<p class="stat-value" id="totalBookmarks">0</p><small id="bookmarksNote">No bookmarks
+                        recorded</small>
+</div>
+<svg aria-hidden="true" class="sparkline purple-line" viewbox="0 0 110 50">
+<path d="M2 40 Q14 33 23 37 T43 22 T64 27 T86 12 T108 5"></path>
+</svg>
+</article>
+<article class="stat glass">
+<div aria-hidden="true" class="stat-icon gold"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24">
+<path d="M8 21h8M12 17v4M7 4h10v6a5 5 0 0 1-10 0V4ZM7 6H4v2a4 4 0 0 0 4 4M17 6h3v2a4 4 0 0 1-4 4"></path>
+</svg>
+</div>
+<div class="stat-content">
+<h3>Most-read category</h3>
+<p class="stat-value" id="mostRead">—</p><small id="topCategoryNote">No category data yet</small>
+</div>
+</article>
+</section>
+<div class="chart-grid">
+<section class="glass report-section">
+<div class="section-heading">
+<div class="section-title"><span class="section-icon">↗</span>
+<div>
+<h2>Views over time</h2>
+<p>Article views in the selected period</p>
+</div>
+</div>
+<div aria-label="Chart time range" class="period-controls" role="group"><button data-period="7" type="button">7 Days</button><button class="active" data-period="30" type="button">30
+                            Days</button><button data-period="90" type="button">90 Days</button>
+</div>
+</div>
+<div aria-label="Views over time" class="line-chart" id="lineChart" role="img">
+</div>
+</section>
+<section class="glass report-section">
+<div class="section-heading">
+<div class="section-title"><span class="section-icon">▥</span>
+<div>
+<h2>Views by category</h2>
+<p>Total article views by category</p>
+</div>
+</div>
+</div>
+<div aria-label="Views by category" class="category-chart" id="categoryChart" role="img">
+</div>
+</section>
+</div>
+<section class="glass report-section articles-section">
+<div class="section-heading articles-heading">
+<div class="section-title"><span class="section-icon">▤</span>
+<div>
+<h2>Top articles</h2>
+<p>Most viewed articles in the selected period</p>
+</div>
+</div>
+<div class="table-filters"><label class="sr-only" for="articleSearch">Search articles</label><input id="articleSearch" placeholder="⌕  Search articles..." type="search"/><label class="sr-only" for="categoryFilter">Filter category</label><select id="categoryFilter">
+<option value="all">All categories</option>
+<option>Academic</option>
+<option>Events</option>
+<option>Sports</option>
+<option>General</option>
+</select><label class="sr-only" for="sortBy">Sort articles</label><select id="sortBy">
+<option value="views">Sort by: Views</option>
+<option value="comments">Sort by: Comments</option>
+<option value="bookmarks">Sort by: Bookmarks</option>
+<option value="date">Sort by: Newest</option>
+</select>
+</div>
+</div>
+<div class="table-scroll">
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Title</th>
+<th>Category</th>
+<th>Views</th>
+<th>Comments</th>
+<th>Bookmarks</th>
+<th>Published date</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody id="articleRows"></tbody>
+</table>
+</div>
+<p class="empty" hidden="" id="emptyMessage">No article engagement data yet.</p>
+<div class="table-footer"><span id="paginationInfo">Showing 0 articles</span>
+<div aria-label="Article pages" class="pagination" id="pagination">
+</div>
+</div>
+</section>
+<footer class="site-footer"><span><strong>News <em>In Green</em></strong> · Admin Reports</span><span>© <span id="year"></span> News In Green</span></footer>
+</main>
+</div>
+</div>
+<script src="admin-reports.js"></script>
+<script src="admin-backend.js"></script>
+</body>
+</html>

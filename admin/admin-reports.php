@@ -1,3 +1,8 @@
+<?php
+// Presentation page only. Database integration will be added separately.
+declare(strict_types=1);
+header("Content-Type: text/html; charset=UTF-8");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,14 +33,12 @@
                 <p class="subheading">Your news portal's performance at a glance</p>
             </div>
 
-            <div class="heading-actions"><label class="demo-control"><input type="checkbox" id="demoToggle"> Preview
-                    sample data</label><button id="exportBtn" class="secondary-btn" type="button">↓ Export CSV</button>
+            <div class="heading-actions"><button id="exportBtn" class="secondary-btn" type="button">↓ Export CSV</button>
             </div>
 
         </div>
 
-        <p id="demoNotice" class="demo-notice" hidden>Sample preview — these statistics are fictional and are not
-            connected to your database.</p>
+        
 
         <section class="stats" aria-label="Report summary">
 

@@ -29,10 +29,8 @@ header("Content-Type: text/html; charset=UTF-8");
                 <p class="eyebrow">ADMIN PANEL</p>
                 <h1>Comment Moderation</h1>
                 <p>Review, approve or reject comments from readers.</p>
-            </div><label class="demo-control"><input type="checkbox" id="demoToggle"> Preview sample data</label>
+            </div>
         </section>
-        <p id="demoNotice" class="demo-notice" hidden>Sample preview — these comments and statistics are fictional and
-            are not connected to your database.</p>
         <section class="moderation-stats">
             <article class="metric metric-blue"><span class="metric-icon"><svg viewBox="0 0 24 24">
                         <path d="M4 5h16v12H9l-5 3V5z" />
@@ -91,7 +89,7 @@ header("Content-Type: text/html; charset=UTF-8");
                         id="pageNumbers"></span><button id="nextPage" type="button">Next ›</button></div>
             </div>
         </section>
-        <p class="demo-note">Frontend-only dashboard — connect PHP/MySQL to display real comments.</p>
+        <p class="demo-note">Comments will appear here when connected to your database.</p>
     </main>
     <div id="moderationToast" role="status" aria-live="polite"></div>
 </body>
