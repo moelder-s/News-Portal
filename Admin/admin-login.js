@@ -69,16 +69,16 @@
         requestAnimationFrame(animateEarth);
         window.addEventListener("wheel", function (event) {
             desiredAngle += Math.max(-100, Math.min(100, event.deltaY)) * .025;
-        }, { passive:true });
+        }, { passive: true });
         window.addEventListener("touchstart", function (event) {
             lastTouchY = event.touches[0].clientY;
-        }, { passive:true });
+        }, { passive: true });
         window.addEventListener("touchmove", function (event) {
             if (lastTouchY === null) return;
             var y = event.touches[0].clientY;
             desiredAngle += (lastTouchY - y) * .025;
             lastTouchY = y;
-        }, { passive:true });
-        window.addEventListener("touchend", function () { lastTouchY = null; }, { passive:true });
+        }, { passive: true });
+        window.addEventListener("touchend", function () { lastTouchY = null; }, { passive: true });
     }
 })();

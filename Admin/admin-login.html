@@ -1,68 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Login — News In Green</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="admin-login.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login — News In Green</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="admin-login.css">
+    <link rel="stylesheet" href="page-transition.css?v=3-retro-slider">
+    <script src="page-transition.js?v=3-retro-slider" defer></script>
 </head>
+
 <body>
 
-<div class="space-stage" id="space-stage">
-    <div class="rotating-sky" id="rotating-sky" aria-hidden="true">
-        <div class="milky-way"></div>
-        <div class="starfield"></div>
-        <div class="deep-stars" id="deep-stars"></div>
-        <div class="space-streaks" id="space-streaks"></div>
+    <div class="space-stage" id="space-stage">
+        <div class="rotating-sky" id="rotating-sky" aria-hidden="true">
+            <div class="milky-way"></div>
+            <div class="starfield"></div>
+            <div class="deep-stars" id="deep-stars"></div>
+            <div class="space-streaks" id="space-streaks"></div>
+        </div>
+        <div class="globe" id="globe"></div>
+        <div class="tint"></div>
     </div>
-    <div class="globe" id="globe"></div>
-    <div class="tint"></div>
-</div>
 
-<div class="login-wrap">
-    <a href="home.php" class="brand">
-        <span class="brand-mark">N</span>
-        <span class="brand-text">News <em>In Green</em></span>
-    </a>
+    <div class="login-wrap">
+        <a href="home.php" class="brand">
+            <span class="brand-mark">N</span>
+            <span class="brand-text">News <em>In Green</em></span>
+        </a>
 
-    <form class="login-card" id="login-form" novalidate>
-        <h1>Admin sign in</h1>
-        <p class="sub">Enter your admin username and password.</p>
+        <form class="login-card" id="login-form" novalidate>
+            <h1>Admin sign in</h1>
+            <p class="sub">Enter your admin username and password.</p>
 
-        <label for="user-id">User ID</label>
-        <input type="text" id="user-id" name="userId" autocomplete="username" placeholder="Enter your admin ID" required>
+            <label for="user-id">User ID</label>
+            <input type="text" id="user-id" name="userId" autocomplete="username" placeholder="Enter your admin ID"
+                required>
 
-        <label for="password">Password</label>
-        <span class="admin-password-field"><input type="password" id="password" name="password" autocomplete="current-password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" required><button class="admin-password-eye" type="button" data-toggle-password="password" aria-label="Show password" aria-pressed="false" title="Show password"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.7-7 10-7 10 7 10 7-3.7 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></button></span>
+            <label for="password">Password</label>
+            <span class="admin-password-field"><input type="password" id="password" name="password"
+                    autocomplete="current-password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
+                    required><button class="admin-password-eye" type="button" data-toggle-password="password"
+                    aria-label="Show password" aria-pressed="false" title="Show password"><svg viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round" aria-hidden="true">
+                        <path d="M2 12s3.7-7 10-7 10 7 10 7-3.7 7-10 7S2 12 2 12Z" />
+                        <circle cx="12" cy="12" r="3" />
+                    </svg></button></span>
 
-        <p class="form-error" id="form-error" hidden>Enter both a user ID and a password to continue.</p>
+            <p class="form-error" id="form-error" hidden>Enter both a user ID and a password to continue.</p>
 
-        <button type="submit" class="btn-login">Log in</button>
+            <button type="submit" class="btn-login">Log in</button>
 
-        <p class="register-login-link" style="text-align:center;margin-top:16px">New admin? <a href="admin-register.html" style="color:#9fdfb8">Create account</a></p>
-        <a class="back-link" href="home.php">&larr; Back to the news site</a>
-    </form>
-</div>
+            <p class="register-login-link" style="text-align:center;margin-top:16px">New admin? <a
+                    href="admin-register.html" style="color:#9fdfb8">Create account</a></p>
+            <a class="back-link" href="home.php">&larr; Back to the news site</a>
+        </form>
+    </div>
 
-<script src="admin-login.js"></script>
-<script src="admin-backend.js"></script>
-<script>
-// Password visibility controls: button does not submit the form.
-document.querySelectorAll('[data-toggle-password]').forEach(function(button) {
-  button.addEventListener('click', function() {
-    var input = document.getElementById(button.dataset.togglePassword);
-    if (!input) return;
-    var reveal = input.type === 'password';
-    input.type = reveal ? 'text' : 'password';
-    button.setAttribute('aria-pressed', String(reveal));
-    button.setAttribute('aria-label', reveal ? 'Hide password' : 'Show password');
-    button.title = reveal ? 'Hide password' : 'Show password';
-    button.classList.toggle('is-visible', reveal);
-  });
-});
-</script>
+    <script src="admin-login.js"></script>
+    <script src="admin-backend.js?v=profile-persist-1"></script>
+    <script>
+        // Password visibility controls: button does not submit the form.
+        document.querySelectorAll('[data-toggle-password]').forEach(function (button) {
+            button.addEventListener('click', function () {
+                var input = document.getElementById(button.dataset.togglePassword);
+                if (!input) return;
+                var reveal = input.type === 'password';
+                input.type = reveal ? 'text' : 'password';
+                button.setAttribute('aria-pressed', String(reveal));
+                button.setAttribute('aria-label', reveal ? 'Hide password' : 'Show password');
+                button.title = reveal ? 'Hide password' : 'Show password';
+                button.classList.toggle('is-visible', reveal);
+            });
+        });
+    </script>
 </body>
+
 </html>

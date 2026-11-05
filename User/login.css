@@ -1106,7 +1106,7 @@ html[data-theme="dark"] .auth-switch a {
 
 /* ============================================================
    FINAL LOGIN POLISH - MATCHES REFERENCE SCREENSHOT #2
-   These rules keep the original news.css header and original
+   These rules retain the original header and
    500px glass login card, only making theme changes smooth.
    ============================================================ */
 html,
@@ -1167,7 +1167,7 @@ html[data-theme="dark"] .auth-main::before {
     margin-bottom: 10px;
 }
 
-/* Header follows original news.css, without the larger modified sizes. */
+/* Header retains its original proportions without larger modified sizes. */
 .site-header {
     z-index: 100;
 }
@@ -1185,7 +1185,7 @@ html[data-theme="dark"] .toggle-thumb {
     transform: translateX(18px);
 }
 
-/* Functional mobile nav while retaining news.css layout on desktop */
+/* Functional mobile navigation while retaining the desktop layout */
 @media (max-width: 880px) {
     .main-nav {
         display: none;
