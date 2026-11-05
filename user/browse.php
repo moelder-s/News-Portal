@@ -3,18 +3,20 @@
 <html lang="en">
 
 <head>
-    <script src="site-shared.js"></script>
+    <script src="site-shared.js?v=nav-hover-notice-4"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="<?= esc(csrf()) ?>">
     <title>Browse Articles - News In Green</title>
     <link rel="stylesheet" href="browse.css">
     <script src="browse.js" defer></script>
-<link rel="stylesheet" href="site-shared.css">
+<link rel="stylesheet" href="site-shared.css?v=navpop-fix-2">
 
+  <link rel="stylesheet" href="page-transition.css?v=3-retro-slider">
+  <script src="page-transition.js?v=3-retro-slider" defer></script>
 </head>
 
-<body>
+<body class="nig-inner-desk-page nig-day-desk-target">
 
     <!-- Apply saved theme immediately (prevents flash of wrong theme) -->
     
