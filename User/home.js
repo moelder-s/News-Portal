@@ -57,7 +57,40 @@
         });
     }
 
+
+    /* Keep the fixed glass header visible without overlapping the hero.
+       Measure after site-shared.js constructs the navigation; remeasure on resize. */
+    function initFixedHomeHeader() {
+        var header = document.querySelector('body > header.topbar.portal-unified-header');
+        var spacer = document.querySelector('body > .nig-home-header-spacer');
+        if (!header || !spacer) return;
+        function syncHeaderSpace() {
+            var headerHeight = header.getBoundingClientRect().height;
+            var clearance = window.matchMedia('(max-width: 650px)').matches ? 4 : 6;
+            // Leave the same visual separation as the original floating header.
+            spacer.style.setProperty('--nig-home-header-space', Math.ceil(headerHeight + clearance) + 'px');
+        }
+        syncHeaderSpace();
+        window.addEventListener('resize', syncHeaderSpace, { passive: true });
+        if ('ResizeObserver' in window) {
+            new ResizeObserver(syncHeaderSpace).observe(header);
+        }
+    }
+
     document.addEventListener("DOMContentLoaded", function () {
+        // Guest-only Login button in the Home header (not on other pages).
+        if (window.NIG_LOGGED_IN === false) {
+            var actions = document.querySelector('body > header.portal-unified-header .portal-unified-actions');
+            if (actions && !actions.querySelector('.nig-home-login')) {
+                var login = document.createElement('a');
+                login.className = 'nig-home-login';
+                login.href = 'login.html';
+                login.textContent = 'Log in';
+                login.setAttribute('aria-label', 'Log in to News In Green');
+                actions.prepend(login);
+            }
+        }
+        initFixedHomeHeader();
         initGreeting();
         initBrowse();
     });
