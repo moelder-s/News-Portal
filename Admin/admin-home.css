@@ -1,230 +1,405 @@
-/* News In Green — cinematic near-black space admin login */
+/* NEWS IN GREEN - ADMIN HOME (standalone)
+   Existing header layout retained; only tiles are 120% larger.
+   Shared theme key: nig-admin-theme (same as other admin pages). */
 :root {
-  --ink: #f2f3f3;
-  --muted: #a2aaa9;
-  --mint: #79d7ad;
-  --line: rgba(255, 255, 255, .16);
-  --font-display: 'Fraunces', Georgia, serif;
-  --font-body: 'Work Sans', system-ui, sans-serif;
+  --bg: #f3f6f4;
+  --surface: #fff;
+  --surface-2: #f5f8f6;
+  --border: #e2eae4;
+  --text: #16231c;
+  --text-muted: #677a6d;
+  --green-600: #176e45;
+  --green-500: #278b5b;
+  --green-100: #e7f4eb;
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Work Sans", Arial, sans-serif;
+  --ease: cubic-bezier(.2, .75, .2, 1);
+}
+
+html[data-theme="dark"] {
+  --bg: #0e1512;
+  --surface: #17231c;
+  --surface-2: #1d2a22;
+  --border: #2b3d32;
+  --text: #eef7f0;
+  --text-muted: #a5bbad;
+  --green-600: #7bd5a1;
+  --green-500: #54c68a;
+  --green-100: #223d2e;
+  color-scheme: dark;
 }
 
 * {
   box-sizing: border-box;
 }
 
-html,
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
 body {
   margin: 0;
-  min-height: 100%;
-}
-
-body {
   min-height: 100vh;
-  overflow-x: hidden;
-  background: #020304;
-  color: var(--ink);
+  background: var(--bg);
+  color: var(--text);
   font-family: var(--font-body);
+  line-height: 1.5;
+  transition: background-color .42s ease, color .42s ease;
 }
 
-/* Deep black vacuum, faint charcoal gradients — no cyan/blue wash */
-.space-stage {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  background:
-    radial-gradient(ellipse at 78% 85%, rgba(52, 57, 56, .16), transparent 52%),
-    radial-gradient(ellipse at 12% 13%, rgba(51, 57, 53, .12), transparent 43%),
-    linear-gradient(125deg, #010203 0%, #050606 47%, #010202 100%);
-}
-
-.space-stage::before,
-.space-stage::after {
-  content: "";
-  position: absolute;
-  pointer-events: none;
-  border-radius: 50%;
-  filter: blur(60px);
-  animation: ambientFloat 20s ease-in-out infinite alternate;
-}
-
-.space-stage::before {
-  width: 48vmax;
-  height: 31vmax;
-  left: -24%;
-  top: -20%;
-  background: radial-gradient(ellipse, rgba(122, 133, 124, .065), transparent 72%);
-}
-
-.space-stage::after {
-  width: 50vmax;
-  height: 33vmax;
-  right: -21%;
-  bottom: -23%;
-  background: radial-gradient(ellipse, rgba(145, 147, 143, .06), transparent 72%);
-  animation-delay: -9s;
-}
-
-.starfield {
-  position: absolute;
-  inset: -50% -20%;
-  background-image:
-    radial-gradient(1.5px 1.5px at 10% 20%, #fff 40%, transparent 65%),
-    radial-gradient(1px 1px at 30% 60%, #fff 40%, transparent 65%),
-    radial-gradient(1.5px 1.5px at 50% 15%, #f4f4f2 40%, transparent 65%),
-    radial-gradient(1px 1px at 70% 80%, #fff 40%, transparent 65%),
-    radial-gradient(1.5px 1.5px at 85% 35%, #fff 40%, transparent 65%),
-    radial-gradient(1px 1px at 15% 85%, #e8e9e5 40%, transparent 65%);
-  background-size: 280px 280px;
-  opacity: .48;
-  transform: translateY(var(--stars-shift, 0px));
-  will-change: transform;
-  animation: starTwinkle 9s ease-in-out infinite alternate;
-}
-
-/* Retains the existing Earth graphic; shadows simulate space/night-side darkness. */
-.globe {
-  position: absolute;
-  right: -12%;
-  bottom: -44%;
-  width: min(83vw, 920px);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background-image:
-    linear-gradient(118deg, rgba(0, 0, 0, .82) 7%, rgba(0, 0, 0, .28) 48%, rgba(0, 0, 0, .63) 95%),
-    url('https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260827_202005_3346cc4d-ec3b-44ab-825c-b18e49f5021a.png'),
-    radial-gradient(circle at 37% 34%, #6f7976 0%, #303936 42%, #0d1211 73%, #020404 100%);
-  background-position: center;
-  background-size: cover;
-  opacity: .80;
-  transform: rotate(var(--globe-rot, 0deg));
-  will-change: transform;
-  box-shadow:
-    inset -64px -44px 102px rgba(0, 0, 0, .85),
-    inset 10px 6px 45px rgba(209, 219, 211, .09),
-    0 0 0 1px rgba(214, 228, 217, .09),
-    0 0 94px 15px rgba(177, 187, 178, .065);
-  animation: earthBreath 11s ease-in-out infinite alternate;
-}
-
-.globe::after {
-  content: "";
-  position: absolute;
-  inset: -1%;
-  border-radius: 50%;
-  border: 1px solid rgba(218, 231, 222, .09);
-  box-shadow: 0 0 22px rgba(206, 221, 208, .08);
-}
-
-.tint {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    linear-gradient(90deg, rgba(0, 0, 0, .45), transparent 75%),
-    linear-gradient(0deg, rgba(0, 0, 0, .36), transparent 55%);
-}
-
-@keyframes ambientFloat {
-  from {
-    transform: translate3d(-3%, 0, 0) scale(1)
-  }
-
-  to {
-    transform: translate3d(8%, 8%, 0) scale(1.1)
-  }
-}
-
-@keyframes starTwinkle {
-  from {
-    opacity: .25
-  }
-
-  to {
-    opacity: .54
-  }
-}
-
-@keyframes earthBreath {
-  from {
-    filter: saturate(.45) brightness(.65)
-  }
-
-  to {
-    filter: saturate(.52) brightness(.78)
-  }
-}
-
-/* Muted green identity, charcoal frosted-glass card */
-.login-wrap {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 44px 20px;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 11px;
+a {
+  color: inherit;
   text-decoration: none;
-  color: var(--ink);
-  font: 600 1.25rem var(--font-display);
-  margin-bottom: 30px;
-  text-shadow: 0 2px 20px rgba(0, 0, 0, .5);
 }
 
-.brand-mark {
+button {
+  font: inherit;
+}
+
+/* Header — same structure and dimensions as the current admin workspace. */
+.topbar {
+  height: 80px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 clamp(20px, 3vw, 48px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: background-color .4s ease, border-color .4s ease;
+}
+
+.topbar-left,
+.topbar-actions {
+  display: flex;
+  align-items: center;
+}
+
+.topbar-left {
+  min-width: 0;
+  gap: 14px;
+}
+
+.topbar-actions {
+  gap: 20px;
+}
+
+.topbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+  font: 600 1.06rem var(--font-display);
+  letter-spacing: -.025em;
+}
+
+.topbar-brand em {
+  color: var(--green-500);
+  font-style: normal;
+}
+
+.topbar-brand-mark {
   display: grid;
   place-items: center;
-  width: 37px;
-  height: 37px;
-  border-radius: 11px;
-  color: #06120b;
-  background: linear-gradient(135deg, #a8dfbd, #60b48a);
-  font: 700 1.25rem var(--font-body);
-  box-shadow: 0 7px 22px rgba(91, 171, 119, .11);
+  height: 39px;
+  width: 39px;
+  flex: none;
+  border-radius: 12px;
+  background: var(--green-500);
+  color: #fff;
+  font: 700 1.3rem var(--font-display);
+  box-shadow: 0 6px 14px rgba(39, 139, 91, .2);
 }
 
-.brand-text em {
-  font-style: normal;
-  color: #91d4ae;
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 0;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: .83rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 7px 0;
+  white-space: nowrap;
 }
 
-.login-card {
+.toggle-track {
+  position: relative;
+  width: 43px;
+  height: 24px;
+  flex: none;
+  border-radius: 99px;
+  background: var(--border);
+  transition: background .35s ease;
+}
+
+.toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 1px 5px #0002;
+  transition: transform .35s var(--ease);
+}
+
+html[data-theme="dark"] .toggle-track {
+  background: var(--green-600);
+}
+
+html[data-theme="dark"] .toggle-thumb {
+  transform: translateX(19px);
+  background: #0b0f0c;
+}
+
+.admin-home-link {
+  color: var(--green-600);
+  font-weight: 600;
+  font-size: .9rem;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 8px 15px;
+  transition: background-color .25s, border-color .25s;
+}
+
+.admin-home-link:hover {
+  background: var(--green-100);
+  border-color: var(--green-500);
+}
+
+.admin-user {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  padding: 5px 13px 5px 6px;
+  border-radius: 99px;
+  color: var(--text);
+  font-weight: 600;
+  font-size: .86rem;
+  transition: background .4s ease;
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--green-500), var(--green-600));
+  color: #fff;
+  font-weight: 700;
+}
+
+/* Admin Home tiles at 120% of original height/typography, spacious grid. */
+.admin-home-content {
+  width: 100%;
+  max-width: 1488px;
+  padding: clamp(24px, 3vw, 48px);
+  margin: 0 auto;
+}
+
+.home-welcome {
+  margin: 0 0 28px;
+  padding: 4px 2px 12px;
+}
+
+.home-eyebrow {
+  color: var(--green-600);
+  font-size: .69rem;
+  letter-spacing: .15em;
+  font-weight: 700;
+}
+
+.home-welcome h1 {
+  font: 600 clamp(2rem, 4vw, 3.2rem)/1.15 var(--font-display);
+  letter-spacing: -.055em;
+  margin: 7px 0;
+}
+
+.home-welcome p,
+.home-note {
+  color: var(--text-muted);
+}
+
+.home-welcome p {
+  font-size: .96rem;
+}
+
+.admin-home-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.home-tile {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-width: 420px;
-  padding: 39px 36px 31px;
-  position: relative;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 24px;
-  background: linear-gradient(155deg, rgba(65, 71, 68, .30), rgba(19, 22, 20, .65) 55%, rgba(9, 11, 10, .78));
-  -webkit-backdrop-filter: blur(26px) saturate(70%);
-  backdrop-filter: blur(26px) saturate(70%);
-  box-shadow: 0 24px 65px rgba(0, 0, 0, .72), inset 0 1px 0 rgba(255, 255, 255, .10);
-  animation: cardEnter .75s cubic-bezier(.2, .7, .25, 1) both;
+  justify-content: space-between;
+  min-height: 288px;
+  padding: 26px;
+  border-radius: 23px;
+  border: 1px solid #ffffff25;
+  color: #fff;
+  box-shadow: 0 12px 32px rgba(4, 22, 12, .12);
+  transition: transform .3s var(--ease), box-shadow .3s ease;
+  animation: tile-enter .6s var(--ease) both;
 }
 
-.login-card::before {
+.home-tile:nth-child(2) {
+  animation-delay: .04s
+}
+
+.home-tile:nth-child(3) {
+  animation-delay: .08s
+}
+
+.home-tile:nth-child(4) {
+  animation-delay: .12s
+}
+
+.home-tile:nth-child(5) {
+  animation-delay: .16s
+}
+
+.home-tile:nth-child(6) {
+  animation-delay: .20s
+}
+
+.home-tile:nth-child(7) {
+  animation-delay: .24s
+}
+
+.home-tile:nth-child(8) {
+  animation-delay: .28s
+}
+
+.home-tile::before {
   content: "";
   position: absolute;
-  inset: 0 0 auto;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(241, 245, 240, .28), transparent);
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(circle at 78% 15%, #ffffff40, transparent 48%), linear-gradient(160deg, #0000000a, #00000094);
+}
+
+.home-tile::after {
+  content: "";
+  position: absolute;
+  right: -50px;
+  bottom: -115px;
+  width: 240px;
+  height: 240px;
+  border: 48px solid #ffffff18;
+  border-radius: 50%;
   pointer-events: none;
 }
 
-@keyframes cardEnter {
+.home-tile:hover,
+.home-tile:focus-visible {
+  transform: translateY(-7px);
+  box-shadow: 0 22px 44px rgba(4, 22, 12, .24);
+  outline: 2px solid var(--green-500);
+  outline-offset: 3px;
+}
+
+.tile-symbol {
+  display: grid;
+  place-items: center;
+  width: 55px;
+  height: 55px;
+  background: #fffffff0;
+  color: #163d2c;
+  border-radius: 13px;
+  box-shadow: 0 5px 16px #0002;
+  font-size: 1.9rem;
+  font-weight: 700;
+}
+
+.tile-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  position: relative;
+  z-index: 1;
+}
+
+.tile-bottom strong {
+  font: 600 1.65rem/1.2 var(--font-display);
+  letter-spacing: -.025em;
+}
+
+.tile-bottom small {
+  font: 500 .98rem/1.35 var(--font-body);
+  color: #ffffffe0;
+}
+
+.tile-link {
+  position: absolute;
+  right: 25px;
+  top: 29px;
+  font-size: 1.65rem;
+  color: #ffffffe6;
+}
+
+.tile-overview {
+  background: linear-gradient(125deg, #176948, #204b76)
+}
+
+.tile-articles {
+  background: linear-gradient(125deg, #6b4b77, #334f7a)
+}
+
+.tile-categories {
+  background: linear-gradient(125deg, #237475, #24535d)
+}
+
+.tile-approvals {
+  background: linear-gradient(125deg, #376e43, #777e34)
+}
+
+.tile-announcements {
+  background: linear-gradient(125deg, #a76d37, #7a3b49)
+}
+
+.tile-comments {
+  background: linear-gradient(125deg, #4c659b, #4c477b)
+}
+
+.tile-reports {
+  background: linear-gradient(125deg, #186f7e, #2c7160)
+}
+
+.tile-settings {
+  background: linear-gradient(125deg, #4b5961, #243e39)
+}
+
+.home-note {
+  font-size: .85rem;
+  margin: 26px 0 10px;
+}
+
+@keyframes tile-enter {
   from {
     opacity: 0;
-    transform: translateY(24px)
+    transform: translateY(14px)
   }
 
   to {
@@ -233,129 +408,54 @@ body {
   }
 }
 
-.login-card h1 {
-  font: 600 clamp(1.5rem, 3vw, 1.85rem) var(--font-display);
-  margin: 0 0 9px;
-  letter-spacing: -.02em;
-}
-
-.login-card .sub {
-  font-size: .88rem;
-  line-height: 1.6;
-  color: var(--muted);
-  margin: 0 0 27px;
-}
-
-.login-card label {
-  font-size: .83rem;
-  font-weight: 600;
-  margin: 0 0 8px;
-  color: #d6dcda;
-}
-
-.login-card input {
-  width: 100%;
-  background: rgba(6, 9, 8, .75);
-  border: 1px solid rgba(237, 244, 238, .17);
-  border-radius: 11px;
-  padding: 13px 14px;
-  color: #f5f6f5;
-  font: inherit;
-  font-size: .94rem;
-  margin-bottom: 20px;
-  transition: border-color .22s, box-shadow .22s, background .22s;
-}
-
-.login-card input::placeholder {
-  color: #8f9b94;
-}
-
-.login-card input:hover {
-  border-color: rgba(215, 229, 218, .34);
-}
-
-.login-card input:focus {
-  outline: none;
-  border-color: #83c8a1;
-  background: rgba(5, 10, 7, .88);
-  box-shadow: 0 0 0 3px rgba(114, 196, 148, .12);
-}
-
-.form-error {
-  margin: -5px 0 16px;
-  color: #ffb5ab;
-  font-size: .84rem;
-  line-height: 1.5;
-}
-
-.form-error[hidden] {
-  display: none;
-}
-
-.btn-login {
-  width: 100%;
-  border: 0;
-  border-radius: 11px;
-  padding: 14px;
-  font: 700 .96rem var(--font-body);
-  color: #09160d;
-  cursor: pointer;
-  margin: 1px 0 21px;
-  background: linear-gradient(105deg, #9dddb1 0%, #76c896 55%, #56aa7d 100%);
-  box-shadow: 0 10px 28px rgba(75, 144, 96, .13);
-  transition: transform .22s, filter .22s, box-shadow .22s;
-}
-
-.btn-login:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.06);
-  box-shadow: 0 13px 34px rgba(77, 151, 103, .23);
-}
-
-.btn-login:focus-visible,
-.back-link:focus-visible,
-.brand:focus-visible {
-  outline: 3px solid #a8dfbd;
-  outline-offset: 4px;
-}
-
-.back-link {
-  text-align: center;
-  font-size: .85rem;
-  color: var(--muted);
-  text-decoration: none;
-  transition: color .2s;
-}
-
-.back-link:hover {
-  color: #c9e6d4;
-}
-
-@media(max-width:700px) {
-  .globe {
-    width: 115vw;
-    right: -45%;
-    bottom: -16%;
-    opacity: .62;
-  }
-
-  .login-card {
-    max-width: 410px;
+@media(max-width:900px) {
+  .admin-home-tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr))
   }
 }
 
-@media(max-width:430px) {
-  .login-wrap {
-    padding: 28px 17px;
+@media(max-width:600px) {
+  .topbar {
+    padding: 0 16px
   }
 
-  .login-card {
-    padding: 30px 23px 25px;
-    border-radius: 20px;
+  .topbar-actions {
+    gap: 10px
   }
 
-  .brand {
-    margin-bottom: 23px;
+  .topbar-brand {
+    font-size: .9rem
+  }
+
+  .admin-user {
+    display: none
+  }
+
+  .admin-home-link {
+    padding: 7px 11px
+  }
+
+  .home-tile {
+    min-height: 240px;
+    padding: 22px
+  }
+}
+
+@media(max-width:480px) {
+  .admin-home-tiles {
+    grid-template-columns: 1fr
+  }
+
+  .home-tile {
+    min-height: 228px
+  }
+
+  .topbar-brand span:last-child {
+    display: none
+  }
+
+  .topbar {
+    gap: 12px
   }
 }
 
@@ -364,220 +464,473 @@ body {
   *,
   *::before,
   *::after {
-    animation: none !important;
     transition: none !important;
-    scroll-behavior: auto !important;
+    animation: none !important;
+    scroll-behavior: auto !important
   }
 }
 
-/* ===============================================================
-   Firefox-space-inspired background, original login UI unchanged
-   =============================================================== */
-.space-stage {
-  background:
-    radial-gradient(ellipse at 56% -25%, rgba(19, 36, 37, .35), transparent 55%),
-    radial-gradient(ellipse at 88% 74%, rgba(19, 29, 27, .15), transparent 47%),
-    linear-gradient(135deg, #010203 0%, #040607 58%, #010202 100%);
+/* Ninth Admin Home tile only; preserve all existing home styles. */
+.home-tile:nth-child(9) {
+  animation-delay: .32s
 }
 
-/* Distant Milky Way: subtle rather than a bright blue fog */
-.milky-way {
-  position: absolute;
-  inset: -45%;
-  pointer-events: none;
-  transform: rotate(-24deg);
-  background:
-    radial-gradient(ellipse 15% 58% at 51% 50%, rgba(177, 185, 177, .080), transparent 72%),
-    radial-gradient(ellipse 24% 47% at 53% 53%, rgba(132, 149, 139, .035), transparent 73%);
-  filter: blur(16px);
-  animation: galaxyPulse 17s ease-in-out infinite alternate;
+.tile-register {
+  background: linear-gradient(125deg, #183c4d, #355b62)
 }
 
-@keyframes galaxyPulse {
-  from {
-    opacity: .42
-  }
-
-  to {
-    opacity: .8
-  }
+/* Smooth, GPU-friendly Admin Home card and arrow reveal */
+.home-tile {
+  transform: translate3d(0, 0, 0);
+  transition: transform .34s cubic-bezier(.2, .8, .2, 1), box-shadow .34s ease, border-color .34s ease;
+  backface-visibility: hidden;
 }
 
-/* Star layers fill the entire viewport and NEVER translate off-screen. */
-.starfield {
-  inset: 0;
-  opacity: .5;
-  transform: none !important;
-  animation: starTwinkle 9s ease-in-out infinite alternate;
+.home-tile:hover,
+.home-tile:focus-visible {
+  transform: translate3d(0, -6px, 0) scale(1.012);
+  box-shadow: 0 23px 48px rgba(4, 22, 12, .23), 0 0 22px rgba(48, 172, 105, .15);
 }
 
-.deep-stars,
-.space-streaks {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.deep-star {
-  position: absolute;
+.home-tile .tile-link {
+  display: grid;
+  place-items: center;
+  width: 43px;
+  height: 43px;
   border-radius: 50%;
-  background: #f8faf9;
-  opacity: var(--brightness, .5);
-  width: var(--size, 1px);
-  height: var(--size, 1px);
-  box-shadow: 0 0 5px rgba(222, 235, 230, .28);
-  animation: starPulse var(--duration, 6s) ease-in-out infinite alternate;
-  animation-delay: var(--delay, 0s);
+  background: rgba(255, 255, 255, .13);
+  border: 1px solid rgba(255, 255, 255, .28);
+  opacity: .78;
+  transform: translate3d(0, 0, 0) scale(.94);
+  transition: transform .32s cubic-bezier(.2, .85, .2, 1), opacity .25s ease, background-color .25s ease, box-shadow .3s ease;
 }
 
-@keyframes starPulse {
-  from {
-    opacity: calc(var(--brightness, .5)*.45)
-  }
-
-  to {
-    opacity: var(--brightness, .5)
-  }
-}
-
-.space-streak {
-  position: absolute;
-  width: var(--width, 33px);
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(160, 207, 209, .16), rgba(217, 246, 245, .52), transparent);
-  transform: rotate(-22deg);
-  opacity: var(--opacity, .45);
-  filter: drop-shadow(0 0 4px rgba(153, 224, 222, .16));
-  animation: streakBreath var(--duration, 9s) ease-in-out infinite alternate;
-  animation-delay: var(--delay, 0s);
-}
-
-@keyframes streakBreath {
-  from {
-    opacity: .08
-  }
-
-  to {
-    opacity: var(--opacity, .45)
-  }
-}
-
-/* Earth is brighter but retains the night-side detail. No orbital ring. */
-.globe {
-  opacity: .92;
-  box-shadow:
-    inset -54px -36px 90px rgba(0, 0, 0, .72),
-    inset 14px 9px 40px rgba(200, 221, 212, .08),
-    0 0 95px 15px rgba(174, 193, 183, .065);
-  animation: earthBreath 11s ease-in-out infinite alternate;
-  transform: rotate(var(--globe-rot, 0deg));
-}
-
-.globe::after {
-  display: none !important;
-}
-
-@keyframes earthBreath {
-  from {
-    filter: saturate(.64) brightness(.91)
-  }
-
-  to {
-    filter: saturate(.74) brightness(1.04)
-  }
+.home-tile:hover .tile-link,
+.home-tile:focus-visible .tile-link {
+  opacity: 1;
+  transform: translate3d(2px, -2px, 0) scale(1.12);
+  background: rgba(255, 255, 255, .23);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, .13);
 }
 
 @media(prefers-reduced-motion:reduce) {
 
-  .milky-way,
-  .deep-star,
-  .space-streak,
-  .globe {
-    animation: none !important;
+  .home-tile,
+  .home-tile .tile-link {
+    transition: none !important
   }
 }
 
-
-/* Unified celestial motion: sky and planet turn together.
-   Oversized square always covers the viewport, even at 45 degrees. */
-.rotating-sky {
-  position: absolute;
-  width: 180vmax;
-  height: 180vmax;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%) rotate(var(--sky-rot, 0deg));
-  transform-origin: 50% 50%;
-  pointer-events: none;
+/* Admin Home: refined arrow pop-up on tile hover (no login/register changes) */
+.home-tile .tile-link {
+  transform-origin: center;
   will-change: transform;
 }
 
-.rotating-sky .milky-way {
-  inset: 0;
-  transform: rotate(-24deg);
-}
-
-.rotating-sky .starfield {
-  inset: 0;
-}
-
-.rotating-sky .deep-stars,
-.rotating-sky .space-streaks {
-  inset: 0;
-  overflow: visible;
+.home-tile:hover .tile-link,
+.home-tile:focus-visible .tile-link,
+.home-tile .tile-link:hover {
+  transform: translate3d(3px, -4px, 0) scale(1.14);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .16), 0 0 18px rgba(81, 213, 140, .25);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .rotating-sky {
-    transform: translate(-50%, -50%);
+  .home-tile .tile-link {
     will-change: auto;
   }
 }
 
-/* Accessible password visibility control, scoped to authentication forms. */
-.admin-password-field {
+
+/* Admin Home: lift the ENTIRE photo card on hover (not only its arrow).
+   The original tile-enter animation used fill-mode:both with a transform,
+   which prevented Firefox from consistently applying hover transforms. */
+.admin-home-tiles .home-tile {
+  animation-name: admin-tile-fade;
+  animation-duration: .45s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: backwards;
   position: relative;
-  display: block;
-  width: 100%;
+  z-index: 0;
+  transform: translate3d(0, 0, 0) scale(1);
+  transition: transform .38s cubic-bezier(.2, .8, .2, 1),
+    box-shadow .38s ease,
+    border-color .32s ease;
 }
 
-.login-card .admin-password-field input {
-  padding-right: 54px;
+@keyframes admin-tile-fade {
+  from {
+    opacity: 0
+  }
+
+  to {
+    opacity: 1
+  }
 }
 
-.admin-password-eye {
-  position: absolute;
-  top: 0;
-  right: 7px;
-  width: 40px;
-  height: 44px;
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 0;
-  border-radius: 10px;
-  background: transparent;
-  color: #c3d9cb;
-  cursor: pointer;
-  transition: color .2s, background .2s;
+.admin-home-tiles .home-tile:hover,
+.admin-home-tiles .home-tile:focus-visible {
+  z-index: 3;
+  transform: translate3d(0, -13px, 0) scale(1.035);
+  box-shadow: 0 29px 52px rgba(0, 0, 0, .28),
+    0 0 26px rgba(33, 179, 103, .26),
+    inset 0 1px 0 rgba(255, 255, 255, .22) !important;
+  border-color: rgba(78, 220, 140, .72) !important;
 }
 
-.admin-password-eye svg {
-  width: 21px;
-  height: 21px;
-  fill: none;
-  stroke: currentColor;
+.admin-home-tiles .home-tile:active {
+  transform: translate3d(0, -5px, 0) scale(1.01);
+  transition-duration: .15s;
 }
 
-.admin-password-eye:hover,
-.admin-password-eye:focus-visible {
-  color: #a5f4c2;
-  background: rgba(71, 191, 126, .13);
-  outline-offset: 2px;
+@media(prefers-reduced-motion:reduce) {
+  .admin-home-tiles .home-tile {
+    animation: none !important;
+    transition: none !important
+  }
 }
 
-.admin-password-eye.is-visible {
-  color: #86e5ac;
+
+/* Corner arrows: default north-east, smoothly rotate east on hover. */
+.admin-home-tiles .home-tile .tile-link {
+  transition: transform .34s cubic-bezier(.2, .8, .2, 1), opacity .25s ease, background-color .25s ease, box-shadow .3s ease;
+  transform: translate3d(0, 0, 0) scale(.94) rotate(0deg);
+  transform-origin: center center
+}
+
+.admin-home-tiles .home-tile:hover .tile-link,
+.admin-home-tiles .home-tile:focus-visible .tile-link,
+.admin-home-tiles .home-tile .tile-link:hover {
+  transform: translate3d(3px, -4px, 0) scale(1.14) rotate(45deg)
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .admin-home-tiles .home-tile .tile-link {
+    transition: none !important
+  }
+}
+
+
+/* Compact Admin Home photo tiles, matching the User tile sizing. */
+body.admin-home-page .admin-home-content {
+  max-width: 1320px;
+}
+
+body.admin-home-page .admin-home-tiles {
+  gap: 18px;
+}
+
+body.admin-home-page .admin-home-tiles .home-tile {
+  min-height: 238px;
+  padding: 20px;
+  border-radius: 19px;
+}
+
+body.admin-home-page .admin-home-tiles .tile-symbol {
+  width: 48px;
+  height: 48px;
+  font-size: 1.5rem;
+}
+
+body.admin-home-page .admin-home-tiles .tile-bottom strong {
+  font-size: 1.43rem;
+}
+
+body.admin-home-page .admin-home-tiles .tile-bottom small {
+  font-size: .86rem;
+}
+
+/* A north-east arrow at rest turns east when its tile is hovered. */
+body.admin-home-page .admin-home-tiles .home-tile .tile-link {
+  top: 20px;
+  right: 20px;
+  width: 38px;
+  height: 38px;
+  font-size: 1.35rem;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, .43);
+  background: rgba(10, 20, 20, .24);
+  transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  transition: transform .3s cubic-bezier(.2, .8, .2, 1),
+    background-color .3s ease, border-color .3s ease,
+    color .3s ease, box-shadow .3s ease;
+}
+
+body.admin-home-page .admin-home-tiles .home-tile:hover .tile-link,
+body.admin-home-page .admin-home-tiles .home-tile:focus-visible .tile-link {
+  transform: translate3d(1px, -1px, 0) scale(1.08) rotate(45deg);
+  background: rgba(29, 135, 76, .86);
+  color: #effff4;
+  border-color: rgba(137, 245, 171, .96);
+  box-shadow: 0 0 20px rgba(45, 220, 117, .55);
+}
+
+@media (max-width:600px) {
+  body.admin-home-page .admin-home-tiles .home-tile {
+    min-height: 212px;
+    padding: 18px;
+  }
+
+  body.admin-home-page .admin-home-tiles {
+    gap: 14px;
+  }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  body.admin-home-page .admin-home-tiles .tile-link {
+    transition: none;
+  }
+}
+
+
+/* Admin Home: keep photo tiles entirely below the glass header while scrolling.
+   The main grid is its own scroll area, so no tile can pass behind the header. */
+@media (min-width: 601px) {
+  html:has(body.admin-home-page) {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  body.admin-home-page {
+    height: 100vh;
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  body.admin-home-page>.admin-site-header.site-header {
+    flex: 0 0 auto;
+    position: relative !important;
+    top: auto !important;
+    z-index: 1100 !important;
+    margin-bottom: 12px;
+  }
+
+  body.admin-home-page>.admin-home-content {
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior-y: contain;
+    padding-top: 20px !important;
+    padding-bottom: 50px !important;
+    scroll-padding-top: 24px;
+    scrollbar-width: thin;
+  }
+}
+
+/* Ensure the animated image cards don't collide with adjacent cards. */
+body.admin-home-page .admin-home-tiles {
+  column-gap: 20px;
+  row-gap: 23px;
+  padding: 9px 7px 14px;
+}
+
+body.admin-home-page .admin-home-tiles .home-tile:hover,
+body.admin-home-page .admin-home-tiles .home-tile:focus-visible {
+  transform: translate3d(0, -4px, 0) scale(1.012);
+  z-index: 3;
+}
+
+@media(max-width:600px) {
+  body.admin-home-page .admin-home-tiles {
+    gap: 18px;
+    padding: 6px 4px 14px;
+  }
+
+  body.admin-home-page .admin-home-tiles .home-tile:hover,
+  body.admin-home-page .admin-home-tiles .home-tile:focus-visible {
+    transform: translate3d(0, -3px, 0) scale(1.008);
+  }
+}
+
+
+/* Card hover: maintain the lift/arrow animation without a green highlight frame. */
+body.admin-home-page .admin-home-tiles .home-tile:hover,
+body.admin-home-page .admin-home-tiles .home-tile:focus-visible {
+  outline: none !important;
+  outline-offset: 0 !important;
+  border-color: rgba(255, 255, 255, .30) !important;
+  box-shadow: 0 20px 42px rgba(0, 0, 0, .27) !important;
+}
+
+body.admin-home-page .admin-home-tiles .home-tile:hover .tile-link,
+body.admin-home-page .admin-home-tiles .home-tile:focus-visible .tile-link {
+  background: rgba(17, 24, 23, .43) !important;
+  border-color: rgba(255, 255, 255, .52) !important;
+  color: #fff !important;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, .22) !important;
+}
+
+
+/* Final Admin Home refinement: left-side content scrollbar, steady tiles,
+   gentle IMAGE-ONLY zoom and green circular navigation arrow. */
+@media (min-width: 601px) {
+  body.admin-home-page>.admin-home-content {
+    direction: rtl !important;
+    /* Firefox renders this scroll area's scrollbar on the left. */
+  }
+
+  body.admin-home-page>.admin-home-content>* {
+    direction: ltr !important;
+  }
+}
+
+body.admin-home-page .admin-home-tiles .home-tile,
+body.admin-home-page .admin-home-tiles .home-tile:hover,
+body.admin-home-page .admin-home-tiles .home-tile:focus-visible,
+body.admin-home-page .admin-home-tiles .home-tile:active {
+  transform: none !important;
+  outline: none !important;
+  border-color: rgba(255, 255, 255, .30) !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .17) !important;
+  overflow: hidden !important;
+  background-image: none !important;
+  background-color: #18221f !important;
+  transition: box-shadow .28s ease !important;
+}
+
+body.admin-home-page .admin-home-tiles .home-tile::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  border: 0 !important;
+  border-radius: inherit !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  transform: scale(1) !important;
+  transform-origin: center !important;
+  transition: transform .45s cubic-bezier(.2, .75, .2, 1) !important;
+}
+
+body.admin-home-page .admin-home-tiles .home-tile:hover::before,
+body.admin-home-page .admin-home-tiles .home-tile:focus-visible::before {
+  transform: scale(1.065) !important;
+}
+
+body.admin-home-page .admin-home-tiles .tile-overview::before {
+  background-image: url('tile-photos/dashboard.jpg') !important;
+}
+
+body.admin-home-page .admin-home-tiles .tile-articles::before {
+  background-image: url('tile-photos/articles.jpg') !important;
+}
+
+body.admin-home-page .admin-home-tiles .tile-categories::before {
+  background-image: url('tile-photos/categories.jpg') !important;
+}
+
+body.admin-home-page .admin-home-tiles .tile-approvals::before {
+  background-image: url('tile-photos/approvals.jpg') !important;
+}
+
+body.admin-home-page .admin-home-tiles .tile-announcements::before {
+  background-image: url('tile-photos/announcements.jpg') !important;
+}
+
+body.admin-home-page .admin-home-tiles .tile-comments::before {
+  background-image: url('tile-photos/comments.jpg') !important;
+}
+
+body.admin-home-page .admin-home-tiles .tile-reports::before {
+  background-image: url('tile-photos/reports.jpg') !important;
+}
+
+body.admin-home-page .admin-home-tiles .tile-settings::before {
+  background-image: url('tile-photos/settings.jpg') !important;
+}
+
+body.admin-home-page .admin-home-tiles .tile-register::before {
+  background-image: url('tile-photos/register.jpg') !important;
+}
+
+/* The original decorative ring is replaced by a consistent overlay to keep titles readable. */
+body.admin-home-page .admin-home-tiles .home-tile::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  z-index: 0 !important;
+  border: 0 !important;
+  border-radius: inherit !important;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, .09), transparent 38%, rgba(0, 0, 0, .77)) !important;
+  pointer-events: none !important;
+}
+
+body.admin-home-page .admin-home-tiles .home-tile>* {
+  position: relative;
+  z-index: 1;
+}
+
+body.admin-home-page .admin-home-tiles .home-tile .tile-link {
+  position: absolute !important;
+  top: 20px !important;
+  right: 20px !important;
+  background: rgba(24, 132, 70, .7) !important;
+  border-color: rgba(142, 236, 177, .75) !important;
+  color: #fff !important;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, .20) !important;
+  transform: rotate(0deg) !important;
+  transition: transform .26s ease, background-color .26s ease, box-shadow .26s ease !important;
+}
+
+body.admin-home-page .admin-home-tiles .home-tile:hover .tile-link,
+body.admin-home-page .admin-home-tiles .home-tile:focus-visible .tile-link {
+  transform: rotate(45deg) !important;
+  background: #219a58 !important;
+  border-color: #98e9b2 !important;
+  box-shadow: 0 0 16px rgba(42, 190, 100, .38) !important;
+}
+
+@media (prefers-reduced-motion:reduce) {
+
+  body.admin-home-page .admin-home-tiles .home-tile::before,
+  body.admin-home-page .admin-home-tiles .home-tile .tile-link {
+    transition: none !important;
+  }
+}
+
+/* Reinstate foreground legibility layer disabled by legacy shared CSS. */
+body.admin-home-page .admin-home-tiles .home-tile::after {
+  display: block !important;
+}
+
+
+/* Final: right-edge Admin Home scrollbar, normal reading order. */
+@media (min-width:601px) {
+  html body.admin-home-page>.admin-home-content {
+    direction: ltr !important;
+    scrollbar-gutter: stable !important;
+  }
+
+  html body.admin-home-page>.admin-home-content>* {
+    direction: ltr !important;
+  }
+}
+
+
+/* Keep the scroller at the browser's far-right edge, not beside the centered cards. */
+@media (min-width: 601px) {
+  html body.admin-home-page>main.admin-home-content {
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    direction: ltr !important;
+    scrollbar-gutter: auto !important;
+    padding-inline: clamp(18px, 3vw, 54px) !important;
+  }
+
+  html body.admin-home-page>main.admin-home-content>* {
+    width: 100% !important;
+    max-width: 1240px !important;
+    margin-inline: auto !important;
+    direction: ltr !important;
+  }
 }
