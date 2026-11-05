@@ -1,24 +1,37 @@
 <?php
-// db.php - database connection (PDO)
-$DB_HOST = 'localhost';
-$DB_NAME = 'mysite';
-$DB_USER = 'root';   // XAMPP default
-$DB_PASS = '';       // XAMPP default (empty)
+
+$host = "localhost";
+$dbname = "news_portal";
+$username = "root";
+$password = "";
 
 try {
-    $pdo = new PDO(
-        "mysql:host=$DB_HOST;dbname=$DB_NAME;charset=utf8mb4",
-        $DB_USER,
-        $DB_PASS,
-        [
-            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_EMULATE_PREPARES   => false,
-        ]
+    $conn = new PDO(
+        "mysql:host=$host;dbname=$dbname;charset=utf8mb4",
+        $username,
+        $password
     );
+
+    $conn->setAttribute(
+        PDO::ATTR_ERRMODE,
+        PDO::ERRMODE_EXCEPTION
+    );
+
+    $conn->setAttribute(
+        PDO::ATTR_DEFAULT_FETCH_MODE,
+        PDO::FETCH_ASSOC
+    );
+
 } catch (PDOException $e) {
     http_response_code(500);
-    header('Content-Type: application/json');
-    echo json_encode(['error' => 'Database connection failed']);
+
+    header("Content-Type: application/json");
+
+    echo json_encode([
+        "success" => false,
+        "message" => "Database connection failed."
+    ]);
+
     exit;
 }
+?>
