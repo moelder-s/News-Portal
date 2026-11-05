@@ -287,4 +287,9 @@ markAllReadButton.addEventListener("click", function () {
 });
 
 loadNotifications(false);
-window.setInterval(function () { loadNotifications(true); }, 8000);
+window.setInterval(function () {
+    if (!document.hidden) loadNotifications(true);
+}, 20000);
+document.addEventListener('visibilitychange', function () {
+    if (!document.hidden) loadNotifications(true);
+});

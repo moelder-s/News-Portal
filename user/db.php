@@ -1,7 +1,37 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "news_portal");
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+$host = "localhost";
+$dbname = "news_portal";
+$username = "root";
+$password = "";
+
+try {
+    $conn = new PDO(
+        "mysql:host=$host;dbname=$dbname;charset=utf8mb4",
+        $username,
+        $password
+    );
+
+    $conn->setAttribute(
+        PDO::ATTR_ERRMODE,
+        PDO::ERRMODE_EXCEPTION
+    );
+
+    $conn->setAttribute(
+        PDO::ATTR_DEFAULT_FETCH_MODE,
+        PDO::FETCH_ASSOC
+    );
+
+} catch (PDOException $e) {
+    http_response_code(500);
+
+    header("Content-Type: application/json");
+
+    echo json_encode([
+        "success" => false,
+        "message" => "Database connection failed."
+    ]);
+
+    exit;
 }
 ?>
