@@ -43,13 +43,18 @@ function bookmark_image_source(?string $image, string $category): string
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="site-shared.js?v=nav-hover-notice-4"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bookmarks — News In Green</title>
     <link rel="stylesheet" href="bookmarks.css">
     <script src="bookmarks.js" defer></script>
+<link rel="stylesheet" href="site-shared.css?v=navpop-fix-2">
+
+  <link rel="stylesheet" href="page-transition.css?v=3-retro-slider">
+  <script src="page-transition.js?v=3-retro-slider" defer></script>
 </head>
-<body class="dark-mode">
+<body class="dark-mode nig-inner-desk-page nig-day-desk-target">
     <header class="site-header">
         <div class="header-inner">
             <a href="home.php" class="brand">
@@ -63,7 +68,7 @@ function bookmark_image_source(?string $image, string $category): string
                 <a href="bookmarks.php" class="active" aria-current="page">Bookmarks</a>
                 <a href="submit.php">Submit an article</a>
                 <a href="subscriptions.php">Subscription</a>
-                <a href="help.php">Help &amp; Support</a>
+                
             </nav>
             <div class="header-actions">
                 <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false" onclick="toggleTheme()" aria-label="Toggle light and dark theme">
@@ -126,15 +131,11 @@ function bookmark_image_source(?string $image, string $category): string
             </div>
             <div class="footer-col">
                 <h3>Sections</h3>
-                <a href="browse.php#academic">Academic</a><a href="browse.php#events">Events</a><a href="browse.php#sports">Sports</a><a href="browse.php#general">General</a>
+                <a href="browse.php?category=Academic">Academic</a><a href="browse.php?category=Events">Events</a><a href="browse.php?category=Sports">Sports</a><a href="browse.php?category=General">General</a>
             </div>
             <div class="footer-col">
                 <h3>Account</h3>
                 <a href="logout.php">Log out</a><a href="bookmarks.php">Bookmarks</a><a href="subscriptions.php">Subscription</a><a href="submit.php">Submit an article</a>
-            </div>
-            <div class="footer-col">
-                <h3>Contact</h3>
-                <a href="mailto:newsroom@newsingreen.edu">newsroom@newsingreen.edu</a><span>123 University Avenue, Colombo</span>
             </div>
         </div>
         <div class="footer-bottom">&copy; 2026 News In Green</div>
