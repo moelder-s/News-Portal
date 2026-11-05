@@ -4,17 +4,19 @@
 <html lang="en" data-theme="light">
 
 <head>
-    <script src="site-shared.js"></script>
+    <script src="site-shared.js?v=nav-hover-notice-4"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit an article — News In Green</title>
     <meta name="description" content="Submit an article to News In Green, the student-run news portal.">
     <link rel="stylesheet" href="submit.css">
-<link rel="stylesheet" href="site-shared.css">
+<link rel="stylesheet" href="site-shared.css?v=navpop-fix-2">
 
+  <link rel="stylesheet" href="page-transition.css?v=3-retro-slider">
+  <script src="page-transition.js?v=3-retro-slider" defer></script>
 </head>
 
-<body>
+<body class="nig-inner-desk-page nig-day-desk-target">
 
     
     <header class="site-header">
@@ -175,3 +177,9 @@
 
 </body>
 </html>
+    
+       
+
+
+
+    
