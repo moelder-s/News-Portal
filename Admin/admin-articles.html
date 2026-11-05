@@ -8,8 +8,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="admin-articles.css"><link rel="stylesheet" href="admin-common.css">
-<script src="admin-common.js" defer></script>
+<link rel="stylesheet" href="admin-articles.css"><link rel="stylesheet" href="admin-common.css?v=cardphoto-2"><link rel="stylesheet" href="admin-main-enhancements.css?v=4">
+<script src="admin-common.js?v=cardphoto-2" defer></script>
+<link rel="stylesheet" href="admin-main-roman-soft.css?v=1">
+  <link rel="stylesheet" href="page-transition.css?v=3-retro-slider">
+  <script src="page-transition.js?v=3-retro-slider" defer></script>
 </head>
 <body>
 
@@ -34,6 +37,19 @@
 </header>
 
         <main class="content">
+            <!-- Admin management overview; counts are populated from existing API records. -->
+            <section class="ng-workspace-overview" data-ng-workspace="articles" aria-label="Article management overview">
+              <div class="ng-workspace-heading">
+                <div><p class="ng-workspace-eyebrow">NEWS IN GREEN · ADMIN WORKSPACE</p><h1>Article management</h1><p>Manage published stories, review coverage, and keep the news library organized.</p></div>
+              </div>
+              <div class="ng-workspace-stats" aria-live="polite">
+                <article class="ng-workspace-stat"><div class="ng-workspace-stat-top"><span data-ng-label="one">Total</span><span class="ng-workspace-stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 9h8M8 13h8M8 17h5"/></svg></span></div><strong data-ng-value="one">0</strong><small data-ng-note="one">Based on database records</small></article>
+                <article class="ng-workspace-stat"><div class="ng-workspace-stat-top"><span data-ng-label="two">Active</span><span class="ng-workspace-stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg></span></div><strong data-ng-value="two">0</strong><small data-ng-note="two">Based on database records</small></article>
+                <article class="ng-workspace-stat"><div class="ng-workspace-stat-top"><span data-ng-label="three">Other</span><span class="ng-workspace-stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19V5m0 14h16M8 16v-5m5 5V7m5 9V9"/></svg></span></div><strong data-ng-value="three">0</strong><small data-ng-note="three">Based on database records</small></article>
+              </div>
+              <div class="ng-workspace-visual"><div class="ng-workspace-visual-head"><h2>Article categories</h2><span>Live overview</span></div><div class="ng-workspace-bars" data-ng-breakdown><p class="ng-workspace-empty">No records available yet.</p></div></div>
+            </section>
+
 
             <div class="panel">
                 <div class="panel-head">
@@ -115,6 +131,21 @@
 </div>
 
 <script src="admin-articles.js"></script>
-<script src="admin-backend.js"></script>
+<script src="admin-backend.js?v=profile-persist-1"></script>
+<script src="admin-workspace-overview.js?v=4"></script>
+
+<!-- Admin footer — page bottom, text links only -->
+<footer class="admin-page-footer" aria-label="Admin page footer">
+    <nav class="admin-footer-links" aria-label="Admin sections">
+        <a href="admin-dashboard.html">Dashboard</a>
+        <a href="admin-articles.html" aria-current="page" class="active">Articles</a>
+        <a href="admin-categories.html">Categories</a>
+        <a href="admin-approvals.html">Approvals</a>
+        <a href="admin-announcements.html">Announcements</a>
+        <a href="admin-comments.html">Comments</a>
+        <a href="admin-reports.html">Reports</a>
+        <a href="admin-settings.html">Settings</a>
+    </nav>
+</footer>
 </body>
 </html>

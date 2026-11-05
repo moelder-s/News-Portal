@@ -899,3 +899,183 @@ html[data-theme="dark"] .admin-site-header #theme-toggle .admin-theme-moon {disp
   max-height: calc(100dvh - 36px);
   overflow-y: auto;
 }
+
+
+/* Admin dark mode desk background with moving stars preserved */
+html[data-theme="dark"] #admin-space-canvas {
+  background-image:
+    linear-gradient(115deg, rgba(1,3,6,.58) 0%, rgba(4,6,10,.42) 42%, rgba(2,3,6,.62) 100%),
+    url('admin-dark-desk-4k.png') !important;
+  background-position: center center !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-color: #040608 !important;
+}
+
+
+/* Dark-mode desk image on its own fixed layer; the transparent canvas moves stars over it. */
+#admin-desk-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  display: none;
+}
+html[data-theme="dark"] #admin-desk-backdrop {
+  display: block !important;
+  background: #070809 url('admin-dark-desk-4k.png') center center / cover no-repeat !important;
+}
+html[data-theme="dark"] #admin-space-canvas {
+  background: transparent !important;
+  background-image: none !important;
+}
+html[data-theme="dark"] body { background: transparent !important; }
+body > .admin-shell, body > .admin-home-content, body > .topbar {
+  position: relative;
+  z-index: 2 !important;
+}
+#admin-space-canvas { z-index: 1 !important; }
+
+/* Admin workspace day theme: white desk image behind continuously animated dark stars.
+   Keep the image separate from the transparent canvas to prevent redraw or masking. */
+html[data-theme="light"] #admin-desk-backdrop {
+  display: block !important;
+  background: #f7f7f7 url('admin-day-desk.png') center center / cover no-repeat !important;
+}
+html[data-theme="light"] #admin-space-canvas {
+  background: transparent !important;
+  background-image: none !important;
+}
+html[data-theme="light"] body {
+  background: transparent !important;
+}
+
+/* 2026-11-05: New white minimalist desk photo in Admin workspace day mode. */
+html[data-theme="light"] body #admin-desk-backdrop {
+  display: block !important;
+  background-color: #f8f8f8 !important;
+  background-image: url('admin-day-desk.png') !important;
+  background-position: center center !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+}
+html[data-theme="light"] body #admin-space-canvas {
+  background: transparent !important;
+  pointer-events: none !important;
+}
+
+/* Admin section footer — management pages only, matches the glass navigation. */
+/* Admin footer — below page content, modeled on the User footer's text links. */
+.admin-page-footer {
+  position:relative;
+  z-index:2;
+  box-sizing:border-box;
+  width:100%;
+  margin:44px 0 0;
+  padding:38px max(5%, 24px) 42px;
+  border-top:1px solid rgba(105,151,130,.28);
+  background:rgba(244,249,247,.70);
+  color:var(--text,#17372c);
+  -webkit-backdrop-filter:blur(15px);
+  backdrop-filter:blur(15px);
+}
+html[data-theme="dark"] .admin-page-footer {
+  background:rgba(7,12,15,.76);
+  border-top-color:rgba(184,215,205,.20);
+  color:#eef7f2;
+}
+.admin-footer-links {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  column-gap:28px;
+  row-gap:18px;
+  width:min(1100px,100%);
+  margin:0 auto;
+}
+.admin-footer-links a {
+  display:block;
+  width:fit-content;
+  max-width:100%;
+  color:inherit;
+  font:500 14px 'Work Sans',Arial,sans-serif;
+  line-height:1.5;
+  text-decoration:none;
+  border:none;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  padding:0;
+  transition:color .2s ease;
+}
+.admin-footer-links a:hover,
+.admin-footer-links a:focus-visible,
+.admin-footer-links a.active {
+  color:#168854;
+  text-decoration:underline;
+  text-underline-offset:4px;
+}
+html[data-theme="dark"] .admin-footer-links a:hover,
+html[data-theme="dark"] .admin-footer-links a:focus-visible,
+html[data-theme="dark"] .admin-footer-links a.active {color:#86e6a8;}
+@media(max-width:640px){
+  .admin-page-footer{padding:28px 22px 34px;margin-top:30px;}
+  .admin-footer-links{grid-template-columns:repeat(2,minmax(0,1fr));gap:15px 20px;}
+}
+@media(prefers-reduced-motion:reduce){.admin-footer-links a{transition:none;}}
+
+/* Transparent bottom footer: single-row Admin tab links. */
+html[data-theme] body .admin-page-footer {
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  border-top: 1px solid rgba(115,150,135,.22) !important;
+  padding: 23px 22px 28px !important;
+  margin-top: 35px !important;
+}
+html[data-theme] body .admin-footer-links {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-wrap: nowrap !important;
+  gap: clamp(10px,2vw,27px) !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  scrollbar-width: thin;
+}
+html[data-theme] body .admin-footer-links a {
+  display: inline-block !important;
+  white-space: nowrap !important;
+  flex: 0 0 auto !important;
+  font-size: 13px !important;
+}
+/* Neutral black frosted glass for Admin header in dark mode. */
+html[data-theme="dark"] body .admin-site-header.site-header {
+  background: rgba(0,0,0,.54) !important;
+  background-image: none !important;
+  border: 1px solid rgba(255,255,255,.18) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(120%) !important;
+  backdrop-filter: blur(20px) saturate(120%) !important;
+  box-shadow: 0 10px 32px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.09) !important;
+}
+
+/* Make the reference main-content layouts work with the existing Admin shell. */
+html[data-theme] .content .moderation-heading,
+html[data-theme] .content .report-heading {position:relative;z-index:1;}
+
+
+/* Admin profile: display saved photo in the round header control. */
+html[data-theme] .admin-site-header .admin-user.has-photo .avatar {
+  display: block !important;
+  flex: 0 0 100%; width: 100%; height: 100%;
+  border-radius: 50%; background-color: transparent;
+  background-position: center; background-size: cover;
+  border: 2px solid rgba(91,210,144,.7);
+}
+html[data-theme] .admin-site-header .admin-user.has-photo > svg {display:none !important;}
+.admin-profile-panel .profile-photo-view {
+  background-repeat:no-repeat; background-position:center; background-size:cover;
+}

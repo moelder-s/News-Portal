@@ -5,14 +5,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="site-shared.js"></script>
+    <script src="site-shared.js?v=nav-hover-notice-4"></script>
     <title>Help & Support — News In Green</title>
     <link rel="stylesheet" href="help.css">
-<link rel="stylesheet" href="site-shared.css?v=22">
+<link rel="stylesheet" href="site-shared.css?v=navpop-fix-2">
 
+  <link rel="stylesheet" href="page-transition.css?v=3-retro-slider">
+  <script src="page-transition.js?v=3-retro-slider" defer></script>
 </head>
 
-<body class="light-mode">
+<body class="light-mode nig-inner-desk-page nig-day-desk-target">
     <header class="site-header">
         <div class="header-inner">
             <a href="home.php" class="brand">

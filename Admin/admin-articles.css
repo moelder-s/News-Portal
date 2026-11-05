@@ -630,3 +630,44 @@ html:not([data-theme="dark"]) { color-scheme: light; }
 @media(max-width:900px){.admin-home-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.topbar-left{gap:14px}}
 @media(max-width:600px){.topbar-brand{font-size:.9rem}.topbar-left h1{font-size:1rem}.admin-user{display:none}.topbar-actions{gap:10px}.admin-home-link{padding:7px 11px}.home-tile{min-height:200px}}
 @media(max-width:480px){.admin-home-tiles{grid-template-columns:1fr}.home-tile{min-height:190px}.topbar-left h1{display:none}}
+
+
+
+/* Page-specific animated data visualization; scoped to main content only. */
+.content .ng-viz{margin:0 0 24px;padding:20px 22px;border-radius:16px;border:1px solid var(--border-color,rgba(120,160,145,.28));background:var(--card-bg,rgba(130,165,155,.09));color:inherit;overflow:hidden}
+.content .ng-viz h2{font-size:1.05rem;margin:0 0 6px;font-weight:650}
+.content .ng-viz .ng-caption{font-size:.82rem;opacity:.7;margin:0 0 18px}
+.content .ng-viz-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.content .ng-viz-item{min-width:0}
+.content .ng-viz-item-label{display:flex;justify-content:space-between;gap:10px;font-size:.82rem;margin-bottom:9px}
+.content .ng-viz-item-label span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.content .ng-viz-track{height:11px;border-radius:20px;background:rgba(110,145,135,.16);overflow:hidden}
+.content .ng-viz-bar{width:var(--ng-percent,0%);height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--green-500,#20a66a),var(--green-300,#83d9b1));transform-origin:left;animation:ng-viz-grow .9s cubic-bezier(.2,.8,.2,1) both}
+.content .ng-viz-item:nth-child(3n+2) .ng-viz-bar{background:linear-gradient(90deg,#4c8bb8,#7bc7dd)}
+.content .ng-viz-item:nth-child(3n+3) .ng-viz-bar{background:linear-gradient(90deg,#a78b50,#e2c078)}
+.content .ng-viz-empty{opacity:.72;font-size:.9rem;padding:8px 0}
+.content .ng-password-meter{height:12px;background:rgba(110,145,135,.18);border-radius:16px;overflow:hidden}
+.content .ng-password-fill{height:100%;width:var(--ng-percent,0%);background:linear-gradient(90deg,#cc7e55,#49b884);transition:width .35s ease}
+@keyframes ng-viz-grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media(prefers-reduced-motion:reduce){.content .ng-viz-bar{animation:none}.content .ng-password-fill{transition:none}}
+@media(max-width:600px){.content .ng-viz{padding:16px}}
+
+/* Enhanced visual analytics: chart cards and live proportional donut. */
+.content .ng-viz-heading{display:flex;align-items:center;gap:11px;margin-bottom:4px}
+.content .ng-viz-heading h2{margin:0}
+.content .ng-viz-icon{display:grid;place-items:center;flex:0 0 38px;width:38px;height:38px;border-radius:12px;background:rgba(38,177,107,.14);color:var(--green-500,#28b779);font-size:21px;font-weight:700}
+.content .ng-viz-layout{display:grid;grid-template-columns:minmax(0,1fr) 170px;gap:25px;align-items:center}
+.content .ng-viz-donut{width:142px;height:142px;margin:auto;border-radius:50%;background:conic-gradient(#24aa70 0 var(--ng-first,0%),#4b9ac4 var(--ng-first,0%) var(--ng-second,0%),#d5a753 var(--ng-second,0%) 100%);display:grid;place-items:center;animation:ng-donut-in .85s ease-out both;box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.content .ng-viz-donut-center{width:105px;height:105px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--card-bg,#f7faf8);color:var(--text-primary,inherit);box-shadow:inset 0 0 0 1px rgba(100,140,120,.1)}
+.content .ng-viz-donut-center strong{font-size:1.65rem;line-height:1.1}
+.content .ng-viz-donut-center small{font-size:.7rem;opacity:.7;margin-top:3px}
+.content .ng-viz-item-label strong{font-variant-numeric:tabular-nums}
+.content .ng-viz-item{animation:ng-item-rise .5s ease both}
+.content .ng-viz-item:nth-child(2){animation-delay:.08s}.content .ng-viz-item:nth-child(3){animation-delay:.16s}.content .ng-viz-item:nth-child(4){animation-delay:.24s}
+.content .ng-viz-item-label span:first-child:before{content:'';display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;background:#24aa70}
+.content .ng-viz-item:nth-child(3n+2) .ng-viz-item-label span:first-child:before{background:#4b9ac4}
+.content .ng-viz-item:nth-child(3n+3) .ng-viz-item-label span:first-child:before{background:#d5a753}
+@keyframes ng-item-rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes ng-donut-in{from{opacity:0;transform:scale(.88) rotate(-25deg)}to{opacity:1;transform:scale(1) rotate(0)}}
+@media(max-width:650px){.content .ng-viz-layout{grid-template-columns:1fr}.content .ng-viz-donut{width:124px;height:124px}.content .ng-viz-donut-center{width:90px;height:90px}}
+@media(prefers-reduced-motion:reduce){.content .ng-viz-donut,.content .ng-viz-item{animation:none}}
