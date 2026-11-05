@@ -669,6 +669,7 @@ html:not([data-theme="dark"]) { color-scheme: light; }
 
 
 
+
 /* Main-content components imported from reference; isolated from shared header and background */
 .content{
     padding: 36px 2.75% 24px
@@ -1157,3 +1158,59 @@ html:not([data-theme="dark"]) { color-scheme: light; }
 .content .chart-empty{color:var(--text-muted)}
 @media(max-width:850px){.content .stats{grid-template-columns:repeat(2,minmax(0,1fr))}.content .chart-grid{grid-template-columns:1fr}}
 @media(max-width:500px){.content .stats{grid-template-columns:1fr}}
+
+
+/* Top articles table: clear spacing between the eight report columns. */
+html[data-theme] body .content .articles-section .table-scroll {
+  display:block !important;
+  width:100% !important;
+  max-width:100% !important;
+  overflow-x:auto !important;
+  overflow-y:hidden !important;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;
+}
+html[data-theme] body .content .articles-section .table-scroll > table {
+  display:table !important;
+  width:100% !important;
+  min-width:990px !important;
+  table-layout:auto !important;
+  border-collapse:separate !important;
+  border-spacing:0 !important;
+  font-variant-numeric:tabular-nums;
+}
+html[data-theme] body .content .articles-section .table-scroll :is(th,td) {
+  display:table-cell !important;
+  box-sizing:border-box !important;
+  padding:15px 17px !important;
+  text-align:left !important;
+  vertical-align:middle !important;
+  white-space:nowrap !important;
+  line-height:1.5 !important;
+  border-bottom:1px solid var(--border,rgba(180,200,193,.2)) !important;
+}
+html[data-theme] body .content .articles-section .table-scroll th {
+  font-size:12px !important;
+  letter-spacing:.035em !important;
+  font-weight:700 !important;
+}
+html[data-theme] body .content .articles-section .table-scroll td {
+  font-size:14px !important;
+}
+html[data-theme] body .content .articles-section .table-scroll :is(th,td):first-child {
+  min-width:48px; width:54px; padding-left:20px !important;
+}
+html[data-theme] body .content .articles-section .table-scroll :is(th,td):nth-child(2) {min-width:230px;}
+html[data-theme] body .content .articles-section .table-scroll :is(th,td):nth-child(3) {min-width:105px;}
+html[data-theme] body .content .articles-section .table-scroll :is(th,td):nth-child(4),
+html[data-theme] body .content .articles-section .table-scroll :is(th,td):nth-child(5),
+html[data-theme] body .content .articles-section .table-scroll :is(th,td):nth-child(6) {min-width:92px; text-align:center !important;}
+html[data-theme] body .content .articles-section .table-scroll :is(th,td):nth-child(7) {min-width:145px;}
+html[data-theme] body .content .articles-section .table-scroll :is(th,td):nth-child(8) {min-width:100px;}
+html[data-theme] body .content .articles-section .table-scroll tbody tr {display:table-row !important;}
+html[data-theme] body .content .articles-section .table-scroll thead {display:table-header-group !important;}
+html[data-theme] body .content .articles-section .table-scroll tbody {display:table-row-group !important;}
+html[data-theme] body .content .articles-section .article-title {display:inline-block; max-width:320px; overflow:hidden; text-overflow:ellipsis; vertical-align:middle;}
+@media (max-width:650px) {
+  html[data-theme] body .content .articles-section .table-scroll :is(th,td) {padding:12px 13px !important;}
+}

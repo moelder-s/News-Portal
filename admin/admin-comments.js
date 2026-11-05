@@ -1,10 +1,12 @@
 // Frontend dashboard. Comments are empty until supplied by the backend.
 let liveComments = [];
 const $ = id => document.getElementById(id);
+if (!$('moderationToast')) { const el=document.createElement('div'); el.id='moderationToast'; el.className='moderation-toast'; el.setAttribute('role','status'); document.body.append(el); }
+
 function activeComments(){ return liveComments; }
 
 const pageSize=4; let page=1;
-function counts(){const count=s=>activeComments().filter(c=>c.status===s).length;$("totalCount").textContent=activeComments().length;$("pendingCount").textContent=count("pending");$("approvedCount").textContent=count("approved");$("rejectedCount").textContent=count("rejected");$("pendingBadge").textContent=count("pending")+" Pending";}
+function counts(){const count=s=>activeComments().filter(c=>c.status===s).length;$("totalCount").textContent=activeComments().length;$("pendingCount").textContent=count("pending");$("approvedCount").textContent=count("approved");$("rejectedCount").textContent=count("hidden");$("pendingBadge").textContent=count("pending")+" Pending";}
 function filtered(){const q=$("commentSearch").value.toLowerCase().trim(),s=$("statusFilter").value;return activeComments().filter(c=>(s==="all"||c.status===s)&&[c.commenter,c.comment,c.article].some(v=>v.toLowerCase().includes(q)));}
 function notify(text){const t=$("moderationToast");t.textContent=text;t.classList.add("visible");clearTimeout(notify.timer);notify.timer=setTimeout(()=>t.classList.remove("visible"),2400);}
 function renderComments(){
@@ -17,8 +19,8 @@ function renderComments(){
  const article=document.createElement("td"),tag=document.createElement("span");tag.className="article-tag";tag.textContent="❧ "+item.article;article.append(tag);tr.append(article);
  const date=document.createElement("td");date.textContent=item.date;tr.append(date);
  const actions=document.createElement("td");
- if(item.status==="pending"){for(const [label,status] of [["Approve","approved"],["Reject","rejected"]]){const button=document.createElement("button");button.type="button";button.className="action "+(status==="approved"?"approve":"reject");button.textContent=(status==="approved"?"✓ ":"× ")+label;button.addEventListener("click",()=>{if(typeof window.adminModerateComment==='function' && item.id){window.adminModerateComment(item.id,status).catch(e=>notify(e.message||String(e)));}else{item.status=status;notify("Comment "+status+" (frontend only)");renderComments()}});actions.append(button);}}
- else{const badge=document.createElement("span");badge.className="status-text "+item.status;badge.textContent=item.status==="approved"?"✓ Approved":"× Rejected";actions.append(badge);}
+ if(item.status==="pending"){for(const [label,status] of [["Approve","approved"],["Hide","hidden"]]){const button=document.createElement("button");button.type="button";button.className="action "+(status==="approved"?"approve":"reject");button.textContent=(status==="approved"?"✓ ":"× ")+label;button.addEventListener("click",()=>{if(typeof window.adminModerateComment==='function' && item.id){window.adminModerateComment(item.id,status).catch(e=>notify(e.message||String(e)));}else{item.status=status;notify("Comment "+status+" (frontend only)");renderComments()}});actions.append(button);}}
+ else{const badge=document.createElement("span");badge.className="status-text "+item.status;badge.textContent=item.status==="approved"?"✓ Approved":"× Hidden";actions.append(badge);}
  tr.append(actions);rows.append(tr);
  }
  $("pageInfo").textContent=all.length?`Showing ${start+1}–${Math.min(start+pageSize,all.length)} of ${all.length} comments`:"Showing 0 comments";
