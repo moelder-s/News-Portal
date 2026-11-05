@@ -1,0 +1,24 @@
+/* Retro Cake Lab style: both outgoing and incoming pages move simultaneously.
+   No cross-document opacity-to-zero animation and no blank intermediate frame. */
+#nig-slider-host {
+  position:fixed!important; inset:0!important;
+  width:100vw!important; height:100dvh!important;
+  z-index:2147482000!important; overflow:hidden!important;
+  margin:0!important; padding:0!important;
+  background:transparent!important;
+  isolation:isolate!important;
+}
+#nig-slider-host .nig-slider-frame {
+  display:block!important;
+  position:absolute!important;inset:0!important;
+  box-sizing:border-box!important;
+  width:100%!important;height:100%!important;
+  border:0!important;margin:0!important;padding:0!important;
+  background:transparent!important;
+  transform:translateZ(0);
+}
+html.nig-slider-active { overflow:hidden!important; }
+html.nig-slider-active > body.nig-slider-source-hidden { visibility:hidden!important; }
+@media (prefers-reduced-motion: reduce) {
+  #nig-slider-host .nig-slider-frame {transition:none!important;}
+}

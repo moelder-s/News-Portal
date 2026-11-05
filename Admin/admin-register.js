@@ -28,9 +28,9 @@
             // The PHP endpoint creates an active admin account.
             const response = await fetch("admin-register.php", {
                 method: "POST",
-                headers: {"Content-Type": "application/json"},
+                headers: { "Content-Type": "application/json" },
                 credentials: "same-origin",
-                body: JSON.stringify({full_name: fullName, email, user_id: userId, password})
+                body: JSON.stringify({ full_name: fullName, email, user_id: userId, password })
             });
             const data = await response.json();
             if (!response.ok || !data.success) throw new Error(data.message || "Registration was not accepted.");
@@ -109,16 +109,16 @@
         requestAnimationFrame(animateEarth);
         window.addEventListener("wheel", function (event) {
             desiredAngle += Math.max(-100, Math.min(100, event.deltaY)) * .025;
-        }, { passive:true });
+        }, { passive: true });
         window.addEventListener("touchstart", function (event) {
             lastTouchY = event.touches[0].clientY;
-        }, { passive:true });
+        }, { passive: true });
         window.addEventListener("touchmove", function (event) {
             if (lastTouchY === null) return;
             var y = event.touches[0].clientY;
             desiredAngle += (lastTouchY - y) * .025;
             lastTouchY = y;
-        }, { passive:true });
-        window.addEventListener("touchend", function () { lastTouchY = null; }, { passive:true });
+        }, { passive: true });
+        window.addEventListener("touchend", function () { lastTouchY = null; }, { passive: true });
     }
 })();

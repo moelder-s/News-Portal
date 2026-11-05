@@ -1,66 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Register — News In Green</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="admin-register.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Register — News In Green</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="admin-register.css">
+  <link rel="stylesheet" href="page-transition.css?v=3-retro-slider">
+  <script src="page-transition.js?v=3-retro-slider" defer></script>
 </head>
+
 <body>
-<div class="space-stage" id="space-stage">
+  <div class="space-stage" id="space-stage">
     <div class="rotating-sky" id="rotating-sky" aria-hidden="true">
-        <div class="milky-way"></div>
-        <div class="starfield"></div>
-        <div class="deep-stars" id="deep-stars"></div>
-        <div class="space-streaks" id="space-streaks"></div>
+      <div class="milky-way"></div>
+      <div class="starfield"></div>
+      <div class="deep-stars" id="deep-stars"></div>
+      <div class="space-streaks" id="space-streaks"></div>
     </div>
     <div class="globe" id="globe"></div>
     <div class="tint"></div>
-</div>
-<main class="login-wrap">
-  <a href="home.php" class="brand">
-    <span class="brand-mark">N</span>
-    <span class="brand-text">News <em>In Green</em></span>
-  </a>
-  <form class="login-card" id="register-form" novalidate>
-    <h1>Create admin account</h1>
-    <p class="sub">Register a new admin account to access the admin dashboard.</p>
-    <label for="full-name">Full name</label>
-    <input id="full-name" name="full_name" type="text" autocomplete="name" placeholder="Enter your full name" required>
-    <label for="email">Work email</label>
-    <input id="email" name="email" type="email" autocomplete="email" placeholder="name@university.edu" required>
-    <label for="user-id">Admin user ID</label>
-    <input id="user-id" name="user_id" type="text" autocomplete="username" placeholder="Choose your user ID" required minlength="3">
-    <label for="password">Password</label>
-    <span class="admin-password-field"><input id="password" name="password" type="password" autocomplete="new-password" placeholder="At least 8 characters" required minlength="8"><button class="admin-password-eye" type="button" data-toggle-password="password" aria-label="Show password" aria-pressed="false" title="Show password"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.7-7 10-7 10 7 10 7-3.7 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></button></span>
-    <label for="confirm-password">Confirm password</label>
-    <span class="admin-password-field"><input id="confirm-password" name="confirm_password" type="password" autocomplete="new-password" placeholder="Re-enter password" required><button class="admin-password-eye" type="button" data-toggle-password="confirm-password" aria-label="Show password" aria-pressed="false" title="Show password"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.7-7 10-7 10 7 10 7-3.7 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></button></span>
-    <p id="form-error" class="form-error" role="alert" hidden></p>
-    <p id="form-success" class="form-success" role="status" hidden></p>
-    <button type="submit" class="btn-login">Create admin account</button>
-    <p class="register-login-link">Already registered? <a href="admin-login.html">Admin sign in</a></p>
-    <a class="back-link" href="home.php">&larr; Back to the news site</a>
-  </form>
-</main>
-<script src="admin-register.js"></script>
-<script src="admin-backend.js"></script>
-<script>
-// Password visibility controls: button does not submit the form.
-document.querySelectorAll('[data-toggle-password]').forEach(function(button) {
-  button.addEventListener('click', function() {
-    var input = document.getElementById(button.dataset.togglePassword);
-    if (!input) return;
-    var reveal = input.type === 'password';
-    input.type = reveal ? 'text' : 'password';
-    button.setAttribute('aria-pressed', String(reveal));
-    button.setAttribute('aria-label', reveal ? 'Hide password' : 'Show password');
-    button.title = reveal ? 'Hide password' : 'Show password';
-    button.classList.toggle('is-visible', reveal);
-  });
-});
-</script>
+  </div>
+  <main class="login-wrap">
+    <a href="home.php" class="brand">
+      <span class="brand-mark">N</span>
+      <span class="brand-text">News <em>In Green</em></span>
+    </a>
+    <form class="login-card" id="register-form" novalidate>
+      <h1>Create admin account</h1>
+      <p class="sub">Register a new admin account to access the admin dashboard.</p>
+      <label for="full-name">Full name</label>
+      <input id="full-name" name="full_name" type="text" autocomplete="name" placeholder="Enter your full name"
+        required>
+      <label for="email">Work email</label>
+      <input id="email" name="email" type="email" autocomplete="email" placeholder="name@university.edu" required>
+      <label for="user-id">Admin user ID</label>
+      <input id="user-id" name="user_id" type="text" autocomplete="username" placeholder="Choose your user ID" required
+        minlength="3">
+      <label for="password">Password</label>
+      <span class="admin-password-field"><input id="password" name="password" type="password"
+          autocomplete="new-password" placeholder="At least 8 characters" required minlength="8"><button
+          class="admin-password-eye" type="button" data-toggle-password="password" aria-label="Show password"
+          aria-pressed="false" title="Show password"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M2 12s3.7-7 10-7 10 7 10 7-3.7 7-10 7S2 12 2 12Z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg></button></span>
+      <label for="confirm-password">Confirm password</label>
+      <span class="admin-password-field"><input id="confirm-password" name="confirm_password" type="password"
+          autocomplete="new-password" placeholder="Re-enter password" required><button class="admin-password-eye"
+          type="button" data-toggle-password="confirm-password" aria-label="Show password" aria-pressed="false"
+          title="Show password"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M2 12s3.7-7 10-7 10 7 10 7-3.7 7-10 7S2 12 2 12Z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg></button></span>
+      <p id="form-error" class="form-error" role="alert" hidden></p>
+      <p id="form-success" class="form-success" role="status" hidden></p>
+      <button type="submit" class="btn-login">Create admin account</button>
+      <p class="register-login-link">Already registered? <a href="admin-login.html">Admin sign in</a></p>
+      <a class="back-link" href="home.php">&larr; Back to the news site</a>
+    </form>
+  </main>
+  <script src="admin-register.js"></script>
+  <script src="admin-backend.js?v=profile-persist-1"></script>
+  <script>
+    // Password visibility controls: button does not submit the form.
+    document.querySelectorAll('[data-toggle-password]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        var input = document.getElementById(button.dataset.togglePassword);
+        if (!input) return;
+        var reveal = input.type === 'password';
+        input.type = reveal ? 'text' : 'password';
+        button.setAttribute('aria-pressed', String(reveal));
+        button.setAttribute('aria-label', reveal ? 'Hide password' : 'Show password');
+        button.title = reveal ? 'Hide password' : 'Show password';
+        button.classList.toggle('is-visible', reveal);
+      });
+    });
+  </script>
 </body>
+
 </html>
