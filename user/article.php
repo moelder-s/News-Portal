@@ -95,7 +95,7 @@ $c = $conn->prepare(
     "SELECT ac.body, ac.created_at, u.full_name
      FROM article_comments ac
      JOIN users u ON u.id = ac.user_id
-     WHERE ac.article_id = ? AND (ac.status = 'Approved' OR ac.user_id = ?)
+     WHERE ac.article_id = ? AND (ac.status = 'Approved' OR (ac.status = 'Pending' AND ac.user_id = ?))
      ORDER BY ac.created_at DESC"
 );
 $c->execute([$id, user_id()]);
@@ -108,15 +108,17 @@ $articleContent = trim((string)($a['content'] ?? ''));
 <!doctype html>
 <html lang="en">
 <head>
-    <script src="site-shared.js"></script>
+    <script src="site-shared.js?v=nav-hover-notice-4"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= esc($a['title']) ?> | News In Green</title>
     <link rel="stylesheet" href="article.css">
-<link rel="stylesheet" href="site-shared.css">
+<link rel="stylesheet" href="site-shared.css?v=navpop-fix-2">
 
+  <link rel="stylesheet" href="page-transition.css?v=3-retro-slider">
+  <script src="page-transition.js?v=3-retro-slider" defer></script>
 </head>
-<body>
+<body class="nig-day-desk-target nig-inner-desk-page">
     
 
     <header class="site-header">
