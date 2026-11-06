@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Categories — News In Green Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin-categories.css"><link rel="stylesheet" href="admin-common.css">
+<script src="admin-common.js" defer></script>
+</head>
+<body>
+
+<div class="admin-shell">
+
+    <div class="main-col">
+        <header class="site-header admin-site-header">
+  <div class="header-inner">
+    <a href="admin-home.html" class="admin-site-brand" aria-label="News In Green Admin Home">
+      <img class="admin-ng-logo" src="ng-header-logo.png" alt="NG logo">
+      <span class="admin-brand-lines"><strong>News <em>In Green</em></strong><small>NSBM UNIVERSITY NEWS PORTAL</small></span>
+    </a>
+    <nav class="admin-main-nav" aria-label="Admin navigation">
+      <a href="admin-home.html" class="admin-home-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7"/><path d="M5 9v12h14V9M9 21v-7h6v7"/></svg><span>Home</span></a>
+    </nav>
+    <div class="admin-header-actions">
+      <a class="admin-header-round" href="admin-announcements.html" aria-label="Admin announcements" title="Announcements"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9zM10 21h4"/></svg></a>
+      <button class="admin-user admin-header-round" type="button" aria-label="Admin profile" title="Admin profile"><span class="avatar" aria-hidden="true"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></button>
+      <button id="theme-toggle" class="theme-toggle admin-header-round" type="button" aria-label="Switch to Night Mode" aria-pressed="false" title="Switch theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg><span class="toggle-label" hidden>Day</span></button>
+    </div>
+  </div>
+</header>
+
+        <main class="content">
+
+            <div class="panel">
+                <div class="panel-head">
+                    <h2>News categories</h2>
+                    <button class="btn btn-solid" type="button" data-open-modal="category-modal">+ New category</button>
+                </div>
+
+                <!-- Populate rows from the `categories` table. -->
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Name</th><th>Articles</th><th></th></tr>
+                    </thead>
+                    <tbody id="categories-body">
+                        <tr>
+                            <td>Academic</td>
+                            <td class="cell-muted">0</td>
+                            <td class="row-actions">
+                                <button class="btn btn-ghost btn-sm" type="button" data-action="rename">Rename</button>
+                                <button class="btn btn-danger btn-sm" type="button" data-action="delete">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Events</td>
+                            <td class="cell-muted">0</td>
+                            <td class="row-actions">
+                                <button class="btn btn-ghost btn-sm" type="button" data-action="rename">Rename</button>
+                                <button class="btn btn-danger btn-sm" type="button" data-action="delete">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Sports</td>
+                            <td class="cell-muted">0</td>
+                            <td class="row-actions">
+                                <button class="btn btn-ghost btn-sm" type="button" data-action="rename">Rename</button>
+                                <button class="btn btn-danger btn-sm" type="button" data-action="delete">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>General</td>
+                            <td class="cell-muted">0</td>
+                            <td class="row-actions">
+                                <button class="btn btn-ghost btn-sm" type="button" data-action="rename">Rename</button>
+                                <button class="btn btn-danger btn-sm" type="button" data-action="delete">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<!-- New / rename category modal -->
+<div class="modal-overlay" id="category-modal">
+    <div class="modal">
+        <div class="modal-head">
+            <h2 id="category-modal-title">New category</h2>
+            <button class="modal-close" type="button" data-close-modal aria-label="Close">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="category-form">
+                <div class="form-group full">
+                    <label for="category-name">Category name</label>
+                    <input type="text" id="category-name" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-ghost" data-close-modal>Cancel</button>
+                    <button type="submit" class="btn btn-solid">Save category</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="admin-categories.js"></script>
+<script src="admin-backend.js"></script>
+</body>
+</html>
