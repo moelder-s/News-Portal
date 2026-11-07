@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Settings — News In Green Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin-settings.css"><link rel="stylesheet" href="admin-common.css?v=cardphoto-2">
+<script src="admin-common.js?v=cardphoto-2" defer></script>
+<link rel="stylesheet" href="admin-main-roman-soft.css?v=1">
+  <link rel="stylesheet" href="page-transition.css?v=3-retro-slider">
+  <script src="page-transition.js?v=3-retro-slider" defer></script>
+</head>
+<body class="admin-settings-page">
+
+<div class="admin-shell">
+
+    <div class="main-col">
+        <header class="site-header admin-site-header">
+  <div class="header-inner">
+    <a href="admin-home.html" class="admin-site-brand" aria-label="News In Green Admin Home">
+      <img class="admin-ng-logo" src="ng-header-logo.png" alt="NG logo">
+      <span class="admin-brand-lines"><strong>News <em>In Green</em></strong><small>NSBM UNIVERSITY NEWS PORTAL</small></span>
+    </a>
+    <nav class="admin-main-nav" aria-label="Admin navigation">
+      <a href="admin-home.html" class="admin-home-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7"/><path d="M5 9v12h14V9M9 21v-7h6v7"/></svg><span>Home</span></a>
+    </nav>
+    <div class="admin-header-actions">
+      <a class="admin-header-round" href="admin-announcements.html" aria-label="Admin announcements" title="Announcements"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9zM10 21h4"/></svg></a>
+      <button class="admin-user admin-header-round" type="button" aria-label="Admin profile" title="Admin profile"><span class="avatar" aria-hidden="true"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></button>
+      <button id="theme-toggle" class="theme-toggle admin-header-round" type="button" aria-label="Switch to Night Mode" aria-pressed="false" title="Switch theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg><span class="toggle-label" hidden>Day</span></button>
+    </div>
+  </div>
+</header>
+
+        <main class="content">
+
+            <div class="panel password-settings-panel">
+                <div class="panel-head">
+                    <h2>Change password</h2>
+                </div>
+                <div class="panel-body">
+                    <form id="password-form">
+                        <div class="form-group">
+                            <label for="current-password">Current password</label>
+                            <input type="password" id="current-password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="new-password">New password</label>
+                            <input type="password" id="new-password" required minlength="6">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm new password</label>
+                            <input type="password" id="confirm-password" required minlength="6">
+                        </div>
+
+                        <p class="form-error" id="settings-error" hidden style="color:#e08080; font-size:0.85rem; margin:-6px 0 14px;"></p>
+                        <p class="form-success" id="settings-success" hidden style="color:var(--green-500); font-size:0.85rem; margin:-6px 0 14px;"></p>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-solid">Update password</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+
+        </main>
+    </div>
+</div>
+
+<script src="admin-settings.js"></script>
+<script src="admin-backend.js?v=profile-persist-1"></script>
+
+<!-- Admin footer — page bottom, text links only -->
+<footer class="admin-page-footer" aria-label="Admin page footer">
+    <nav class="admin-footer-links" aria-label="Admin sections">
+        <a href="admin-dashboard.html">Dashboard</a>
+        <a href="admin-articles.html">Articles</a>
+        <a href="admin-categories.html">Categories</a>
+        <a href="admin-approvals.html">Approvals</a>
+        <a href="admin-announcements.html">Announcements</a>
+        <a href="admin-comments.html">Comments</a>
+        <a href="admin-reports.html">Reports</a>
+        <a href="admin-settings.html" aria-current="page" class="active">Settings</a>
+    </nav>
+</footer>
+</body>
+</html>
