@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Announcements — News In Green Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin-announcements.css"><link rel="stylesheet" href="admin-common.css?v=cardphoto-2"><link rel="stylesheet" href="admin-main-enhancements.css?v=4">
+<script src="admin-common.js?v=cardphoto-2" defer></script>
+<link rel="stylesheet" href="admin-main-roman-soft.css?v=1">
+  <link rel="stylesheet" href="page-transition.css?v=3-retro-slider">
+  <script src="page-transition.js?v=3-retro-slider" defer></script>
+</head>
+<body>
+
+<div class="admin-shell">
+
+    <div class="main-col">
+        <header class="site-header admin-site-header">
+  <div class="header-inner">
+    <a href="admin-home.html" class="admin-site-brand" aria-label="News In Green Admin Home">
+      <img class="admin-ng-logo" src="ng-header-logo.png" alt="NG logo">
+      <span class="admin-brand-lines"><strong>News <em>In Green</em></strong><small>NSBM UNIVERSITY NEWS PORTAL</small></span>
+    </a>
+    <nav class="admin-main-nav" aria-label="Admin navigation">
+      <a href="admin-home.html" class="admin-home-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7"/><path d="M5 9v12h14V9M9 21v-7h6v7"/></svg><span>Home</span></a>
+    </nav>
+    <div class="admin-header-actions">
+      <a class="admin-header-round" href="admin-announcements.html" aria-label="Admin announcements" title="Announcements"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9zM10 21h4"/></svg></a>
+      <button class="admin-user admin-header-round" type="button" aria-label="Admin profile" title="Admin profile"><span class="avatar" aria-hidden="true"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></button>
+      <button id="theme-toggle" class="theme-toggle admin-header-round" type="button" aria-label="Switch to Night Mode" aria-pressed="false" title="Switch theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg><span class="toggle-label" hidden>Day</span></button>
+    </div>
+  </div>
+</header>
+
+        <main class="content">
+            <!-- Admin management overview; counts are populated from existing API records. -->
+            <section class="ng-workspace-overview" data-ng-workspace="announcements" aria-label="Featured & breaking news overview">
+              <div class="ng-workspace-heading">
+                <div><p class="ng-workspace-eyebrow">NEWS IN GREEN · ADMIN WORKSPACE</p><h1>Featured & breaking news</h1><p>Manage announcements and highlight what matters to readers.</p></div>
+              </div>
+              <div class="ng-workspace-stats" aria-live="polite">
+                <article class="ng-workspace-stat"><div class="ng-workspace-stat-top"><span data-ng-label="one">Total</span><span class="ng-workspace-stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 9h8M8 13h8M8 17h5"/></svg></span></div><strong data-ng-value="one">0</strong><small data-ng-note="one">Based on database records</small></article>
+                <article class="ng-workspace-stat"><div class="ng-workspace-stat-top"><span data-ng-label="two">Active</span><span class="ng-workspace-stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg></span></div><strong data-ng-value="two">0</strong><small data-ng-note="two">Based on database records</small></article>
+                <article class="ng-workspace-stat"><div class="ng-workspace-stat-top"><span data-ng-label="three">Other</span><span class="ng-workspace-stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19V5m0 14h16M8 16v-5m5 5V7m5 9V9"/></svg></span></div><strong data-ng-value="three">0</strong><small data-ng-note="three">Based on database records</small></article>
+              </div>
+              <div class="ng-workspace-visual"><div class="ng-workspace-visual-head"><h2>Announcement types</h2><span>Live overview</span></div><div class="ng-workspace-bars" data-ng-breakdown><p class="ng-workspace-empty">No records available yet.</p></div></div>
+            </section>
+
+
+            <div class="panel">
+                <div class="panel-head">
+                    <h2>Featured &amp; breaking news</h2>
+                    <button class="btn btn-solid" type="button" data-open-modal="announcement-modal">+ New announcement</button>
+                </div>
+
+                <!-- Populate from `articles` where featured = 'yes', or a
+                     dedicated announcements table if you add one. Each row
+                     needs a way to toggle featured/breaking status. -->
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Title</th><th>Type</th><th>Category</th><th></th></tr>
+                    </thead>
+                    <tbody id="announcements-body">
+                        <tr class="empty-row"><td colspan="4">No featured or breaking items right now.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<!-- New announcement modal -->
+<div class="modal-overlay" id="announcement-modal">
+    <div class="modal">
+        <div class="modal-head">
+            <h2>New announcement</h2>
+            <button class="modal-close" type="button" data-close-modal aria-label="Close">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="announcement-form">
+                <div class="form-grid">
+                    <div class="form-group full">
+                        <label for="announcement-title">Title</label>
+                        <input type="text" id="announcement-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="announcement-type">Type</label>
+                        <select id="announcement-type">
+                            <option value="featured">Featured</option>
+                            <option value="breaking">Breaking</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="announcement-category">Category</label>
+                        <select id="announcement-category">
+                            <option value="academic">Academic</option>
+                            <option value="events">Events</option>
+                            <option value="sports">Sports</option>
+                            <option value="general">General</option>
+                        </select>
+                    </div>
+                    <div class="form-group full">
+                        <label for="announcement-content">Message</label>
+                        <textarea id="announcement-content" rows="4" required></textarea>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-ghost" data-close-modal>Cancel</button>
+                    <button type="submit" class="btn btn-solid">Publish</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="admin-announcements.js"></script>
+<script src="admin-backend.js?v=profile-persist-1"></script>
+<script src="admin-workspace-overview.js?v=4"></script>
+
+<!-- Admin footer — page bottom, text links only -->
+<footer class="admin-page-footer" aria-label="Admin page footer">
+    <nav class="admin-footer-links" aria-label="Admin sections">
+        <a href="admin-dashboard.html">Dashboard</a>
+        <a href="admin-articles.html">Articles</a>
+        <a href="admin-categories.html">Categories</a>
+        <a href="admin-approvals.html">Approvals</a>
+        <a href="admin-announcements.html" aria-current="page" class="active">Announcements</a>
+        <a href="admin-comments.html">Comments</a>
+        <a href="admin-reports.html">Reports</a>
+        <a href="admin-settings.html">Settings</a>
+    </nav>
+</footer>
+</body>
+</html>
