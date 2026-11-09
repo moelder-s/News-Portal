@@ -1,0 +1,185 @@
+<?php require_once __DIR__.'/bootstrap.php'; require_login(); ?>
+
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <script src="site-shared.js?v=nav-hover-notice-4"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit an article — News In Green</title>
+    <meta name="description" content="Submit an article to News In Green, the student-run news portal.">
+    <link rel="stylesheet" href="submit.css">
+<link rel="stylesheet" href="site-shared.css?v=navpop-fix-2">
+
+  <link rel="stylesheet" href="page-transition.css?v=3-retro-slider">
+  <script src="page-transition.js?v=3-retro-slider" defer></script>
+</head>
+
+<body class="nig-inner-desk-page nig-day-desk-target">
+
+    
+    <header class="site-header">
+        <div class="header-inner">
+
+            <a href="home.php" class="brand">
+                <span class="brand-mark">N</span>
+                <span class="brand-text">News <em>In Green</em></span>
+            </a>
+
+            <nav class="main-nav" id="main-nav" aria-label="Primary">
+                <a href="home.php">Home</a>
+                <a href="dashboard.php">Dashboard</a>
+                <a href="browse.php">Browse</a>
+                <a href="bookmarks.php">Bookmarks</a>
+                <a href="submit.php" class="active" aria-current="page">Submit an article</a>
+                 <a href="subscriptions.php">Subscriptions</a>
+                
+
+            </nav>
+
+            <div class="header-actions">
+                <button id="theme-toggle" class="theme-toggle" type="button"
+                    aria-label="Switch to dark mode" aria-pressed="false">
+                    <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                    <span class="toggle-label">Day</span>
+                </button>
+
+                <a href="logout.php" class="btn btn-ghost">Log out</a>
+            </div>
+
+            <button class="nav-burger" id="nav-burger" aria-label="Open menu"
+                aria-expanded="false" type="button">
+                <span></span><span></span><span></span>
+            </button>
+
+        </div>
+    </header>
+
+     <main>
+        <div class="container">
+            <section class="form-wrap">
+
+                <h1>Submit an article</h1>
+
+                <p class="lead">
+                    Any registered student or club can submit a piece
+                    for review. An editor will approve or reject it
+                    before it appears on the site.
+                </p>
+
+                <div class="alert" id="successAlert" role="status" aria-live="polite">
+                    ✓ Your article was submitted for review.
+                    You'll see the status update once it's decided.
+                </div>
+
+                <form id="articleForm" novalidate>
+
+                    <div class="field">
+                        <label for="title">Title</label>
+                        <input type="text" id="title" name="title" maxlength="120"
+                            placeholder="A clear, specific headline" required>
+                        <div class="error" id="titleError"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="field">
+                            <label for="category">Category</label>
+                            <select id="category" name="category" required>
+                                <option value="" selected disabled>Choose a category</option>
+                                <option value="Academic">Academic</option>
+                                <option value="Events">Events</option>
+                                <option value="Sports">Sports</option>
+                                <option value="General">General</option>
+                            </select>
+                            <div class="error" id="categoryError"></div>
+                        </div>
+
+                        <div class="field">
+                            <label for="author">Your name</label>
+                            <input type="text" id="author" name="author" maxlength="60"
+                                placeholder="How it'll be credited" required>
+                            <div class="error" id="authorError"></div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="image">Image URL <span class="opt">(optional)</span></label>
+                        <input type="url" id="image" name="image" placeholder="https://...">
+                        <div class="error" id="imageError"></div>
+
+                        <div class="preview" id="preview">
+                            <img id="previewImg" alt="Image preview">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="content">Article content</label>
+                        <textarea id="content" name="content"
+                            placeholder="Write your article here..." required></textarea>
+
+                        <div class="meta">
+                            <span id="contentHint">Minimum 100 characters</span>
+                            <span id="counter">0 characters</span>
+                        </div>
+
+                        <div class="error" id="contentError"></div>
+                    </div>
+
+                    <p class="note">
+                        Submissions are reviewed by an editor before
+                        publishing. You'll see the status update once
+                        it's decided.
+                    </p>
+
+                    <button type="submit" class="btn btn-primary" id="submitBtn">
+                        Submit for review
+                    </button>
+
+                </form>
+            </section>
+        </div>
+    </main>
+
+    
+    <footer class="site-footer">
+        <div class="footer-inner">
+
+            <div class="footer-brand">
+                <span class="brand-mark">N</span>
+                <span class="brand-text">News <em>In Green</em></span>
+                <p>The student-run news portal covering academics, events, sport, and campus life.</p>
+            </div>
+
+            <div class="footer-col">
+                <h3>Sections</h3>
+                <a href="browse.php?category=Academic">Academic</a>
+                <a href="browse.php?category=Events">Events</a>
+                <a href="browse.php?category=Sports">Sports</a>
+                <a href="browse.php?category=General">General</a>
+            </div>
+
+            <div class="footer-col">
+                <h3>Account</h3>
+                <a href="login.html">Log out</a>
+                <a href="bookmarks.php">Bookmarks</a>
+                <a href="subscriptions.php">Subscriptions</a>
+                <a href="submit.php">Submit an article</a>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <span>&copy; 2026 News In Green</span>
+        </div>
+   </footer>
+    <script src="submit.js"></script>
+
+</body>
+</html>
+    
+       
+
+
+
+    
