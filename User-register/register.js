@@ -19,6 +19,15 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    const faculty = document.getElementById('faculty');
+    const course = document.getElementById('course');
+    const options = {"Faculty of Computing": ["Computer Science", "Software Engineering", "Information Technology", "Data Science", "Other course"], "Faculty of Business": ["Business Management", "Accounting and Finance", "Marketing Management", "Human Resource Management", "Other course"], "Faculty of Engineering": ["Civil Engineering", "Electrical Engineering", "Mechanical Engineering", "Other course"], "Faculty of Science": ["Biomedical Science", "Public Health", "Other course"], "Other": ["Other course"]};
+    faculty?.addEventListener('change', () => {
+      course.replaceChildren(new Option('Select your course', ''));
+      (options[faculty.value] || []).forEach(name => course.add(new Option(name, name)));
+      course.disabled = !faculty.value;
+    });
+
     // Register via PHP/MySQL (the server must implement register.php).
     const form = document.getElementById("register-form");
     const errorBox = document.getElementById("form-error");
@@ -35,6 +44,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const full_name = document.getElementById("full-name").value.trim();
         const emailInput = document.getElementById("email");
         const email = emailInput.value.trim().toLowerCase();
+        const selectedFaculty = faculty?.value || '';
+        const selectedCourse = course?.value || '';
         const password = document.getElementById("password").value;
         const confirm = document.getElementById("confirm-password").value;
         const button = form.querySelector('button[type="submit"]');
@@ -46,6 +57,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (!full_name || !email || !password || !confirm) {
             showError("Please fill in all fields.");
+            return;
+        }
+        if (!selectedFaculty || !selectedCourse) {
+            showError("Please select your faculty and course.");
             return;
         }
         if (!emailInput.checkValidity()) {
@@ -70,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 credentials: "same-origin",
-                body: JSON.stringify({ full_name, email, password })
+                body: JSON.stringify({ full_name, email, password, faculty: selectedFaculty, course: selectedCourse })
             });
             const result = await response.json();
             if (!response.ok || !result.success) {

@@ -1281,3 +1281,67 @@ html[data-theme="dark"] .toggle-thumb {
         padding: 28px 14px;
     }
 }
+
+/* Register: faculty and course on desktop and phone */
+.nig-education-fields {
+    display: grid;
+    gap: 8px;
+    width: 100%;
+    min-width: 0;
+    margin: 8px 0 14px;
+}
+
+.nig-education-fields label {
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+.nig-education-fields select {
+    width: 100%;
+    max-width: 100%;
+    min-height: 48px;
+    border-radius: 14px;
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, .82);
+    color: #1a2f23;
+    border: 1px solid rgba(20, 80, 50, .27);
+    font: inherit;
+}
+
+.nig-education-fields select:disabled {
+    opacity: .65;
+}
+
+.nig-education-note {
+    font-size: .78rem;
+    line-height: 1.4;
+    opacity: .75;
+    margin-bottom: 4px;
+}
+
+html[data-theme="dark"] .nig-education-fields select {
+    background: #15241c;
+    color: #edf8f1;
+    border-color: #45604e;
+}
+
+@media(max-width:760px) {
+
+    .nig-register,
+    .nig-register .nig-auth-form {
+        height: auto !important;
+        max-height: none !important;
+        overflow: visible !important
+    }
+
+    .nig-education-fields select {
+        font-size: 16px;
+    }
+}
+
+
+/* Match the site's Roman editorial typography on authentication screens. */
+html body,
+html body :is(h1, h2, h3, h4, h5, h6, p, a, button, input, select, textarea, label, small, strong, em) {
+    font-family: Georgia, "Times New Roman", Times, serif !important
+}
