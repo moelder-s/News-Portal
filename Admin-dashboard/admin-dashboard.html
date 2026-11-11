@@ -8,8 +8,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="admin-dashboard.css"><link rel="stylesheet" href="admin-common.css">
-<script src="admin-common.js" defer></script>
+<link rel="stylesheet" href="admin-dashboard.css"><link rel="stylesheet" href="admin-common.css?v=roman-status-1"><link rel="stylesheet" href="admin-main-enhancements.css?v=4">
+<script src="admin-common.js?v=perf-final-1" defer></script>
+<link rel="stylesheet" href="admin-main-roman-soft.css?v=roman-status-1">
+  <link rel="stylesheet" href="page-transition.css?v=noflash-native-20261107-4">
+  <script src="page-transition.js?v=noflash-native-20261107-4" defer></script>
 </head>
 <body>
 
@@ -80,7 +83,19 @@
                     </tbody>
                 </table>
             </div>
-
+ <div class="panel dashboard-active-articles">
+              <div class="panel-head"><h2>Current articles</h2></div>
+              <div class="panel-body"><p class="dashboard-history-note">Delete an article here or from Articles. Its comments are removed from the live website and kept in the deleted-comments archive.</p></div>
+              <div class="dashboard-history-scroll"><table class="data-table"><thead><tr><th>Article</th><th>Category</th><th>Published</th><th>Action</th></tr></thead><tbody id="dashboard-active-body"><tr><td colspan="4">Loading current articles…</td></tr></tbody></table></div>
+            </div>
+            <div class="panel dashboard-deleted-articles">
+              <div class="panel-head"><h2>Deleted articles</h2><span class="dashboard-history-count" id="deleted-articles-count">0</span></div>
+              <div class="dashboard-history-scroll"><table class="data-table"><thead><tr><th>Article</th><th>Category</th><th>Deleted at</th></tr></thead><tbody id="deleted-articles-body"><tr><td colspan="3">No deleted articles.</td></tr></tbody></table></div>
+            </div>
+            <div class="panel dashboard-deleted-comments">
+              <div class="panel-head"><h2>Deleted comments</h2><span class="dashboard-history-count" id="deleted-comments-count">0</span></div>
+              <div class="dashboard-history-scroll"><table class="data-table"><thead><tr><th>Article</th><th>Comment</th><th>Deleted at</th></tr></thead><tbody id="deleted-comments-body"><tr><td colspan="3">No deleted comments.</td></tr></tbody></table></div>
+            </div>
         </main>
     </div>
 </div>
