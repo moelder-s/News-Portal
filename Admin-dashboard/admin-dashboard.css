@@ -675,9 +675,10 @@ html:not([data-theme="dark"]) { color-scheme: light; }
 .content .stat-grid .stat-card {
   isolation: isolate;
   cursor: default;
-  transition: transform .32s cubic-bezier(.2,.8,cubic-bezier(0.23, 1, 0.              box-shadow .32s ease, border-color .32s ease,
-              background-color .32s ease;
-}
+  transition: transform .32s cubic-bezier(0.23, 1, 0.32, 1),
+            box-shadow .32s ease,
+            border-color .32s ease,
+            background-color .32s ease;}
 .content .stat-grid .stat-card::before {
   height: 3px;
   background: linear-gradient(90deg, var(--green-500,#22aa72), #83dec0, transparent);
@@ -685,7 +686,8 @@ html:not([data-theme="dark"]) { color-scheme: light; }
   transition: height .32s ease, opacity .32s ease;
 }
 .content .stat-grid .stat-card::after {
-  transition: transform .32s cubic-bezier(.2,.8,cubic-bezier(0.23, 1, 0.              opacity .32s ease, color .32s ease;
+  transition: transform .32s cubic-bezier(.2,.8,.2,1),
+              opacity .32s ease, color .32s ease;
   transform-origin: center;
 }
 .content .stat-grid .stat-card:hover {
