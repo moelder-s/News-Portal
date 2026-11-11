@@ -818,7 +818,7 @@ body.admin-home-page .admin-home-tiles .tile-overview::before {
 }
 
 body.admin-home-page .admin-home-tiles .tile-articles::before {
-  background-image: url('tile-photos/articles.jpg') !important;
+  background-image: url('tile-photos/article.jpeg') !important;
 }
 
 body.admin-home-page .admin-home-tiles .tile-categories::before {
@@ -842,7 +842,7 @@ body.admin-home-page .admin-home-tiles .tile-reports::before {
 }
 
 body.admin-home-page .admin-home-tiles .tile-settings::before {
-  background-image: url('tile-photos/settings.jpg') !important;
+  background-image: url('tile-photos/User-details.jpeg') !important;
 }
 
 body.admin-home-page .admin-home-tiles .tile-register::before {
