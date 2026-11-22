@@ -3,17 +3,17 @@
 <html lang="en">
 
 <head>
-    <script src="site-shared.js?v=nav-hover-notice-4"></script>
+    <script src="site-shared.js?v=user-presence-20261111-1"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subscriptions — News In Green</title>
     <meta name="description" content="Manage your category subscriptions on News In Green, the student-run news portal.">
     <link rel="stylesheet" href="subscriptions.css">
     <script src="subscriptions.js" defer></script>
-<link rel="stylesheet" href="site-shared.css?v=navpop-fix-2">
+<link rel="stylesheet" href="site-shared.css?v=one-row-mobile-20261107-4">
 
-  <link rel="stylesheet" href="page-transition.css?v=3-retro-slider">
-  <script src="page-transition.js?v=3-retro-slider" defer></script>
+  <link rel="stylesheet" href="page-transition.css?v=noflash-native-20261107-4">
+  <script src="page-transition.js?v=noflash-native-20261107-4" defer></script>
 </head>
 
 <body class="light-mode nig-inner-desk-page nig-day-desk-target">
