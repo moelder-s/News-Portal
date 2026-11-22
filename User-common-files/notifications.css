@@ -1,0 +1,579 @@
+/* ==============================
+   THEME VARIABLES
+   Night is the base, body.light-mode switches to Day
+   (same method as browse.css)
+============================== */
+
+:root {
+    --bg: #07100c;
+    --text: #eeeeee;
+    --text-muted: #a0aaa4;
+    --heading: #ffffff;
+    --border: rgba(255,255,255,0.15);
+    --green: #35b96b;
+    --green-hover: #279c55;
+    --switch-bg: rgba(255,255,255,0.28);
+
+    --glass: linear-gradient(
+        135deg,
+        rgba(7,16,12,0.62),
+        rgba(7,16,12,0.45)
+    );
+
+    --card-glass: linear-gradient(
+        135deg,
+        rgba(255,255,255,0.13),
+        rgba(255,255,255,0.045)
+    );
+}
+
+body.light-mode {
+    --bg: #edf3ef;
+    --text: #152019;
+    --text-muted: #66736c;
+    --heading: #17231c;
+    --border: rgba(0,0,0,0.1);
+    --switch-bg: rgba(0,0,0,0.22);
+
+    --glass: linear-gradient(
+        135deg,
+        rgba(255,255,255,0.65),
+        rgba(255,255,255,0.35)
+    );
+
+    --card-glass: linear-gradient(
+        135deg,
+        rgba(255,255,255,0.70),
+        rgba(255,255,255,0.38)
+    );
+}
+
+/* ==============================
+   GENERAL
+============================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    transition: background 0.3s, color 0.3s;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button, input {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* ==============================
+   HEADER (same as browse.css)
+============================== */
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+    max-width: 1380px;
+    margin: auto;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: Georgia, serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    white-space: nowrap;
+    margin-right: auto;
+}
+
+.brand-mark {
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+    background: var(--green);
+    color: #05130a;
+    display: grid;
+    place-items: center;
+    font-weight: bold;
+}
+
+.brand-text em {
+    color: var(--green);
+    font-style: normal;
+}
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.main-nav a {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+    color: var(--text);
+    border-bottom-color: var(--green);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.btn-ghost {
+    color: var(--text);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 20px;
+    white-space: nowrap;
+    transition: 0.2s;
+}
+
+.btn-ghost:hover {
+    border-color: var(--green);
+    background: rgba(53,185,107,0.12);
+}
+
+/* ==============================
+   THEME TOGGLE
+============================== */
+
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.toggle-track {
+    display: block;
+    position: relative;
+    width: 40px;
+    height: 21px;
+    border-radius: 20px;
+    background: #35b96b;
+    flex-shrink: 0;
+    transition: background 0.3s;
+}
+
+.toggle-thumb {
+    position: absolute;
+    width: 17px;
+    height: 17px;
+    left: 21px;
+    top: 2px;
+    background: #07100c;
+    border-radius: 50%;
+    transition: left 0.3s, background 0.3s;
+}
+
+body.light-mode .toggle-track {
+    background: #b9c8be;
+}
+
+body.light-mode .toggle-thumb {
+    left: 2px;
+    background: white;
+}
+
+.nav-burger {
+    display: none;
+    background: transparent;
+    border: none;
+}
+
+.nav-burger span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background: var(--text);
+    margin: 5px;
+}
+
+/* ==============================
+   SUBSCRIPTIONS PAGE
+============================== */
+
+/* Background photo: the same light overlay in Day and Night,
+   so the photo keeps its colours. Only the glass box changes. */
+.subs-page {
+    flex: 1;
+    padding: 55px 20px 80px;
+    background-color: #0e3b24;
+    background-image:
+        linear-gradient(rgba(0,0,0,0.18), rgba(0,0,0,0.18)),
+        none;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Glass box (Day = light glass, Night = dark glass) */
+.subs-panel {
+    width: 74%;
+    max-width: 860px;
+    margin: auto;
+    padding: 35px 40px 45px;
+
+    border: 1px solid rgba(255,255,255,0.20);
+    border-radius: 18px;
+    background: var(--glass);
+
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,0.28),
+        inset 0 1px 0 rgba(255,255,255,0.18);
+}
+
+body.light-mode .subs-panel {
+    border-color: rgba(255,255,255,0.8);
+    box-shadow: 0 25px 70px rgba(37,67,51,0.15);
+}
+
+.subs-greeting {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.subs-greeting h1 {
+    font-family: Georgia, serif;
+    font-size: 36px;
+    color: var(--heading);
+    margin-bottom: 10px;
+}
+
+.subs-greeting p {
+    max-width: 520px;
+    color: var(--text-muted);
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.subs-panel .btn-ghost {
+    background: transparent;
+    font-size: 0.9rem;
+}
+
+.sub-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.sub-summary-buttons {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+/* Category rows */
+.sub-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.sub-card {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.1rem 1.5rem;
+
+    background: var(--card-glass);
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 15px;
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,0.18),
+        inset 0 1px 0 rgba(255,255,255,0.12);
+
+    cursor: pointer;
+    transition: transform 0.25s, border-color 0.25s;
+}
+
+body.light-mode .sub-card {
+    border-color: rgba(0,0,0,0.08);
+    box-shadow: 0 10px 25px rgba(37,67,51,0.10);
+}
+
+.sub-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--green);
+}
+
+.sub-card.is-subscribed {
+    border-color: var(--green);
+}
+
+.sub-card h4 {
+    color: var(--heading);
+    font-size: 1.05rem;
+    margin-bottom: 0.15rem;
+}
+
+.sub-card p {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* Real checkbox is hidden, the switch below is shown */
+.sub-check {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+}
+
+.switch {
+    flex: none;
+    position: relative;
+    width: 46px;
+    height: 26px;
+    border-radius: 26px;
+    background: var(--switch-bg);
+    transition: background-color 0.25s;
+}
+
+.switch::after {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #ffffff;
+    transition: transform 0.25s;
+}
+
+.sub-check:checked ~ .switch {
+    background: var(--green);
+}
+
+.sub-check:checked ~ .switch::after {
+    transform: translateX(20px);
+}
+
+.sub-check:focus-visible ~ .switch {
+    outline: 2px solid var(--green);
+    outline-offset: 3px;
+}
+
+.sub-message {
+    min-height: 1.5rem;
+    margin-top: 1.25rem;
+    color: var(--green);
+    font-size: 0.9rem;
+}
+
+/* ==============================
+   FOOTER (same as browse.css)
+============================== */
+
+.site-footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 4rem 2rem 2rem;
+    margin-top: auto;
+}
+
+.footer-inner {
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.footer-brand p {
+    color: var(--text-muted);
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    max-width: 250px;
+    line-height: 1.6;
+}
+
+.footer-col h3 {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.footer-col a,
+.footer-col span {
+    display: block;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.footer-col a:hover {
+    color: var(--green);
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: auto;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* ==============================
+   RESPONSIVE
+============================== */
+
+@media (max-width: 1200px) {
+    .header-inner {
+        gap: 16px;
+    }
+
+    .main-nav {
+        gap: 12px;
+    }
+
+    .main-nav a {
+        font-size: 0.82rem;
+    }
+}
+
+@media (max-width: 1050px) {
+    .main-nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        padding: 20px;
+        flex-direction: column;
+        align-items: flex-start;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+    }
+
+    .main-nav.open {
+        display: flex;
+    }
+
+    .nav-burger {
+        display: block;
+    }
+
+    .subs-panel {
+        width: 88%;
+    }
+}
+
+@media (max-width: 750px) {
+    .subs-panel {
+        width: 95%;
+        padding: 28px 25px;
+    }
+
+    .footer-inner {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .header-inner {
+        padding: 16px;
+        gap: 12px;
+    }
+
+    .header-actions .btn-ghost {
+        display: none;
+    }
+
+    .subs-page {
+        padding: 30px 12px 50px;
+        background-attachment: scroll;
+    }
+
+    .subs-panel {
+        width: 100%;
+        padding: 25px 18px;
+    }
+
+    .subs-greeting h1 {
+        font-size: 29px;
+    }
+
+    .footer-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .footer-brand p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .footer-brand .brand {
+        justify-content: center;
+        margin-right: 0;
+    }
+}
