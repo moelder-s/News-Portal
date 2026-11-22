@@ -1,89 +1,150 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 
 <head>
+  <script src="site-shared.js?v=user-presence-20261111-1"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Register — News In Green</title>
+  <title>Register — News In Green</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Work+Sans:wght@400;500;600;700&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="admin-register.css">
-  <link rel="stylesheet" href="page-transition.css?v=3-retro-slider">
-  <script src="page-transition.js?v=3-retro-slider" defer></script>
+  <link rel="stylesheet" href="register.css?v=mobile-layout-20261107-2">
+  <script src="register.js?v=faculty-course-1" defer></script>
+  <link rel="stylesheet" href="site-shared.css?v=one-row-mobile-20261107-4">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="page-transition.css?v=noflash-native-20261107-4">
+  <script src="page-transition.js?v=noflash-native-20261107-4" defer></script>
 </head>
 
 <body>
-  <div class="space-stage" id="space-stage">
-    <div class="rotating-sky" id="rotating-sky" aria-hidden="true">
-      <div class="milky-way"></div>
-      <div class="starfield"></div>
-      <div class="deep-stars" id="deep-stars"></div>
-      <div class="space-streaks" id="space-streaks"></div>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="home.php" class="brand"><span class="brand-mark">N</span><span class="brand-text">News <em>In
+            Green</em></span></a>
+      <nav class="main-nav" id="main-nav" aria-label="Primary navigation">
+        <a href="home.php">Home</a>
+        <a href="dashboard.php">Dashboard</a>
+        <a href="browse.php">Browse</a>
+        <a href="bookmarks.php">Bookmarks</a>
+        <a href="submit.php">Submit an article</a>
+
+      </nav>
+      <div class="header-actions">
+        <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Switch to Night Mode"
+          aria-pressed="false">
+          <span class="toggle-track"><span class="toggle-thumb"></span></span>
+          <span class="toggle-label">Day</span>
+        </button>
+      </div>
+      <button type="button" class="nav-burger" id="nav-burger" aria-label="Open menu" aria-controls="main-nav"
+        aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-    <div class="globe" id="globe"></div>
-    <div class="tint"></div>
-  </div>
-  <main class="login-wrap">
-    <a href="home.php" class="brand">
-      <span class="brand-mark">N</span>
-      <span class="brand-text">News <em>In Green</em></span>
-    </a>
-    <form class="login-card" id="register-form" novalidate>
-      <h1>Create admin account</h1>
-      <p class="sub">Register a new admin account to access the admin dashboard.</p>
-      <label for="full-name">Full name</label>
-      <input id="full-name" name="full_name" type="text" autocomplete="name" placeholder="Enter your full name"
-        required>
-      <label for="email">Work email</label>
-      <input id="email" name="email" type="email" autocomplete="email" placeholder="name@university.edu" required>
-      <label for="user-id">Admin user ID</label>
-      <input id="user-id" name="user_id" type="text" autocomplete="username" placeholder="Choose your user ID" required
-        minlength="3">
+  </header>
+  <main class="auth-main nig-auth nig-register">
+    <section class="nig-photo" aria-label="Campus registration">
+      <div class="nig-photo-copy nig-brand-only">
+        <h2><em>N</em>ews In Green</h2>
+      </div>
+    </section>
+    <form class="auth-card nig-auth-form" id="register-form" novalidate>
+      <p class="nig-eyebrow nig-form-eyebrow">CREATE YOUR ACCOUNT</p>
+      <h1>Register for <em>News In Green</em></h1>
+      <p class="nig-desc">Create your account to read, bookmark and subscribe to the latest news from NSBM University.
+      </p>
+      <label for="full-name">Full Name</label>
+      <div class="nig-input-wrap"><span class="nig-field-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20"
+            height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+            stroke-linejoin="round">
+            <circle cx="12" cy="8" r="4" />
+            <path d="M4 21v-2a8 8 0 0 1 16 0v2" />
+          </svg></span><input id="full-name" name="full-name" type="text" placeholder="Enter your full name"
+          autocomplete="name" required></div>
+      <label for="email">Email Address</label>
+      <div class="nig-input-wrap"><span class="nig-field-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20"
+            height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+            stroke-linejoin="round">
+            <rect x="3" y="5" width="18" height="14" rx="2" />
+            <path d="m3 7 9 6 9-6" />
+          </svg></span><input id="email" name="email" type="email" placeholder="name@nsbm.ac.lk" autocomplete="email"
+          inputmode="email" required></div>
+
+      <div class="nig-education-fields">
+        <label for="faculty">Faculty</label>
+        <select id="faculty" name="faculty" required>
+          <option value="">Select your faculty</option>
+          <option value="Faculty of Computing">Faculty of Computing</option>
+          <option value="Faculty of Business">Faculty of Business</option>
+          <option value="Faculty of Engineering">Faculty of Engineering</option>
+          <option value="Faculty of Science">Faculty of Science</option>
+          <option value="Other">Other</option>
+        </select>
+        <label for="course">Course / Degree programme</label>
+        <select id="course" name="course" required disabled>
+          <option value="">Select faculty first</option>
+        </select>
+        <p class="nig-education-note">Choose the closest option. These are general programme labels, not an official
+          course catalogue.</p>
+      </div>
       <label for="password">Password</label>
-      <span class="admin-password-field"><input id="password" name="password" type="password"
-          autocomplete="new-password" placeholder="At least 8 characters" required minlength="8"><button
-          class="admin-password-eye" type="button" data-toggle-password="password" aria-label="Show password"
-          aria-pressed="false" title="Show password"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M2 12s3.7-7 10-7 10 7 10 7-3.7 7-10 7S2 12 2 12Z" />
-            <circle cx="12" cy="12" r="3" />
-          </svg></button></span>
-      <label for="confirm-password">Confirm password</label>
-      <span class="admin-password-field"><input id="confirm-password" name="confirm_password" type="password"
-          autocomplete="new-password" placeholder="Re-enter password" required><button class="admin-password-eye"
-          type="button" data-toggle-password="confirm-password" aria-label="Show password" aria-pressed="false"
-          title="Show password"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+      <div class="nig-input-wrap"><span class="nig-field-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20"
+            height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+            stroke-linejoin="round">
+            <rect x="5" y="10" width="14" height="11" rx="2" />
+            <path d="M8 10V7a4 4 0 1 1 8 0v3" />
+          </svg></span><input id="password" name="password" type="password" placeholder="At least 8 characters"
+          autocomplete="new-password" minlength="8" required><button class="nig-reveal" type="button"
+          data-for="password" aria-label="Show password" aria-pressed="false" title="Show password"><svg
+            class="nig-eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M2 12s3.7-7 10-7 10 7 10 7-3.7 7-10 7S2 12 2 12Z" />
+            <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z" />
             <circle cx="12" cy="12" r="3" />
-          </svg></button></span>
-      <p id="form-error" class="form-error" role="alert" hidden></p>
-      <p id="form-success" class="form-success" role="status" hidden></p>
-      <button type="submit" class="btn-login">Create admin account</button>
-      <p class="register-login-link">Already registered? <a href="admin-login.html">Admin sign in</a></p>
-      <a class="back-link" href="home.php">&larr; Back to the news site</a>
+          </svg><svg class="nig-eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 3 21 21" />
+            <path
+              d="M10.7 5.1A11 11 0 0 1 12 5c6.4 0 10 7 10 7a13.7 13.7 0 0 1-3.3 4.1M6 6.3C3.4 8.2 2 12 2 12s3.6 7 10 7c1.6 0 3-.4 4.2-1" />
+            <path d="M10 10a3 3 0 0 0 4 4" />
+          </svg></button></div>
+      <label for="confirm-password">Confirm Password</label>
+      <div class="nig-input-wrap"><span class="nig-field-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20"
+            height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+            stroke-linejoin="round">
+            <rect x="5" y="10" width="14" height="11" rx="2" />
+            <path d="M8 10V7a4 4 0 1 1 8 0v3" />
+          </svg></span><input id="confirm-password" name="confirm-password" type="password"
+          placeholder="Re-enter your password" autocomplete="new-password" minlength="8" required><button
+          class="nig-reveal" type="button" data-for="confirm-password" aria-label="Show password" aria-pressed="false"
+          title="Show password"><svg class="nig-eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg><svg class="nig-eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 3 21 21" />
+            <path
+              d="M10.7 5.1A11 11 0 0 1 12 5c6.4 0 10 7 10 7a13.7 13.7 0 0 1-3.3 4.1M6 6.3C3.4 8.2 2 12 2 12s3.6 7 10 7c1.6 0 3-.4 4.2-1" />
+            <path d="M10 10a3 3 0 0 0 4 4" />
+          </svg></button></div>
+      <p class="nig-photo-note">You can add your profile photo after registering, from your profile page.</p>
+      <p class="form-error" id="form-error" role="alert" hidden></p>
+      <p class="form-success" id="form-success" role="status" hidden></p>
+      <button class="btn btn-solid btn-full" type="submit">Register</button>
+      <p class="auth-switch">Already have an account? <a href="login.html">Log in →</a></p>
     </form>
   </main>
-  <script src="admin-register.js"></script>
-  <script src="admin-backend.js?v=profile-persist-1"></script>
-  <script>
-    // Password visibility controls: button does not submit the form.
-    document.querySelectorAll('[data-toggle-password]').forEach(function (button) {
-      button.addEventListener('click', function () {
-        var input = document.getElementById(button.dataset.togglePassword);
-        if (!input) return;
-        var reveal = input.type === 'password';
-        input.type = reveal ? 'text' : 'password';
-        button.setAttribute('aria-pressed', String(reveal));
-        button.setAttribute('aria-label', reveal ? 'Hide password' : 'Show password');
-        button.title = reveal ? 'Hide password' : 'Show password';
-        button.classList.toggle('is-visible', reveal);
-      });
-    });
-  </script>
+  <footer class="site-footer">
+    <div class="footer-bottom">&copy; 2026 News In Green</div>
+  </footer>
 </body>
 
 </html>
